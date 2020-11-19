@@ -1,0 +1,230 @@
+# Cloudbridge Mattermost WordPress plugin <LANGUAGE> translation
+# Copyright (C) 2020 Joaquim Homrighausen
+# This file is distributed under the same license as the Cloudbridge Mattermost package.
+# Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: cloudbridge-mattermost 1.0.0\n"
+"Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
+"POT-Creation-Date: 2020-11-17 17:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: <LANGUAGE> <joho@webbplatsen.se>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: cloudbridge-mattermost.php:151 cloudbridge-mattermost.php:151
+msgid "Unknown"
+msgstr ""
+
+#: cloudbridge-mattermost.php:217 cloudbridge-mattermost.php:217
+msgid "Unknown role"
+msgstr ""
+
+#: cloudbridge-mattermost.php:257 cloudbridge-mattermost.php:257
+msgid "Provides integration between Mattermost and WordPress"
+msgstr ""
+
+#: cloudbridge-mattermost.php:260 cloudbridge-mattermost.php:260
+msgid "Basic configuration"
+msgstr ""
+
+#: cloudbridge-mattermost.php:263 cloudbridge-mattermost.php:263
+msgid "Emoji"
+msgstr ""
+
+#: cloudbridge-mattermost.php:266 cloudbridge-mattermost.php:357
+#: cloudbridge-mattermost.php:266 cloudbridge-mattermost.php:358
+msgid "Advanced"
+msgstr ""
+
+#: cloudbridge-mattermost.php:269 cloudbridge-mattermost.php:269
+msgid "About"
+msgstr ""
+
+#: cloudbridge-mattermost.php:315 cloudbridge-mattermost.php:315
+msgid "Thank you for installing"
+msgstr ""
+
+#: cloudbridge-mattermost.php:316 cloudbridge-mattermost.php:316
+msgid "This plugin will provide some integration between WordPress and"
+msgstr ""
+
+#: cloudbridge-mattermost.php:320 cloudbridge-mattermost.php:320
+msgid "Commercial support and customizations for this plugin is available from"
+msgstr ""
+
+#: cloudbridge-mattermost.php:323 cloudbridge-mattermost.php:324
+msgid ""
+"The plugin is written by Joaquim Homrighausen and sponsored by WebbPlatsen i "
+"Sverige AB."
+msgstr ""
+
+#: cloudbridge-mattermost.php:324 cloudbridge-mattermost.php:325
+msgid ""
+"If you find this plugin useful, the author is happy to receive a donation, "
+"good review, or just a kind word."
+msgstr ""
+
+#: cloudbridge-mattermost.php:325 cloudbridge-mattermost.php:326
+msgid ""
+"If there is something you feel to be missing from this plugin, or if you "
+"have found a problem with the code or a feature, please do not hesitate to "
+"reach out to"
+msgstr ""
+
+#: cloudbridge-mattermost.php:340 cloudbridge-mattermost.php:341
+msgid "Site label"
+msgstr ""
+
+#: cloudbridge-mattermost.php:341 cloudbridge-mattermost.php:342
+msgid "Webhook URL"
+msgstr ""
+
+#: cloudbridge-mattermost.php:343 cloudbridge-mattermost.php:344
+msgid "Notifications"
+msgstr ""
+
+#: cloudbridge-mattermost.php:344 cloudbridge-mattermost.php:353
+#: cloudbridge-mattermost.php:345 cloudbridge-mattermost.php:354
+msgid "Successful login"
+msgstr ""
+
+#: cloudbridge-mattermost.php:345 cloudbridge-mattermost.php:346
+msgid "Unsuccessful login"
+msgstr ""
+
+#: cloudbridge-mattermost.php:347 cloudbridge-mattermost.php:348
+msgid "Link to WP Admin"
+msgstr ""
+
+#: cloudbridge-mattermost.php:349 cloudbridge-mattermost.php:350
+msgid "Other settings"
+msgstr ""
+
+#: cloudbridge-mattermost.php:350 cloudbridge-mattermost.php:351
+msgid "Remove settings"
+msgstr ""
+
+#: cloudbridge-mattermost.php:354 cloudbridge-mattermost.php:658
+#: cloudbridge-mattermost.php:355 cloudbridge-mattermost.php:659
+msgid "Failed login"
+msgstr ""
+
+#: cloudbridge-mattermost.php:355 cloudbridge-mattermost.php:356
+msgid "Admin link"
+msgstr ""
+
+#: cloudbridge-mattermost.php:358 cloudbridge-mattermost.php:359
+msgid "Webhook username"
+msgstr ""
+
+#: cloudbridge-mattermost.php:359 cloudbridge-mattermost.php:360
+msgid "Webhook channel"
+msgstr ""
+
+#: cloudbridge-mattermost.php:360 cloudbridge-mattermost.php:361
+msgid "Additional @mention"
+msgstr ""
+
+#: cloudbridge-mattermost.php:434 cloudbridge-mattermost.php:435
+msgid ""
+"The site name to use for the webhook, defaults to your site name if left "
+"empty."
+msgstr ""
+
+#: cloudbridge-mattermost.php:440 cloudbridge-mattermost.php:441
+msgid "The URL for the Mattermost incoming webhook"
+msgstr ""
+
+#: cloudbridge-mattermost.php:442 cloudbridge-mattermost.php:443
+msgid "Please check the documentation for details"
+msgstr ""
+
+#: cloudbridge-mattermost.php:485 cloudbridge-mattermost.php:486
+msgid "Unknown users"
+msgstr ""
+
+#: cloudbridge-mattermost.php:492 cloudbridge-mattermost.php:493
+msgid "Include link to WordPress Admin in notifications."
+msgstr ""
+
+#: cloudbridge-mattermost.php:499 cloudbridge-mattermost.php:500
+msgid "Remove all CBMM plugin settings and data when plugin is uninstalled."
+msgstr ""
+
+#: cloudbridge-mattermost.php:507 cloudbridge-mattermost.php:508
+msgid ""
+"Three emojis (markdown) can be configured for notices, warnings, and the "
+"admin link. If left empty here, the defaults will be used."
+msgstr ""
+
+#: cloudbridge-mattermost.php:510 cloudbridge-mattermost.php:511
+msgid "You can find an emoji cheat sheet here"
+msgstr ""
+
+#: cloudbridge-mattermost.php:519 cloudbridge-mattermost.php:524
+#: cloudbridge-mattermost.php:529 cloudbridge-mattermost.php:520
+#: cloudbridge-mattermost.php:525 cloudbridge-mattermost.php:530
+msgid "Default emoji markdown is"
+msgstr ""
+
+#: cloudbridge-mattermost.php:536 cloudbridge-mattermost.php:537
+msgid ""
+"These settings allow you to modify the content sent to Mattermost. Use of "
+"these settings depend on how the webhook has been created/configured in "
+"Mattermost. Some of these settings may cause a notification to be rejected "
+"by Mattermost."
+msgstr ""
+
+#: cloudbridge-mattermost.php:544 cloudbridge-mattermost.php:545
+msgid ""
+"The username to use for the webhook, this should normally be left empty."
+msgstr ""
+
+#: cloudbridge-mattermost.php:549 cloudbridge-mattermost.php:550
+msgid "The channel to use for the webhook, this should normally be left empty."
+msgstr ""
+
+#: cloudbridge-mattermost.php:554 cloudbridge-mattermost.php:555
+msgid ""
+"Additional @mention to include with the notification, this should normally "
+"be left empty."
+msgstr ""
+
+#: cloudbridge-mattermost.php:622 cloudbridge-mattermost.php:623
+msgid "from"
+msgstr ""
+
+#: cloudbridge-mattermost.php:640 cloudbridge-mattermost.php:641
+msgid "Login by"
+msgstr ""
+
+#: cloudbridge-mattermost.php:646 cloudbridge-mattermost.php:659
+#: cloudbridge-mattermost.php:647 cloudbridge-mattermost.php:660
+msgid "on"
+msgstr ""
+
+#: cloudbridge-mattermost.php:662 cloudbridge-mattermost.php:663
+msgid "Invalid username"
+msgstr ""
+
+#: cloudbridge-mattermost.php:665 cloudbridge-mattermost.php:666
+msgid "Incorrect password"
+msgstr ""
+
+#: cloudbridge-mattermost.php:668 cloudbridge-mattermost.php:669
+msgid "Unknown error"
+msgstr ""
+
+#: cloudbridge-mattermost.php:671 cloudbridge-mattermost.php:672
+msgid "username"
+msgstr ""
+
+#: cloudbridge-mattermost.php:322
+msgid "in Stockholm, Sweden. We speak Swedish and English"
+msgstr ""
