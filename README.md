@@ -6,17 +6,23 @@ Provides Mattermost integration for WordPress. This plugin has been tested with 
 
 ## Description
 
-CBMM provides integration with Mattermost. This is the initial release of the plugin. We intend to roll out a number of other features with the coming releases.
+This WordPress plugin provides integration with Mattermost.
 
 The WordPress slug is `cloudbridge-mattermost`.
 
 The plugin is also available on [wordpress.org](https://wordpress.org/plugins/cloudbridge-mattermost/)
 
-The plugin initially provides the following functionality:
+The plugin provides the following functionality, using an incoming webhook in Mattermost:
 
-* Notifications, using an incoming webhook, upon successful logins
-* Notifications, using an incoming webhook, upon failed logins
-* Notifications, using an incoming webhook, upon unknown login attempts
+* Notifications for successful login
+* Notifications for failed login
+* Notifications for unknown user login attempt
+* Notifications for password reset
+* Notifications for plugin activation
+* Notifications for plugin deactivation
+* Notifications for plugin uninstallation
+* Notifications for new/edited user
+* Notifications for deleted user
 
 The plugin can also make use of additional functionality such as posting to a specific channel/user, overriding bot names, and additionally mention specific users.
 
@@ -24,8 +30,9 @@ The plugin can also make use of additional functionality such as posting to a sp
 
 * This plugin may work with earlier versions of WordPress
 * This plugin has currently only been tested with WordPress 5.5.3 at the time of this writing
-* This plugin makes use of the mb_*() PHP functions
+* This plugin optionally makes use of the `mb_substr()` PHP function
 * This plugin may create entries in your PHP error log (if active)
+* This plugin contains no Javascript and is not sensitive to the coming jQuery updates in WordPress
 * This plugin contains no tracking code and does not process or store any information about users
 
 ## Installation
@@ -42,16 +49,35 @@ This section describes how to install the plugin and get it working.
 
 Cloudbridge Mattermost uses standard WordPress functionality to handle localization/locale. The native language localization of the plugin is English. It has been translated to Swedish by the author.
 
+For notifications sent to Mattermost, there is a setting since 1.1.0 that will allow you to override all such messages to be in en_US locale (English).
+
 ### Are there any incompatibilities
 
 This is a hard question to answer. There are no known incompatibilities.
 
 ## Changelog
 
+### 1.1.0
+* Moved notifications to a separate tab
+* Added notifications for password reset
+* Added notification for plugin activation
+* Added notification for plugin deactivation
+* Added notification for plugin uninstallation
+* Added notification for new/edited user
+* Added notification for deleted user
+* Added general notice emoji (:bell:)
+* Added setting to force notifications to be en_US locale (English)
+* Login/Login failure hooks are only hooked if webhook URL has been configured
+* Corrected locale display/handling of some strings
+* Updated donate link
+
 ### 1.0.0
 * Initial release
 
 ## Upgrade Notice
+
+### 1.1.0
+* Simply install/upgrade 1.0.0 to 1.1.0 and walk through the settings
 
 ### 1.0.0
 * Initial release
@@ -88,10 +114,12 @@ If you find this plugin useful, the author is happy to receive a donation, good 
 
 If there is something you feel to be missing from this plugin, or if you have found a problem with the code or a feature, please do not hesitate to reach out to support@webbplatsen.se.
 
+This plugin can also be downloaded from [code.webbplatsen.net](https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/) and [WordPress.org](https://wordpress.org/plugins/cloudbridge-mattermost/)
+
 ### External references
 
 These links are not here for any sort of endorsement or marketing, they're purely for informational purposes.
 
 * Mattermost; https://mattermost.com
 * me; :monkey: https://joho.se and https://github.com/joho1968
-* WebbPlatsen; https://webbplatsen.se
+* WebbPlatsen; https://webbplatsen.se and https://code.webbplatsen.net

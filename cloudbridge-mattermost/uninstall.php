@@ -57,13 +57,22 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-mm-webhook' );
     delete_option( 'cbmm-roles-notify' );
     delete_option( 'cbmm-roles-warn' );
+    delete_option( 'cbmm-roles-password-reset' );
+    delete_option( 'cbmm-roles-password-skip-email' );
     delete_option( 'cbmm-unknown-warn' );
+    delete_option( 'cbmm-notify-activate-plugin' );
+    delete_option( 'cbmm-notify-deactivate-plugin' );
+    delete_option( 'cbmm-notify-uninstall-plugin' );
+    delete_option( 'cbmm-roles-user-add' );
+    delete_option( 'cbmm-roles-user-delete' );
     delete_option( 'cbmm-link-admin' );
     delete_option( 'cbmm-notice-emoji' );
     delete_option( 'cbmm-warning-emoji' );
     delete_option( 'cbmm-link-emoji' );
+    delete_option( 'cbmm-bell-emoji' );
     delete_option( 'cbmm-mm-username' );
     delete_option( 'cbmm-mm-channel' );
     delete_option( 'cbmm-mm-mention' );
     delete_option( 'cbmm-settings-remove' );
+    delete_option( 'cbmm-force-locale-enus' );
 }

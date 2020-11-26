@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost 1.0.0\n"
+"Project-Id-Version: cloudbridge-mattermost 1.1.0\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
-"POT-Creation-Date: 2020-11-17 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 20:55+0000\n"
+"POT-Creation-Date: 2020-11-26 11:05+0000\n"
+"PO-Revision-Date: 2020-11-26 11:05+0000\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: SWEDISH <joho@webbplatsen.se>\n"
 "Language: sv_SE\n"
@@ -17,148 +17,153 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cloudbridge-mattermost.php:151
+#: cloudbridge-mattermost.php:151 cloudbridge-mattermost.php:200
 msgid "Unknown"
 msgstr "Okänd"
 
-#: cloudbridge-mattermost.php:217
+#: cloudbridge-mattermost.php:217 cloudbridge-mattermost.php:280
+#: cloudbridge-mattermost.php:285
 msgid "Unknown role"
 msgstr "Okänd roll"
 
-#: cloudbridge-mattermost.php:257
+#: cloudbridge-mattermost.php:257 cloudbridge-mattermost.php:329
 msgid "Provides integration between Mattermost and WordPress"
 msgstr "Tillhandahåller integration mellan Mattermost och WordPress"
 
-#: cloudbridge-mattermost.php:260
+#: cloudbridge-mattermost.php:260 cloudbridge-mattermost.php:332
 msgid "Basic configuration"
 msgstr "Grundinställningar"
 
-#: cloudbridge-mattermost.php:263
+#: cloudbridge-mattermost.php:263 cloudbridge-mattermost.php:338
 msgid "Emoji"
 msgstr "Emoji"
 
 #: cloudbridge-mattermost.php:266 cloudbridge-mattermost.php:357
+#: cloudbridge-mattermost.php:341
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: cloudbridge-mattermost.php:269
+#: cloudbridge-mattermost.php:269 cloudbridge-mattermost.php:344
 msgid "About"
 msgstr "Om"
 
-#: cloudbridge-mattermost.php:315
+#: cloudbridge-mattermost.php:315 cloudbridge-mattermost.php:394
 msgid "Thank you for installing"
 msgstr "Tack för att du installerat"
 
-#: cloudbridge-mattermost.php:316
+#: cloudbridge-mattermost.php:316 cloudbridge-mattermost.php:395
 msgid "This plugin will provide some integration between WordPress and"
 msgstr "Detta tillägg tillhandahåller viss integration mellan WordPress och"
 
-#: cloudbridge-mattermost.php:320
+#: cloudbridge-mattermost.php:320 cloudbridge-mattermost.php:399
 msgid "Commercial support and customizations for this plugin is available from"
-msgstr "Kommersiell support och anpassningar av detta tillägg tillhandahålls av"
+msgstr ""
+"Kommersiell support och anpassningar av detta tillägg tillhandahålls av"
 
-#: cloudbridge-mattermost.php:323
+#: cloudbridge-mattermost.php:323 cloudbridge-mattermost.php:403
 msgid ""
 "The plugin is written by Joaquim Homrighausen and sponsored by WebbPlatsen i "
 "Sverige AB."
 msgstr ""
-"Detta tillägg är utvecklat av Joaquim Homrighausen och sponsrat av WebbPlatsen i "
-"Sverige AB."
+"Detta tillägg är utvecklat av Joaquim Homrighausen och sponsrat av "
+"WebbPlatsen i Sverige AB."
 
-#: cloudbridge-mattermost.php:324
+#: cloudbridge-mattermost.php:324 cloudbridge-mattermost.php:404
 msgid ""
 "If you find this plugin useful, the author is happy to receive a donation, "
 "good review, or just a kind word."
 msgstr ""
-"Om du tycker detta tillägg är användbart så uppskattar utvecklaren en donation, "
-"bra omdöme och/eller positiv kommentar."
+"Om du tycker detta tillägg är användbart så uppskattar utvecklaren en "
+"donation, bra omdöme och/eller positiv kommentar."
 
-#: cloudbridge-mattermost.php:325
+#: cloudbridge-mattermost.php:325 cloudbridge-mattermost.php:405
 msgid ""
 "If there is something you feel to be missing from this plugin, or if you "
 "have found a problem with the code or a feature, please do not hesitate to "
 "reach out to"
 msgstr ""
-"Om du anser att något saknas i detta tillägg eller om du har hittat ett "
-"fel i koden eller en funktion, tveka inte att höra av dig till "
+"Om du anser att något saknas i detta tillägg eller om du har hittat ett fel "
+"i koden eller en funktion, tveka inte att höra av dig till "
 
-#: cloudbridge-mattermost.php:340
+#: cloudbridge-mattermost.php:340 cloudbridge-mattermost.php:420
 msgid "Site label"
 msgstr "Webbplatsnamn"
 
-#: cloudbridge-mattermost.php:341
+#: cloudbridge-mattermost.php:341 cloudbridge-mattermost.php:421
 msgid "Webhook URL"
 msgstr "Webhook-adress (URL)"
 
-#: cloudbridge-mattermost.php:343
+#: cloudbridge-mattermost.php:343 cloudbridge-mattermost.php:335
 msgid "Notifications"
 msgstr "Aviseringar"
 
 #: cloudbridge-mattermost.php:344 cloudbridge-mattermost.php:353
+#: cloudbridge-mattermost.php:427 cloudbridge-mattermost.php:440
 msgid "Successful login"
 msgstr "Lyckad inloggning"
 
-#: cloudbridge-mattermost.php:345
+#: cloudbridge-mattermost.php:345 cloudbridge-mattermost.php:428
 msgid "Unsuccessful login"
 msgstr "Misslyckad inloggning"
 
-#: cloudbridge-mattermost.php:347
+#: cloudbridge-mattermost.php:347 cloudbridge-mattermost.php:437
 msgid "Link to WP Admin"
 msgstr "Länk till WP-Admin"
 
-#: cloudbridge-mattermost.php:349
+#: cloudbridge-mattermost.php:349 cloudbridge-mattermost.php:422
 msgid "Other settings"
 msgstr "Andra inställningar"
 
-#: cloudbridge-mattermost.php:350
+#: cloudbridge-mattermost.php:350 cloudbridge-mattermost.php:424
 msgid "Remove settings"
 msgstr "Radera inställningar"
 
 #: cloudbridge-mattermost.php:354 cloudbridge-mattermost.php:658
+#: cloudbridge-mattermost.php:441 cloudbridge-mattermost.php:881
 msgid "Failed login"
 msgstr "Misslyckad inloggning"
 
-#: cloudbridge-mattermost.php:355
+#: cloudbridge-mattermost.php:355 cloudbridge-mattermost.php:442
 msgid "Admin link"
 msgstr "Admin-länk"
 
-#: cloudbridge-mattermost.php:358
+#: cloudbridge-mattermost.php:358 cloudbridge-mattermost.php:446
 msgid "Webhook username"
 msgstr "Webhook användarnamn"
 
-#: cloudbridge-mattermost.php:359
+#: cloudbridge-mattermost.php:359 cloudbridge-mattermost.php:447
 msgid "Webhook channel"
 msgstr "Webhook kanal"
 
-#: cloudbridge-mattermost.php:360
+#: cloudbridge-mattermost.php:360 cloudbridge-mattermost.php:448
 msgid "Additional @mention"
 msgstr "Ytterligare @mention"
 
-#: cloudbridge-mattermost.php:434
+#: cloudbridge-mattermost.php:434 cloudbridge-mattermost.php:542
 msgid ""
 "The site name to use for the webhook, defaults to your site name if left "
 "empty."
 msgstr ""
-"Namn för webbplatsen att använda för denna webhook, hämtas från WordPress om fältet "
-"är tomt."
+"Namn för webbplatsen att använda för denna webhook, hämtas från WordPress om "
+"fältet är tomt."
 
-#: cloudbridge-mattermost.php:440
+#: cloudbridge-mattermost.php:440 cloudbridge-mattermost.php:548
 msgid "The URL for the Mattermost incoming webhook"
 msgstr "Webbadressen för Mattermost webhook"
 
-#: cloudbridge-mattermost.php:442
+#: cloudbridge-mattermost.php:442 cloudbridge-mattermost.php:550
 msgid "Please check the documentation for details"
 msgstr "Vänligen se dokumentationen för detaljer"
 
-#: cloudbridge-mattermost.php:485
+#: cloudbridge-mattermost.php:485 cloudbridge-mattermost.php:593
 msgid "Unknown users"
 msgstr "Okända användare"
 
-#: cloudbridge-mattermost.php:492
+#: cloudbridge-mattermost.php:492 cloudbridge-mattermost.php:700
 msgid "Include link to WordPress Admin in notifications."
 msgstr "Inkludera länk till WordPress-Admin i aviseringar."
 
-#: cloudbridge-mattermost.php:499
+#: cloudbridge-mattermost.php:499 cloudbridge-mattermost.php:715
 msgid "Remove all CBMM plugin settings and data when plugin is uninstalled."
 msgstr "Ta bort alla inställningar när tillägget avinstalleras."
 
@@ -167,19 +172,21 @@ msgid ""
 "Three emojis (markdown) can be configured for notices, warnings, and the "
 "admin link. If left empty here, the defaults will be used."
 msgstr ""
-"Tre emoji (markdown) kan anges för notiser, varningar och admin-länken. "
-"Om något fält lämnas tomt används standardinställningen för det fältet."
+"Tre emoji (markdown) kan anges för notiser, varningar och admin-länken. Om "
+"något fält lämnas tomt används standardinställningen för det fältet."
 
-#: cloudbridge-mattermost.php:510
+#: cloudbridge-mattermost.php:510 cloudbridge-mattermost.php:726
 msgid "You can find an emoji cheat sheet here"
 msgstr "Här hittar du en emoji-översikt"
 
 #: cloudbridge-mattermost.php:519 cloudbridge-mattermost.php:524
-#: cloudbridge-mattermost.php:529
+#: cloudbridge-mattermost.php:529 cloudbridge-mattermost.php:735
+#: cloudbridge-mattermost.php:740 cloudbridge-mattermost.php:745
+#: cloudbridge-mattermost.php:750
 msgid "Default emoji markdown is"
 msgstr "Standard emoji-markdown är"
 
-#: cloudbridge-mattermost.php:536
+#: cloudbridge-mattermost.php:536 cloudbridge-mattermost.php:757
 msgid ""
 "These settings allow you to modify the content sent to Mattermost. Use of "
 "these settings depend on how the webhook has been created/configured in "
@@ -191,51 +198,142 @@ msgstr ""
 "någon effekt beror på hur integrationen skapats i Mattermost. Att använda "
 "dessa felaktigt kan få Mattermost att ignorera aviseringarna."
 
-#: cloudbridge-mattermost.php:544
+#: cloudbridge-mattermost.php:544 cloudbridge-mattermost.php:765
 msgid ""
 "The username to use for the webhook, this should normally be left empty."
 msgstr ""
 "Användarnamnet som används för integrationen."
 
-#: cloudbridge-mattermost.php:549
+#: cloudbridge-mattermost.php:549 cloudbridge-mattermost.php:770
 msgid "The channel to use for the webhook, this should normally be left empty."
 msgstr "Kanalen som används för integrationen."
 
-#: cloudbridge-mattermost.php:554
+#: cloudbridge-mattermost.php:554 cloudbridge-mattermost.php:775
 msgid ""
 "Additional @mention to include with the notification, this should normally "
 "be left empty."
 msgstr ""
 "Ytterligare @mention som skall inkluderas i aviseringar."
 
-#: cloudbridge-mattermost.php:622
+#: cloudbridge-mattermost.php:622 cloudbridge-mattermost.php:861
 msgid "from"
 msgstr "från"
 
-#: cloudbridge-mattermost.php:640
+#: cloudbridge-mattermost.php:640 cloudbridge-mattermost.php:871
 msgid "Login by"
 msgstr "Inloggning"
 
 #: cloudbridge-mattermost.php:646 cloudbridge-mattermost.php:659
+#: cloudbridge-mattermost.php:872 cloudbridge-mattermost.php:882
+#: cloudbridge-mattermost.php:903 cloudbridge-mattermost.php:925
+#: cloudbridge-mattermost.php:958
 msgid "on"
 msgstr "på"
 
-#: cloudbridge-mattermost.php:662
+#: cloudbridge-mattermost.php:662 cloudbridge-mattermost.php:885
 msgid "Invalid username"
 msgstr "Ogiltig användare"
 
-#: cloudbridge-mattermost.php:665
+#: cloudbridge-mattermost.php:665 cloudbridge-mattermost.php:888
 msgid "Incorrect password"
 msgstr "Ogiltigt lösenord"
 
-#: cloudbridge-mattermost.php:668
+#: cloudbridge-mattermost.php:668 cloudbridge-mattermost.php:891
 msgid "Unknown error"
 msgstr "Okänt fel"
 
-#: cloudbridge-mattermost.php:671
+#: cloudbridge-mattermost.php:671 cloudbridge-mattermost.php:894
 msgid "username"
 msgstr "användarnamn"
 
-#: cloudbridge-mattermost.php:322
+#: cloudbridge-mattermost.php:322 cloudbridge-mattermost.php:401
 msgid "in Stockholm, Sweden. We speak Swedish and English"
 msgstr "i Stockholm, Sverige. Vi pratar svenska och English"
+
+#: cloudbridge-mattermost.php:423
+msgid "Force locale en_US"
+msgstr "Tvinga en_US"
+
+#: cloudbridge-mattermost.php:430
+msgid "Password reset"
+msgstr "Lösenordsåterställning"
+
+#: cloudbridge-mattermost.php:431
+msgid "Password reset, skip e-mail"
+msgstr "Lösenordsåterställning, skippa e-post"
+
+#: cloudbridge-mattermost.php:432
+msgid "Plugin activated"
+msgstr "Tillägg aktiverat"
+
+#: cloudbridge-mattermost.php:433
+msgid "Plugin deactivated"
+msgstr "Tillägg avaktiverat"
+
+#: cloudbridge-mattermost.php:434
+msgid "Plugin uninstalled"
+msgstr "Tillägg avinstallerat"
+
+#: cloudbridge-mattermost.php:435
+msgid "New user added"
+msgstr "Ny användare"
+
+#: cloudbridge-mattermost.php:436 cloudbridge-mattermost.php:951
+msgid "User deleted"
+msgstr "Raderad användare"
+
+#: cloudbridge-mattermost.php:443
+msgid "General notice"
+msgstr "Allmän avisering"
+
+#: cloudbridge-mattermost.php:639
+msgid "Send notification when plugin is activated."
+msgstr "Skicka avisering när tillägg aktiveras"
+
+#: cloudbridge-mattermost.php:647
+msgid "Send notification when plugin is deactivated."
+msgstr "Skicka avisering när tillägg avaktiveras"
+
+#: cloudbridge-mattermost.php:655
+msgid "Send notification when plugin is uninstalled."
+msgstr "Skicka avisering när tillägg avinstalleras"
+
+#: cloudbridge-mattermost.php:708
+msgid "Force notifications to be sent in en_US locale (English)."
+msgstr "Tvinga aviseringar att skickas på engelska (en_US)"
+
+#: cloudbridge-mattermost.php:723
+msgid ""
+"Emojis (markdown) can be configured for notices, warnings, and the admin "
+"link. If left empty here, the defaults will be used."
+msgstr ""
+"Emoji (markdown) kan konfigureras för notiser, varningar och admin-länken. "
+"Om dessa fält lämnas tomma används standardvärdet."
+
+#: cloudbridge-mattermost.php:902
+msgid "Password reset by"
+msgstr "Lösenord återställt av"
+
+#: cloudbridge-mattermost.php:914
+msgid "Plugin activated by"
+msgstr "Tillägg aktiverat av"
+
+#: cloudbridge-mattermost.php:917
+msgid "Plugin deactivated by"
+msgstr "Tillägg avaktiverat av"
+
+#: cloudbridge-mattermost.php:920
+msgid "Plugin uninstalled by"
+msgstr "Tillägg avinstallerat av"
+
+#: cloudbridge-mattermost.php:936
+msgid "by"
+msgstr "av"
+
+#: cloudbridge-mattermost.php:943
+msgid "unknown"
+msgstr "okänd"
+
+#: cloudbridge-mattermost.php:949
+msgid "User added/edited"
+msgstr "Användare tillagd/ändrad"
