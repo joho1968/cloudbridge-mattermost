@@ -52,7 +52,8 @@ if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'delete_plugi
 $remove_settings = get_option( 'cbmm-remove-settings', '0' );
 
 if ( $remove_settings == '1' ) {
-	// Cloudbridge Mattermost settings
+	// Remove Cloudbridge Mattermost settings. Transients are removed upon
+    // plugin deactivation and do not need to be cleaned up here.
     delete_option( 'cbmm-site-label' );
     delete_option( 'cbmm-mm-webhook' );
     delete_option( 'cbmm-roles-notify' );
@@ -75,4 +76,9 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-mm-mention' );
     delete_option( 'cbmm-settings-remove' );
     delete_option( 'cbmm-force-locale-enus' );
+    delete_option( 'cbmm-oauth2-base-url' );
+    delete_option( 'cbmm-oauth2-client-id' );
+    delete_option( 'cbmm-oauth2-client-secret' );
+    delete_option( 'cbmm-oauth2-login-roles' );
+    delete_option( 'cbmm-oauth2-allow-usernames' );
 }

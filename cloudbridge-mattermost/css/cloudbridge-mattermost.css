@@ -31,3 +31,13 @@ img.cbmm-wps-logo {
     max-width: 100px;
     height: auto;
 }
+#cbmm_login_form {
+    text-align: center;
+    color: #000;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.cbmm-mattermost-button {
+    vertical-align: middle !important;
+}

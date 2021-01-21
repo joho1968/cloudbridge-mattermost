@@ -2,7 +2,7 @@
 
 # Cloudbridge Mattermost (CBMM)
 
-Provides Mattermost integration for WordPress. This plugin has been tested with Mattermost 5.28 and above.
+Mattermost integration for WordPress. Tested with Mattermost 5.30.1+ and WordPress 5.5+.
 
 ## Description
 
@@ -12,7 +12,9 @@ The WordPress slug is `cloudbridge-mattermost`.
 
 The plugin is also available on [wordpress.org](https://wordpress.org/plugins/cloudbridge-mattermost/)
 
-The plugin provides the following functionality, using an incoming webhook in Mattermost:
+The plugin provides `OAuth2 authentication` functionality for logging into WordPress via Mattermost.
+
+The plugin additionally provides the following `notification` functionality, using an `incoming webhook` in Mattermost:
 
 * Notifications for successful login
 * Notifications for failed login
@@ -29,7 +31,7 @@ The plugin can also make use of additional functionality such as posting to a sp
 ### Other notes
 
 * This plugin may work with earlier versions of WordPress
-* This plugin has currently only been tested with WordPress 5.5.3 at the time of this writing
+* This plugin has been tested with `WordPress 5.5.3 and 5.6` at the time of this writing
 * This plugin optionally makes use of the `mb_substr()` PHP function
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript and is not sensitive to the coming jQuery updates in WordPress
@@ -57,6 +59,10 @@ This is a hard question to answer. There are no known incompatibilities.
 
 ## Changelog
 
+### 2.0.0
+* Added `OAuth2 support`, you can now login to WordPress via Mattermost!
+* Changed emoji for admin link to a more suitable one (:link:)
+
 ### 1.1.0
 * Moved notifications to a separate tab
 * Added notifications for password reset
@@ -75,6 +81,9 @@ This is a hard question to answer. There are no known incompatibilities.
 * Initial release
 
 ## Upgrade Notice
+
+### 2.0.0
+* Simply install/upgrade 1.x to 2.0.0 and walk through the settings
 
 ### 1.1.0
 * Simply install/upgrade 1.0.0 to 1.1.0 and walk through the settings
@@ -115,6 +124,8 @@ If you find this plugin useful, the author is happy to receive a donation, good 
 If there is something you feel to be missing from this plugin, or if you have found a problem with the code or a feature, please do not hesitate to reach out to support@webbplatsen.se.
 
 This plugin can also be downloaded from [code.webbplatsen.net](https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/) and [WordPress.org](https://wordpress.org/plugins/cloudbridge-mattermost/)
+
+Kudos to [The League of Extraordinary Packages](https://thephpleague.com/).
 
 ### External references
 
