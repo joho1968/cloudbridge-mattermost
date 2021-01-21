@@ -57,7 +57,7 @@ For notifications sent to Mattermost, there is a setting since 1.1.0 that will a
 
 This is a hard question to answer. There are no known incompatibilities.
 
-### Is there a way to customize the Mattermost login button =
+### Is there a way to customize the Mattermost login button
 
 The short answer is yes. The long answer follows:
 
