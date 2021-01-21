@@ -57,6 +57,20 @@ For notifications sent to Mattermost, there is a setting since 1.1.0 that will a
 
 This is a hard question to answer. There are no known incompatibilities.
 
+### Is there a way to customize the Mattermost login button =
+
+The short answer is yes. The long answer follows:
+
+Add a filter hook in your functions.php or elsewhere like so:
+
+> add_filter('cbmm_login_filter', 'name_of_your_function', 10, 1);
+
+Your function will receive one argument, which is an associative array with three items: url, text, and full.
+
+The 'url' item contains the url to the OAuth2 handler for the plugin, you should not modify this. The 'text' item contains the prompt ("Use Mattermost to login"). The 'full' item contains the entire HTML output for the additional Mattermost login section on the WordPress login form.
+
+Your function should always return an associative array. If you want to update just the 'text' item, simply do so in the array passed to your function and then return the same array. If you want to completely replace the full HTML output, add an item named 'override' to the returned array.
+
 ## Changelog
 
 ### 2.0.0
