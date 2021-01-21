@@ -4,6 +4,7 @@ node_modules/
 vendor/
 svn/
 wordpress.org/
+bin/
 *.zip
 *.tar.gz
 composer.lock
