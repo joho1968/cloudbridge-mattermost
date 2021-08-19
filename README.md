@@ -1,4 +1,4 @@
-[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.0-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com)
+[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.8-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com)
 
 # Cloudbridge Mattermost (CBMM)
 
@@ -31,10 +31,10 @@ The plugin can also make use of additional functionality such as posting to a sp
 ### Other notes
 
 * This plugin may work with earlier versions of WordPress
-* This plugin has been tested with `WordPress 5.5.3 and 5.6` at the time of this writing
-* This plugin optionally makes use of the `mb_substr()` PHP function
+* This plugin has been tested with `WordPress 5.5.3, 5.6, 5.7, and 5.8` at the time of this writing
+* This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
-* This plugin contains no Javascript and is not sensitive to the coming jQuery updates in WordPress
+* This plugin contains no Javascript
 * This plugin contains no tracking code and does not process or store any information about users
 
 ## Installation
@@ -73,6 +73,11 @@ Your function should always return an associative array. If you want to update j
 
 ## Changelog
 
+### 2.1.0
+* Verified with WordPress 5.8
+* Support for Cloudflare
+* Minor fixes
+
 ### 2.0.0
 * Added `OAuth2 support`, you can now login to WordPress via Mattermost!
 * Changed emoji for admin link to a more suitable one (:link:)
@@ -95,6 +100,9 @@ Your function should always return an associative array. If you want to update j
 * Initial release
 
 ## Upgrade Notice
+
+### 2.1.0
+* Simply install/upgrade 2.x to 2.1.0 and walk through the settings
 
 ### 2.0.0
 * Simply install/upgrade 1.x to 2.0.0 and walk through the settings

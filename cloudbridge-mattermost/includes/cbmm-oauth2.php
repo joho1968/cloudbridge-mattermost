@@ -8,7 +8,7 @@
  * @author     Joaquim Homrighausen <joho@webbplatsen.se>
  *
  * class-cbmm-oauth2.php
- * Copyright (C) 2020 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020, 2021 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
