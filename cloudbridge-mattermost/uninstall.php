@@ -2,13 +2,13 @@
 /**
  * Cloudbridge Mattermost is uninstalled.
  *
- * @link              https://github.com/joho1968/cloudbridge-mattermost
- * @since             1.0.0
- * @package           Cloudbridge Mattermost
- * @author            Joaquim Homrighausen <joho@webbplatsen.se>
+ * @link     https://github.com/joho1968/cloudbridge-mattermost
+ * @since    1.0.0
+ * @package  Cloudbridge Mattermost
+ * @author   Joaquim Homrighausen <joho@webbplatsen.se>
  *
  * uninstall.php
- * Copyright (C) 2020, 2021 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -81,4 +81,9 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-oauth2-client-secret' );
     delete_option( 'cbmm-oauth2-login-roles' );
     delete_option( 'cbmm-oauth2-allow-usernames' );
+    delete_option( 'cbmm-oauth2-allow-register' );
+    delete_option( 'cbmm-oauth2-force-register' );
+    delete_option( 'cbmm-oauth2-use-mmidforuuname' );
+    delete_option( 'cbmm-cloudflare-ipv4' );
+    delete_option( 'cbmm-cloudflare-ipv6' );
 }

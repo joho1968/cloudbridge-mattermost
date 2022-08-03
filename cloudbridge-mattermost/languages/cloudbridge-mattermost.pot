@@ -1,18 +1,18 @@
 # Cloudbridge Mattermost WordPress plugin <LANGUAGE> translation
-# Copyright (C) 2020, 2021 Joaquim Homrighausen
+# Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen
 # This file is distributed under the same license as the Cloudbridge Mattermost package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost-2.1.0\n"
+"Project-Id-Version: cloudbridge-mattermost-2.2.0\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
-"POT-Creation-Date: 2021-01-21 07:57+0100\n"
-"PO-Revision-Date: 2021-08-19 11:51+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: <LANGUAGE> <joho@webbplatsen.se>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-08-02 08:57+0100\n"
+"PO-Revision-Date: 2022-08-02 09:00+0100\n"
+"Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
+"Language-Team: EN_US <joho@webbplatsen.se>\n"
+"Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -522,3 +522,52 @@ msgstr ""
 msgid ""
 "IPs matching these addresses will be considerd to be coming from Cloudflare"
 msgstr ""
+
+#: cloudbridge-mattermost.php:715
+msgid "Allow registration"
+msgstr ""
+
+#: cloudbridge-mattermost.php:716
+msgid "Force registration"
+msgstr ""
+
+#: cloudbridge-mattermost.php:717
+msgid "Use Mattermost ID"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1171
+msgid "Allow new users to sign up to WordPress via Mattermost."
+msgstr ""
+
+#: cloudbridge-mattermost.php:1173 cloudbridge-mattermost.php:1183
+msgid "Note: WordPress user registration is disabled"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1181
+msgid "Only allow new users to sign up to WordPress via Mattermost."
+msgstr ""
+
+#: cloudbridge-mattermost.php:1191
+msgid "Use Mattermost user ID to avoid duplicate usernames."
+msgstr ""
+
+#: cloudbridge-mattermost.php:1345
+msgid "Invalid e-mail"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1747
+msgid "Mattermost account indicates no valid ID"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1768
+msgid "New user registration via Mattermost is not enabled"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1771
+msgid "Unable to register via Mattermost"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1848 cloudbridge-mattermost.php:1852
+msgid "Use Mattermost to register"
+msgstr ""
+

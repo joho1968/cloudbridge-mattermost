@@ -11,7 +11,7 @@
  * Plugin Name:       Cloudbridge Mattermost
  * Plugin URI:        https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
  * Description:       Mattermost integration for WordPress
- * Version:           2.1.0
+ * Version:           2.2.0
  * Author:            WebbPlatsen, Joaquim Homrighausen <joho@webbplatsen.se>
  * Author URI:        https://webbplatsen.se/
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@
  * Domain Path:       /languages
  *
  * cloudbridge-mattermost.php
- * Copyright (C) 2020, 2021 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-define( 'CBMM_VERSION',                 '2.1.0'                  );
+define( 'CBMM_VERSION',                 '2.2.0'                  );
 define( 'CBMM_REV',                     1                        );
 define( 'CBMM_PLUGINNAME_HUMAN',        'Cloudbridge Mattermost' );
 define( 'CBMM_PLUGINNAME_SLUG',         'cloudbridge-mattermost' );
@@ -79,6 +79,9 @@ define( 'CBMM_OAUTH_REDERR_BADSTATE',   5                        ); // @since 2.
 define( 'CBMM_OAUTH_REDERR_NOUSER',     6                        ); // @since 2.0.0
 define( 'CBMM_OAUTH_REDERR_NOSESSION',  7                        ); // @since 2.0.0
 define( 'CBMM_OAUTH_REDERR_NOROLE',     8                        ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOID',       9                        ); // @since 2.2.0
+define( 'CBMM_OAUTH_REDERR_NOREG',      20                       ); // @since 2.2.0
+define( 'CBMM_OAUTH_REDERR_BADCRED',    21                       ); // @since 2.2.0
 
 
 // https://github.com/tholu/php-cidr-match
@@ -123,10 +126,16 @@ class Cloudbridge_Mattermost {
     protected $cbmm_oauth2_mm_client_secret;                    // @since 2.0.0
     protected $cbmm_oauth2_mm_login_roles;                      // @since 2.0.0
     protected $cbmm_oauth2_mm_login_allow_usernames;            // @since 2.0.0
+    protected $cbmm_oauth2_allow_register;                      // @since 2.2.0
+    protected $cbmm_oauth2_force_register;                      // @since 2.2.0
+    protected $cbmm_oauth2_mm_register_use_id_for_uuname;       // @since 2.2.0
     protected $cbmm_cloudflare_ipv4;                            // @since 2.1.0
     protected $cbmm_cloudflare_ipv6;                            // @since 2.1.0
     protected $cbmm_cloudflare_check;                           // @since 2.1.0
     protected $cbmm_settings_remove;
+
+    protected $cbmm_wordpress_users_can_register;               // @since 2.2.0
+
 
     public static function getInstance( string $version = '', string $slug = '' ) {
         null === self::$instance AND self::$instance = new self( $version, $slug );
@@ -140,7 +149,7 @@ class Cloudbridge_Mattermost {
             if ( defined( 'CBMM_VERSION' ) ) {
                 $this->version = CBMM_VERSION;
             } else {
-                $this->version = '2.0.1';
+                $this->version = '2.2.0';
             }
         } else {
             $this->version = $version;
@@ -150,7 +159,9 @@ class Cloudbridge_Mattermost {
         } else {
             $this->plugin_name = $slug;
         }
-        // Fetch options and setup defaults
+        // Fetch WordPress stuff
+        $this->cbmm_wordpress_users_can_register = get_option( 'users_can_register' );
+        // Fetch our options and setup defaults
         $this->cbmm_site_label = $this->cbmm_get_option( 'cbmm-site-label', true );
         $this->cbmm_mm_webhook = $this->cbmm_get_option( 'cbmm-mm-webhook', false );
         $this->cbmm_mm_roles_notify = $this->cbmm_get_option( 'cbmm-roles-notify', true );
@@ -180,6 +191,15 @@ class Cloudbridge_Mattermost {
         $this->cbmm_oauth2_mm_client_secret = $this->cbmm_get_option( 'cbmm-oauth2-client-secret', false );
         $this->cbmm_oauth2_mm_login_roles = $this->cbmm_get_option( 'cbmm-oauth2-login-roles', false );
         $this->cbmm_oauth2_mm_login_allow_usernames = $this->cbmm_get_option( 'cbmm-oauth2-allow-usernames', false );
+        $this->cbmm_oauth2_allow_register = $this->cbmm_get_option( 'cbmm-oauth2-allow-register', false );
+        $this->cbmm_oauth2_force_register = $this->cbmm_get_option( 'cbmm-oauth2-force-register', false );
+        if ( $this->cbmm_oauth2_force_register ) {
+            // If "Only allow new users to sign up to WordPress via Mattermost"
+            // is enabled, we, by definition, allow new users to sign up to
+            // WordPress via Mattermost.
+            $this->cbmm_oauth2_allow_register = true;
+        }
+        $this->cbmm_oauth2_mm_register_use_id_for_uuname = $this->cbmm_get_option( 'cbmm-oauth2-use-mmidforuuname', false );
 
         $this->cbmm_cloudflare_ipv4 = @ json_decode( get_option ( 'cbmm-cloudflare-ipv4', null ), true, 2 );
         if ( ! is_array( $this->cbmm_cloudflare_ipv4 ) ) {
@@ -305,7 +325,7 @@ class Cloudbridge_Mattermost {
      * Returns status of OAuth2 configuration as set by the constructor based
      * on the various OAuth2 condfiguration fields.
      *
-     * @since  2.0.0
+     * @since 2.0.0
      * @return boolean
      */
     public function cbmm_oauth2_active() {
@@ -314,7 +334,7 @@ class Cloudbridge_Mattermost {
     /**
      * Return various OAuth2 configuration items
      *
-     * @since  2.0.0
+     * @since 2.0.0
      */
     public function cbmm_config_get_oauth2_url() {
         return( $this->cbmm_oauth2_mm_base_url );
@@ -339,6 +359,16 @@ class Cloudbridge_Mattermost {
     public function cbmm_config_get_oauth2_allow_usernames() {
         return( $this->cbmm_oauth2_mm_login_allow_usernames );
     }
+    /**
+     * @since 2.2.0
+     */
+    public function cbmm_config_get_oauth2_register_use_mm_id_for_uuname() {
+        return( $this->cbmm_oauth2_mm_register_use_id_for_uuname );
+    }
+    public function cbmm_config_get_oauth2_allow_register() {
+        return( $this->cbmm_oauth2_allow_register );
+    }
+
 
     /**
      * Setup CSS.
@@ -393,7 +423,7 @@ class Cloudbridge_Mattermost {
                     if ( empty( $option_val ) ) {
                         $option_val = trim( $_SERVER['SERVER_NAME'] );
                         if ( empty( $option_val ) ) {
-                            $option_val = 'IP:' . $_SERVER['SERVER_ADDR'];
+                            $option_val = 'IP:' . $_SERVER['SERVER_ADDR'];https://matrix.webbplatsen.se/fd/com/tickets/view.php?tin=2022-3E2ZLO-KK
                         }
                     }
                 }
@@ -602,7 +632,7 @@ class Cloudbridge_Mattermost {
                 $html .= '</form>';
             }
             $html .= '</div>';
-            $html .= '</div>'; // tab-content
+            $html .= '</div>'; // tab-contenthttps://matrix.webbplatsen.se/fd/com/tickets/view.php?tin=2022-3E2ZLO-KK
         $html .= '</div>'; // wrap
         //
         echo $html;
@@ -681,7 +711,11 @@ class Cloudbridge_Mattermost {
           add_settings_field( 'cbmm-oauth2-client-secret', esc_html__( 'OAuth2 client secret', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_client_secret'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-client-secret'] );
           add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'Allowed OAuth2 login roles', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_login_roles'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-roles-user-delete'] );
           add_settings_field( 'cbmm-oauth2-allow-usernames', esc_html__( 'Match usernames', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_allow_usernames'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-usernames'] );
-        //@since 2.1.0
+          //@since 2.2.0
+          add_settings_field( 'cbmm-oauth2-allow-register', esc_html__( 'Allow registration', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_allow_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-register'] );
+          add_settings_field( 'cbmm-oauth2-force-register', esc_html__( 'Force registration', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_force_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-force-register'] );
+          add_settings_field( 'cbmm-oauth2-use-mmidforuuname', esc_html__( 'Use Mattermost ID', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_use_id_for_uuname'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-use-mmidforuuname'] );
+          //@since 2.1.0
         add_settings_section( 'cbmm_settings_cloudflare', '', [$this, 'cbmm_settings_cloudflare_callback'], 'cbmm_settings_cloudflare' );
           add_settings_field( 'cbmm-cloudflare-check', esc_html__( 'Check for Cloudflare IP', $this->plugin_name ), [$this, 'cbmm_setting_cloudflare_check'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-check'] );
           add_settings_field( 'cbmm-cloudflare-ipv4', esc_html__( 'Cloudflare IPv4', $this->plugin_name ), [$this, 'cbmm_settings_cloudflare_ipv4'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-ipv4'] );
@@ -718,6 +752,9 @@ class Cloudbridge_Mattermost {
         register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-client-secret', ['type' => 'string', 'sanitize_callback' => [$this, 'cbmm_oauth2_mm_sanitize_client_id_secret']] );
         register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-login-roles', ['type' => 'array', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_roles']] );
         register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-allow-usernames' );
+        register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-allow-register' );
+        register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-force-register' );
+        register_setting( 'cbmm_settings_oauth2', 'cbmm-oauth2-use-mmidforuuname' );
 
         register_setting( 'cbmm_settings_cloudflare', 'cbmm-cloudflare-check' );
         register_setting( 'cbmm_settings_cloudflare', 'cbmm-cloudflare-ipv4', ['type' => 'string', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_textarea_setting']] );
@@ -1071,7 +1108,7 @@ class Cloudbridge_Mattermost {
         echo '<p>' .
              esc_html__( 'These settings allow you to configure the OAuth2 integration between WordPress and Mattermost.', $this->plugin_name ).
              '<br/>' .
-             '<a href="https://docs.mattermost.com/developer/oauth-2-0-applications.html" target="_blank">' . esc_html__( 'Please check the documentation for details', $this->plugin_name ) . '</a>' .
+             '<a href="https://developers.mattermost.com/integrate/admin-guide/admin-oauth2/" target="_blank">' . esc_html__( 'Please check the documentation for details', $this->plugin_name ) . '</a>' .
              '<br/>' .
              '<br/>' .
              '</p>';
@@ -1124,6 +1161,34 @@ class Cloudbridge_Mattermost {
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-oauth2-allow-usernames" id="cbmm-oauth2-allow-usernames" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
         echo '<label for="cbmm-oauth2-allow-usernames">'. esc_html__( 'Attempt to match Mattermost and WordPress usernames if e-mail match fails.', $this->plugin_name ) . '</label> ';
+        echo '</div>';
+    }
+    // @since 2.2.0
+    public function cbmm_oauth2_setting_allow_register() {
+        $option_val = $this->cbmm_get_option( 'cbmm-oauth2-allow-register', false );
+        echo '<div class="cbmm-role-option">';
+        echo '<input type="checkbox" name="cbmm-oauth2-allow-register" id="cbmm-oauth2-allow-register" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
+        echo '<label for="cbmm-oauth2-allow-register">'. esc_html__( 'Allow new users to sign up to WordPress via Mattermost.', $this->plugin_name ) . '</label> ';
+        if ( ! $this->cbmm_wordpress_users_can_register ) {
+            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', $this->plugin_name ) . '</strong></p>';
+        }
+        echo '</div>';
+    }
+    public function cbmm_oauth2_setting_force_register() {
+        $option_val = $this->cbmm_get_option( 'cbmm-oauth2-force-register', false );
+        echo '<div class="cbmm-role-option">';
+        echo '<input type="checkbox" name="cbmm-oauth2-force-register" id="cbmm-oauth2-force-register" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
+        echo '<label for="cbmm-oauth2-force-register">'. esc_html__( 'Only allow new users to sign up to WordPress via Mattermost.', $this->plugin_name ) . '</label> ';
+        if ( ! $this->cbmm_wordpress_users_can_register ) {
+            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', $this->plugin_name ) . '</strong></p>';
+        }
+        echo '</div>';
+    }
+    public function cbmm_oauth2_setting_use_id_for_uuname() {
+        $option_val = $this->cbmm_get_option( 'cbmm-oauth2-use-mmidforuuname', false );
+        echo '<div class="cbmm-role-option">';
+        echo '<input type="checkbox" name="cbmm-oauth2-use-mmidforuuname" id="cbmm-oauth2-use-mmidforuuname" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
+        echo '<label for="cbmm-oauth2-use-mmidforuuname">'. esc_html__( 'Use Mattermost user ID to avoid duplicate usernames.', $this->plugin_name ) . '</label> ';
         echo '</div>';
     }
     // @since 2.1.0
@@ -1678,6 +1743,9 @@ class Cloudbridge_Mattermost {
                 case CBMM_OAUTH_REDERR_NOEMAIL:
                     $message = __('Mattermost account indicates no valid e-mail address', $this->plugin_name );
                     break;
+                case CBMM_OAUTH_REDERR_NOID:
+                    $message = __('Mattermost account indicates no valid ID', $this->plugin_name );
+                    break;
                 case CBMM_OAUTH_REDERR_NOTOKEN:
                     $message = __( 'Unable to retrieve OAuth2 access token', $this->plugin_name );
                     break;
@@ -1695,6 +1763,12 @@ class Cloudbridge_Mattermost {
                     break;
                 case CBMM_OAUTH_REDERR_NOROLE:
                     $message = __( 'Your user role is not allowed to sign in with OAuth2', $this->plugin_name );
+                    break;
+                case CBMM_OAUTH_REDERR_NOREG:
+                    $message = __( 'New user registration via Mattermost is not enabled', $this->plugin_name );
+                    break;
+                case CBMM_OAUTH_REDERR_BADCRED:
+                    $message = __( 'Unable to register via Mattermost', $this->plugin_name );
                     break;
                 default:
                     $message = __('Unable to complete OAuth2 authentication', $this->plugin_name );
@@ -1747,6 +1821,94 @@ class Cloudbridge_Mattermost {
     }
 
     /**
+     * Add our OAuth2 registration option
+     *
+     * Add our OAuth2 registration option to WordPress login screen. We setup a
+     * call to cbmm_login_filter with three parameters: url, text, and full. To
+     * override all output, return an array with "override" set, in which case
+     * this is echoed as a raw string (!). If "override" is not set upon return,
+     * the "url" and "text" return parameters are used to create the "standard"
+     * button. The "url" and "text" return parameters are NOT escaped (!)
+     *
+     * @since 2.2.0
+     */
+    public function cbmm_registration_form( ) {
+        $url = $this->cbmm_config_get_oauth2_callback_url();
+        if ( ! empty( $_REQUEST['redirect_to'] ) ) {
+            $url .= '?redirect_to=' . $_REQUEST['redirect_to'];
+        }
+        if ( esc_url_raw( $url ) !== $url || ! wp_http_validate_url( $url ) ) {
+            // Silently discard GET parameter
+            $url = $this->cbmm_config_get_oauth2_callback_url();
+        }
+        // We want to register new user, add GET parameter
+        $url = add_query_arg( 'cbmm_register', 'yes', $url );
+        // Build array for filter
+        $filter_parm = array( 'url'  => $url,
+                              'text' => esc_html__( 'Use Mattermost to register', $this->plugin_name ),
+                              'full' => '<div id="cbmm_login_form">' .
+                                        '<a href="' . esc_url_raw( $url ). '" '.
+                                        'class="button button-secondary button-large cbmm-mattermost-button">'.
+                                        esc_html__( 'Use Mattermost to register', $this->plugin_name ).
+                                        '</a>'.
+                                        '</div>');
+        // Allow filter to override output
+        $filtered = apply_filters( 'cbmm_login_filter', $filter_parm );
+        if ( ! empty( $filtered['override'] ) ) {
+            // Complete override, do whatever filter gave us, this may break things
+            echo $filtered_login_form;
+        } else {
+            // Partially filtered or not filtered, use what we get from filter
+            echo '<div id="cbmm_login_form"><a href="' . esc_url_raw( $filtered['url'] ) . '" ' .
+                 'class="button button-secondary button-large cbmm-mattermost-button">'.
+                 $filtered['text'] . '</a></div>';
+        }
+    }
+    /**
+     * Manipulate registration form.
+     *
+     * This is currently only used to "block" the WordPress user registration
+     * form if registration via Mattermost is forced.
+     *
+     * @since 2.2.0
+     */
+    public function cbmm_registration_form_head() {
+        if ( ! empty( $_REQUEST['action'] ) && $_REQUEST['action'] == 'register' ) {
+            /*
+            echo '<style type="text/css">
+                  body { background-color: lightblue !important;
+                  </style>';
+            */
+            // If registration via Mattermost is forced, we re-direct back to
+            // WordPress login form (the proper way, so filters and hooks, etc
+            // can do their thing), where the user can click on "Register" if
+            // they actually meant to register.
+            if ( $this->cbmm_oauth2_force_register ) {
+                ob_end_clean();
+                nocache_headers();
+                $url = wp_login_url();
+                wp_redirect( $url );
+                die();
+            }
+        }
+    }
+    /**
+     * Override WordPress (public) user registration link.
+     *
+     * @since 2.2.0
+     * @param string $url
+     * @return string
+     */
+    public function cbmm_registration_link( $url ) : string {
+        if ( is_admin() ) {
+            return( $url );
+        }
+        $url = $this->cbmm_config_get_oauth2_callback_url();
+        $url = add_query_arg( 'cbmm_register', 'yes', $url );
+        return( $url );
+    }
+
+    /**
      * Add hooks we're watching when WordPress is fully loaded.
      *
      * @since 1.0.0
@@ -1754,14 +1916,25 @@ class Cloudbridge_Mattermost {
     public function cbmm_wp_loaded() {
         //@since 2.0.0 Hook these only if we have a configuration for OAuth2
         if ( $this->cbmm_oauth2_active() ) {
-            add_action( 'login_form',           [$this, 'cbmm_login_form'],          10, 0 );
-            add_filter( 'login_message',        [$this, 'cbmm_login_form_message'],  10, 1 );
+            add_action( 'login_form', [$this, 'cbmm_login_form'], 10, 0 );
+            add_filter( 'login_message', [$this, 'cbmm_login_form_message'], 10, 1 );
+            if ( $this->cbmm_oauth2_allow_register && $this->cbmm_wordpress_users_can_register ) {
+                // Enable registration via OAuth2
+                add_action( 'register_form', [$this, 'cbmm_registration_form'], 10, 0 );
+                if ( $this->cbmm_oauth2_force_register ) {
+                    add_filter( 'login_head', [$this, 'cbmm_registration_form_head'] );
+                }
+            }
+            if ( $this->cbmm_oauth2_force_register && $this->cbmm_wordpress_users_can_register ) {
+                // Require new users to register via Mattermost
+                add_filter( 'register_url', [$this, 'cbmm_registration_link' ] );
+            }
         }
         //@since 1.1.0 Hook these only if we actually have a webhook defined
         if ( ! empty( $this->cbmm_mm_webhook ) ) {
             // Login handlers
-            add_action( 'wp_login',             [$this, 'cbmm_alert_login'],         10, 2 );
-            add_action( 'wp_login_failed',      [$this, 'cbmm_alert_failed_login'],  10, 2 );
+            add_action( 'wp_login', [$this, 'cbmm_alert_login'],         10, 2 );
+            add_action( 'wp_login_failed', [$this, 'cbmm_alert_failed_login'],  10, 2 );
             // Plugin handlers
             if ( is_admin( ) && is_user_logged_in() && current_user_can( 'administrator' ) )  {
                 // Plugin notification handlers
@@ -1863,7 +2036,7 @@ class Cloudbridge_Mattermost {
         if ( is_admin() ) {
             add_action( 'admin_enqueue_scripts', [$this, 'cbmm_setup_css']  );
         } else {
-            add_filter( 'login_head', [$this, 'cbmm_setup_css_login'] );
+            add_filter( 'login_head', [$this, 'cbmm_setup_css_login']  );
         }
         // Setup
         add_action( 'admin_menu',            [$this, 'cbmm_menu']       );

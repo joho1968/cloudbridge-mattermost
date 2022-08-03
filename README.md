@@ -1,4 +1,4 @@
-[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.8-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com)
+[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.8-orange?style=flat-square)](https://wordpress.org) [![WordPress 6](https://img.shields.io/badge/WordPress-6-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com)
 
 # Cloudbridge Mattermost (CBMM)
 
@@ -13,6 +13,8 @@ The WordPress slug is `cloudbridge-mattermost`.
 The plugin is also available on [wordpress.org](https://wordpress.org/plugins/cloudbridge-mattermost/)
 
 The plugin provides `OAuth2 authentication` functionality for logging into WordPress via Mattermost.
+
+The plugin provides `OAuth2 authentication` functionality for registering new WordPress users via Mattermost.
 
 The plugin additionally provides the following `notification` functionality, using an `incoming webhook` in Mattermost:
 
@@ -31,7 +33,8 @@ The plugin can also make use of additional functionality such as posting to a sp
 ### Other notes
 
 * This plugin may work with earlier versions of WordPress
-* This plugin has been tested with `WordPress 5.5.3, 5.6, 5.7, and 5.8` at the time of this writing
+* This plugin has been tested with `WordPress 5.5.3 to 6.0` at the time of this writing
+* This plugin has been tested with `Mattermost 5.x to 7.x` at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -73,6 +76,13 @@ Your function should always return an associative array. If you want to update j
 
 ## Changelog
 
+### 2.2.0
+* Improved support for Mattermost accounts with 2FA/MFA enabled
+* Added possibility to register new users via Mattermost!
+* Added possibility to register new users only via Mattermost!
+* Verified with Mattermost 7.x and WordPress 6.x
+* Updated various dependencies
+
 ### 2.1.0
 * Verified with WordPress 5.8
 * Support for Cloudflare
@@ -101,6 +111,9 @@ Your function should always return an associative array. If you want to update j
 
 ## Upgrade Notice
 
+### 2.2.0
+* Simply install/upgrade 2.x to 2.2.0 and walk through the settings
+
 ### 2.1.0
 * Simply install/upgrade 2.x to 2.1.0 and walk through the settings
 
@@ -117,7 +130,7 @@ Your function should always return an associative array. If you want to update j
 
 Please see [LICENSE](LICENSE) for a full copy of GPLv2
 
-Copyright (C) 2020 [Joaquim Homrighausen](https://github.com/joho1968); all rights reserved.
+Copyright (C) 2020, 2021, 2022 [Joaquim Homrighausen](https://github.com/joho1968); all rights reserved.
 
 This file is part of Cloudbridge Mattermost (CBMM). Cloudbridge Mattermost is free software.
 

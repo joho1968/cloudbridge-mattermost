@@ -8,7 +8,7 @@
  * @author     Joaquim Homrighausen <joho@webbplatsen.se>
  *
  * class-cbmm-oauth2.php
- * Copyright (C) 2020, 2021 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -71,7 +71,6 @@ function cbmm_admin_error_redirect( int $code ) {
 // Uncomment this for debugging
 // define( 'CBMM_OAUTH_DEBUG', true );
 
-
 // We need our plugin instance
 $cbmm = Cloudbridge_Mattermost::getInstance();
 if ( ! $cbmm->cbmm_oauth2_active() ) {
@@ -79,9 +78,11 @@ if ( ! $cbmm->cbmm_oauth2_active() ) {
     error_log( basename( __FILE__ ) . ': OAuth2 is not active' );
     wp_die( __('OAuth2 is not active', CBMM_PLUGINNAME_SLUG), CBMM_PLUGINNAME_HUMAN );
 }
+if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+    error_log( basename( __FILE__ ) . ': $_REQUEST before OAuth2 ' . var_export( $_REQUEST, true ) );
+}
 
-
-// OAuth Client
+// OAuth Client, Kudos to https://oauth2-client.thephpleague.com
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/autoload.php';
 
 use League\OAuth2\Client\Provider\GenericProvider;
@@ -102,6 +103,10 @@ try {
     die ();
 }
 
+if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+    error_log( basename( __FILE__ ) . ': $_REQUEST after OAuth2 ' . var_export( $_REQUEST, true ) );
+}
+
 // Figure out where we are in the auth process
 if ( ! empty( $_GET['error'] ) ) {
     switch( $_GET['error'] ) {
@@ -112,7 +117,18 @@ if ( ! empty( $_GET['error'] ) ) {
             cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_AUTHFAIL );
             break;
     }
-} elseif ( empty( $_GET['code'] ) ) {
+} elseif ( ! isset( $_GET['code'] ) ) {
+    // Figure out what we're trying to do
+    if ( ! empty( $_REQUEST['cbmm_register'] ) && $_REQUEST['cbmm_register'] === 'yes' ) {
+        $wordpress_register = true;
+    } else {
+        $wordpress_register = false;
+    }
+    if ( $wordpress_register ) {
+        $mode_string = 'R';// register
+    } else {
+        $mode_string = 'L';// login
+    }
     // Re-direct to OAuth2 provider (Mattermost). We need to create a "unique"
     // transient if we're not using PHP sessions. So we loop here. To avoid a
     // complete deadlock situation, we do this a maximum of 1000 times.
@@ -128,8 +144,27 @@ if ( ! empty( $_GET['error'] ) ) {
         $wp_transient = get_transient( $our_transient );
         if ( $wp_transient === false ) {
             $our_time = time();
-            if ( set_transient( $our_transient, $our_time, CBMM_OAUTH_TRANSIENT_TIMER ) ) {
-                $db_time = get_transient( $our_transient );
+            $transient_data = array( 'time' => $our_time,
+                                     'mode' => $mode_string );
+            if ( set_transient( $our_transient, $transient_data, CBMM_OAUTH_TRANSIENT_TIMER ) ) {
+                $db_transient = get_transient( $our_transient );
+                if ( $db_transient === false ) {
+                    $db_time = false;
+                    if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+                        error_log( basename( __FILE__ ) . '(' . __LINE__ .'): Unable to locate transient "' . $our_transient . '"' );
+                    }
+                } else {
+                    if ( empty( $db_transient['time'] ) ) {
+                        if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+                            error_log( basename( __FILE__ ) . '(' . __LINE__ .'): No time field in "' . var_export( $db_transient, true ) . '", ignorning' );
+                        }
+                    } else {
+                        $db_time = $db_transient['time'];
+                        if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+                            error_log( basename( __FILE__ ) . '(' . __LINE__ .'): $our_time="' . $our_time . '" $db_time="' . $db_time . '"' );
+                        }
+                    }
+                }
                 if ( $db_time !== $our_time ) {
                     // Silently ignore this and try again
                     if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
@@ -138,12 +173,14 @@ if ( ! empty( $_GET['error'] ) ) {
                 } else {
                     // Update transient with possible re-direct data
                     if ( ! empty( $_REQUEST['redirect_to'] ) ) {
-                        set_transient( $our_transient, $_REQUEST['redirect_to'], CBMM_OAUTH_TRANSIENT_TIMER + 1 );
+                        $transient_data['redirect'] = $_REQUEST['redirect_to'];
+                        set_transient( $our_transient, $transient_data, CBMM_OAUTH_TRANSIENT_TIMER + 1);
                         if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
-                            error_log( basename( __FILE__ ) . ': "' . $our_transient . '" updated with "' . $_REQUEST['redirect_to'] . '"' );
+                            error_log( basename( __FILE__ ) . ': "' . $our_transient . '" updated to "' . serialize( $transient_data ) . '"' );
                         }
                     } elseif ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
                         error_log( basename( __FILE__ ) . ': "' . $our_transient . '" not updated, no re-direction data' );
+                        error_log( basename( __FILE__ ) . ': REQUEST data ' . var_export( $_REQUEST, true ) );
                     }
                     // Good to go
                     $good_transient = true;
@@ -171,17 +208,20 @@ if ( ! empty( $_GET['error'] ) ) {
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOSESSION );
     }
     // Re-direct to Mattermost for authentication
+    if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+        error_log( basename( __FILE__ ) . '(' . __LINE__ .'): Re-directing to "' . $auth_url . '"' );
+    }
     nocache_headers();
     header( 'Location: ' . $auth_url );
-    die ();
+    die();
 } elseif ( empty( $_GET ['state'] ) ) {
     error_log( basename( __FILE__ ) . ': Invalid OAuth2 state [' . $e->getMessage() . ']' );
     cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADSTATE );
-    die ();
+    die();
 } else {
     $our_transient = CBMM_OAUTH_TRANSIENT_PREFIX . filter_var( $_GET['state'], FILTER_SANITIZE_STRING );
-    $wp_transient = get_transient( $our_transient );
-    if ( $wp_transient === false ) {
+    $transient_data = get_transient( $our_transient );
+    if ( $transient_data === false ) {
         if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
             error_log( basename( __FILE__ ) . ': Unable to locate transient [' . $our_transient . ']' );
         }
@@ -194,35 +234,128 @@ if ( ! empty( $_GET['error'] ) ) {
         if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
             error_log( basename( __FILE__ ) . ': Unable to remove validated transient [' . $our_transient . ']' );
         }
+    } else {
+        if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+            error_log( basename( __FILE__ ) . '(' . __LINE__ .'): Transient "' . $our_transient . '" deleted' );
+        }
     }
     // Try to get an access token (using the authorization code grant)
     try {
-        $token = $provider->getAccessToken ('authorization_code', ['code' => $_GET['code']] );
-    } catch (Exception $e) {
+        $token = $provider->getAccessToken( 'authorization_code', ['code' => $_GET['code']] );
+    } catch( Exception $e ) {
         error_log( basename( __FILE__ ) . ': Unable to retrieve OAuth2 access token [' . $e->getMessage() . ']' );
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOTOKEN );
     }
     // Check for expired token
-    if ($token->hasExpired ()) {
+    if ( $token->hasExpired() ) {
         error_log( basename( __FILE__ ) . ': External OAuth2 token has expired [' . $e->getMessage() . ']' );
         echo '<h3>' . esc_html__( 'External OAuth2 token has expired', CBMM_PLUGINNAME_SLUG ) . '</h3>';
-        die ();
+        die();
     }
     // Fetch user details
-    $ownerDetails = $provider->getResourceOwner($token);
-    $o_a = $ownerDetails->toArray ();
+    $ownerDetails = $provider->getResourceOwner( $token );
+    $o_a = $ownerDetails->toArray();
     if ( empty( $o_a['email'] ) || empty( $o_a['email_verified'] ) ) {
         error_log( basename( __FILE__ ) . ': Mattermost account indicates no valid e-mail address' );
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOEMAIL );
     }
+    if ( empty( $o_a['id'] ) ) {
+        error_log( basename( __FILE__ ) . ': Mattermost account indicates no ID' );
+        cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOID );
+    }
+    if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+        error_log( basename( __FILE__ ) . ': O_A ' . var_export( $o_a, true ) );
+    }
+    // Figure out what we're actually doing
+    if ( ! empty( $transient_data['mode'] ) && $transient_data['mode'] === 'R' ) {
+        $is_wordpress_register = true;
+    } else {
+        $is_wordpress_register = false;
+    }
+    // Handle registration flow first, @since 2.2.0 ---------------------------
+    if ( $is_wordpress_register ) {
+        // Make sure we actually allow registering via Mattermost
+        if ( ! $cbmm->cbmm_config_get_oauth2_allow_register() ) {
+            error_log( basename( __FILE__ ) . ': New user registration via Mattermost is not enabled' );
+            cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOREG );
+        }
+        // Make sure this e-mail address is not already in use in WordPress
+        $wp_email = get_user_by( 'email', $o_a['email'] );
+        if ( $wp_email !== false ) {
+            error_log( basename( __FILE__ ) . ': E-mail address "' . $o_a['email'] . '" already exist in WordPress, registration failed' );
+            cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADCRED );
+        }
+        $wp_login = get_user_by( 'login', $o_a['email'] );
+        if ( $wp_login !== false ) {
+            error_log( basename( __FILE__ ) . ': Username "' . $o_a['email'] . '" already exist in WordPress, registration failed' );
+            cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADCRED );
+        }
+        // Make sure username is not already used in WordPress
+        $wp_username = $o_a['username'];
+        $wp_user = get_user_by( 'login', $wp_username  );
+        if ( $wp_user !== false ) {
+            // Username does exist in WordPress already
+            error_log( basename( __FILE__ ) . ': Username "' . $wp_username . '" already exist in WordPress, attempting to create new username' );
+            // Possibly allow for username_id
+            if ( $cbmm->cbmm_config_get_oauth2_register_use_mm_id_for_uuname() ) {
+                $wp_username = sanitize_user( $wp_username . '_' . $o_a['id'] );
+                $wp_user = get_user_by( 'login', $wp_username  );
+                if ( $wp_user !== false ) {
+                    error_log( basename( __FILE__ ) . ': Username "' . $wp_username . '" already exist in WordPress, registration failed' );
+                    cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADCRED );
+                }
+            } else {
+                cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADCRED );
+            }
+        }
+        // Generate some data to insert
+        $wp_random_password = wp_generate_password();
+        if ( ! empty( $o_a['first_name'] ) ) {
+            $display_name = $o_a['first_name'];
+            if ( ! empty( $o_a['last_name'] ) ) {
+                $display_name .= ' ' . $o_a['last_name'];
+            }
+        } elseif ( ! empty( $o_a['last_name'] ) ) {
+            $display_name = $o_a['last_name'];
+        } else {
+            $display_name = '';
+        }
+        $wp_user = wp_insert_user(
+                       array(
+                           'user_pass' => $wp_random_password,
+                           'user_login' => $wp_username,
+                           'user_email' => $o_a['email'],
+                           'first_name' => ( empty( $o_a['first_name'] ) ? '':$o_a['first_name'] ),
+                           'last_name' => ( empty( $o_a['last_name'] ) ? '':$o_a['last_name'] ),
+                       )
+                   );
+        // Check result of 'insert user'
+        if ( is_wp_error( $wp_user ) ) {
+            // Something's not right
+            error_log( basename( __FILE__ ) . ': Unable to create user via Mattermost ("' . $o_a['email'] .'", "' . $wp_username . '")' );
+            if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+                error_log( basename( __FILE__ ) . ': wp_insert_user() => "' . $wp_user->get_error_message() . '"' );
+            }
+            // Abort and "bounce back"
+            cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADCRED );
+        }
+    }
+    // Handle login flow second -----------------------------------------------
+
     // Attempt to fetch user from WordPress, using e-mail
     $wp_user = get_user_by( 'email', $o_a['email'] );
     if ( $wp_user === false ) {
         // Possibly match on username if we're allowed to
         if ( $cbmm->cbmm_config_get_oauth2_allow_usernames() ) {
-            $wp_user = get_user_by( 'login', $o_a['username'] );
+            // Possibly allow for username_id
+            if ( $cbmm->cbmm_config_get_oauth2_register_use_mm_id_for_uuname() ) {
+                $wp_username = sanitize_user( $o_a['username'] . '_' . $o_a['id'] );
+            } else {
+                $wp_username = sanitize_user( $o_a['username'] );
+            }
+            $wp_user = get_user_by( 'login', $wp_username );
             if ( $wp_user === false ) {
-                error_log( basename( __FILE__ ) . ': Unable to locate user with username ' . $o_a['username'] );
+                error_log( basename( __FILE__ ) . ': Unable to locate user with username "' . $wp_username . '"' );
                 cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOUSER );
             }
         } else {
@@ -253,10 +386,15 @@ if ( ! empty( $_GET['error'] ) ) {
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOROLE );
     }
     // Validate our (possible) redirection URL
-    if ( empty( $wp_transient ) ) {
-        $wp_transient = ( $is_administrator ? admin_url() : home_url() );
-    } elseif ( esc_url_raw( $wp_transient ) !== $wp_transient || ! wp_http_validate_url( $wp_transient ) ) {
-        $wp_transient = ( $is_administrator ? admin_url() : home_url() );
+    if ( empty( $transient_data['redirect'] ) ) {
+        $redirect_to = ( $is_administrator ? admin_url() : home_url() );
+    } elseif ( esc_url_raw( $transient_data['redirect'] ) !== $transient_data['redirect'] || ! wp_http_validate_url( $transient_data['redirect'] ) ) {
+        $redirect_to = ( $is_administrator ? admin_url() : home_url() );
+    } else {
+        $redirect_to = $transient_data['redirect'];
+    }
+    if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
+        error_log( basename( __FILE__ ) . ': redirect_to="' . $redirect_to . '"' );
     }
     // Setup WordPress session
     wp_set_current_user( $wp_user->ID, $wp_user->user_login );
@@ -264,6 +402,6 @@ if ( ! empty( $_GET['error'] ) ) {
     do_action( 'wp_login', $wp_user->user_login, $wp_user );
     // Carry on, we're logged in
     nocache_headers();
-    wp_redirect( $wp_transient );
+    wp_redirect( $redirect_to );
     die ();
 }
