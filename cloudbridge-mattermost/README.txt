@@ -3,7 +3,7 @@ Contributors: joho68, webbplatsen
 Donate link: https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
 Tags: mattermost, cloud, integration, notifications, security
 Requires at least: 5.4.0
-Tested up to: 6.0
+Tested up to: 6.2.2
 Requires PHP: 7.2
 Stable tag: 2.2.0
 License: GPLv2 or later
@@ -36,7 +36,7 @@ The plugin can also make use of additional functionality such as posting to a sp
 Other notes:
 
 * This plugin **may** work with earlier versions of WordPress
-* This plugin has been tested with **WordPress 5.5.3 to 6.0** at the time of this writing
+* This plugin has been tested with **WordPress 5.5.3 to 6.2.2** at the time of this writing
 * This plugin has been tested with **Mattermost 5.x to 7.x** at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
