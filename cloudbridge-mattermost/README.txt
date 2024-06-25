@@ -3,9 +3,9 @@ Contributors: joho68, webbplatsen
 Donate link: https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
 Tags: mattermost, cloud, integration, notifications, security
 Requires at least: 5.4.0
-Tested up to: 6.2.2
-Requires PHP: 7.2
-Stable tag: 2.2.0
+Tested up to: 6.5
+Requires PHP: 7.4
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,8 +36,8 @@ The plugin can also make use of additional functionality such as posting to a sp
 Other notes:
 
 * This plugin **may** work with earlier versions of WordPress
-* This plugin has been tested with **WordPress 5.5.3 to 6.2.2** at the time of this writing
-* This plugin has been tested with **Mattermost 5.x to 7.x** at the time of this writing
+* This plugin has been tested with **WordPress 5.5.3 to 6.5.5** at the time of this writing
+* This plugin has been tested with **Mattermost 5.x to 9.x** at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -80,6 +80,11 @@ Your function should always return an associative array. If you want to update j
 
 == Changelog ==
 
+= 2.2.1 =
+* Refactor code to prevent warnings in PHP log while checking roles
+* Verified with Mattermost 8.x, 9.x and WordPress 6.5.x
+* Updated various dependencies
+
 = 2.2.0 =
 * Improved support for Mattermost accounts with 2FA/MFA enabled
 * Added possibility to register new users via Mattermost
@@ -114,6 +119,9 @@ Your function should always return an associative array. If you want to update j
 * Initial release
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+* Simply install/upgrade to 2.2.1 and walk through the settings
 
 = 2.2.0 =
 * Simply install/upgrade to 2.2.0 and walk through the settings

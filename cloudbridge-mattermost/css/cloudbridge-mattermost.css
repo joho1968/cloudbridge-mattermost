@@ -8,19 +8,20 @@
     padding-right: 5px;
 }
 .cbmm-config-header {
-	padding: 20px 10px;
-	border-top: 5px solid #35537a;
-	background: #fff;
+    padding: 20px 10px;
+    border-top: 5px solid #35537a;
+    background: #fff;
 }
 .cbmm-config-section {
-	margin-top: 15px;
-	padding: 25px 10px;
-	color: #000;
-	background: #fff;
+    margin-top: 15px;
+    padding: 25px 10px;
+    color: #000;
+    background: #fff;
 }
 .cbmm-ext-link {
   color: #007bff;
   text-decoration: none;
+  font-weight: bold;
 }
 img.cbmm-wps-logo {
     display: inline-block;

@@ -8,7 +8,7 @@
  * @author     Joaquim Homrighausen <joho@webbplatsen.se>
  *
  * class-cbmm-oauth2.php
- * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020-2024 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -76,7 +76,7 @@ $cbmm = Cloudbridge_Mattermost::getInstance();
 if ( ! $cbmm->cbmm_oauth2_active() ) {
     // This shouldn't happen
     error_log( basename( __FILE__ ) . ': OAuth2 is not active' );
-    wp_die( __('OAuth2 is not active', CBMM_PLUGINNAME_SLUG), CBMM_PLUGINNAME_HUMAN );
+    wp_die( __('OAuth2 is not active', 'cloudbridge-mattermost' ), CBMM_PLUGINNAME_HUMAN );
 }
 if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
     error_log( basename( __FILE__ ) . ': $_REQUEST before OAuth2 ' . var_export( $_REQUEST, true ) );
@@ -99,7 +99,7 @@ try {
     ]);
 } catch (Exception $e) {
     error_log( basename( __FILE__ ) . ': Unable to initialize OAuth2 client [' . $e->getMessage() . ']' );
-    echo '<h3>' . esc_html__( 'Unable to initialize OAuth2 client', CBMM_PLUGINNAME_SLUG ) . '</h3>';
+    echo '<h3>' . esc_html__( 'Unable to initialize OAuth2 client', 'cloudbridge-mattermost' ) . '</h3>';
     die ();
 }
 
@@ -249,7 +249,7 @@ if ( ! empty( $_GET['error'] ) ) {
     // Check for expired token
     if ( $token->hasExpired() ) {
         error_log( basename( __FILE__ ) . ': External OAuth2 token has expired [' . $e->getMessage() . ']' );
-        echo '<h3>' . esc_html__( 'External OAuth2 token has expired', CBMM_PLUGINNAME_SLUG ) . '</h3>';
+        echo '<h3>' . esc_html__( 'External OAuth2 token has expired', 'cloudbridge-mattermost' ) . '</h3>';
         die();
     }
     // Fetch user details

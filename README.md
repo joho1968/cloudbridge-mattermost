@@ -1,4 +1,4 @@
-[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.8-orange?style=flat-square)](https://wordpress.org) [![WordPress 6](https://img.shields.io/badge/WordPress-6-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com)
+[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.2\+](https://img.shields.io/badge/PHP-7.2-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5](https://img.shields.io/badge/WordPress-5.8-orange?style=flat-square)](https://wordpress.org) [![WordPress 6](https://img.shields.io/badge/WordPress-6-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com) [![Mattermost 8](https://img.shields.io/badge/Mattermost-8-blue?style=flat-square)](https://mattermost.com) [![Mattermost 9](https://img.shields.io/badge/Mattermost-9-blue?style=flat-square)](https://mattermost.com)
 
 # Cloudbridge Mattermost (CBMM)
 
@@ -33,8 +33,8 @@ The plugin can also make use of additional functionality such as posting to a sp
 ### Other notes
 
 * This plugin may work with earlier versions of WordPress
-* This plugin has been tested with `WordPress 5.5.3 to 6.2.2` at the time of this writing
-* This plugin has been tested with `Mattermost 5.x to 7.x` at the time of this writing
+* This plugin has been tested with `WordPress 5.5.3 to 6.5.5` at the time of this writing
+* This plugin has been tested with `Mattermost 5.x to 8.x` at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -75,6 +75,11 @@ The 'url' item contains the url to the OAuth2 handler for the plugin, you should
 Your function should always return an associative array. If you want to update just the 'text' item, simply do so in the array passed to your function and then return the same array. If you want to completely replace the full HTML output, add an item named 'override' to the returned array.
 
 ## Changelog
+
+### 2.2.1
+* Refactor code to prevent warnings in PHP log while checking roles
+* Verified with Mattermost 8.x, 9.x and WordPress 6.5.x
+* Updated various dependencies
 
 ### 2.2.0
 * Improved support for Mattermost accounts with 2FA/MFA enabled

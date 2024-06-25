@@ -1,5 +1,5 @@
 # Cloudbridge Mattermost WordPress plugin SWEDISH translation
-# Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen
+# Copyright (C) 2020-2024 Joaquim Homrighausen
 # This file is distributed under the same license as the Cloudbridge Mattermost package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
 #
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cloudbridge-mattermost-2.2.0\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
 "POT-Creation-Date: 2020-11-26 11:05+0000\n"
-"POT-Revision-Date: 2022-08-02 08:00+0100\n"
+"PO-Revision-Date: 2024-06-25 09:30+0100\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: SWEDISH <joho@webbplatsen.se>\n"
 "Language: sv_SE\n"
@@ -591,3 +591,23 @@ msgstr "Det gick inte att registrera via Mattermost"
 #: cloudbridge-mattermost.php:1848 cloudbridge-mattermost.php:1852
 msgid "Use Mattermost to register"
 msgstr "Registrera via Mattermost"
+
+#: cloudbridge-mattermost.php:661
+msgid "Other plugins"
+msgstr "Andra tillägg"
+
+#: cloudbridge-mattermost.php:665
+msgid ""
+"Security plugin that provides integration with fail2ban and many other "
+"security features for WordPress"
+msgstr ""
+"Säkerhetstillägg som tillhandahåller integration med fail2ban och många "
+"säkerhetsfunktioner för WordPress"
+
+#: cloudbridge-mattermost.php:670
+msgid "Plugin that provides uncomplicated 2FA functionality for WordPress"
+msgstr "Ett tillägg som tillhandahåller okomplicerad 2FA-funktionalitet för WordPress"
+
+#: cloudbridge-mattermost.php:675
+msgid "Plugin that provides uncomplicated map functionality"
+msgstr "Ett tillägg som tillhandahåller okomplicerad kartfunktionalitet"

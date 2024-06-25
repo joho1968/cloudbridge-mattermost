@@ -11,7 +11,7 @@
  * Plugin Name:       Cloudbridge Mattermost
  * Plugin URI:        https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
  * Description:       Mattermost integration for WordPress
- * Version:           2.2.0
+ * Version:           2.2.1
  * Author:            WebbPlatsen, Joaquim Homrighausen <joho@webbplatsen.se>
  * Author URI:        https://webbplatsen.se/
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@
  * Domain Path:       /languages
  *
  * cloudbridge-mattermost.php
- * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
+ * Copyright (C) 2020-2024 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-define( 'CBMM_VERSION',                 '2.2.0'                  );
+define( 'CBMM_VERSION',                 '2.2.1'                  );
 define( 'CBMM_REV',                     1                        );
 define( 'CBMM_PLUGINNAME_HUMAN',        'Cloudbridge Mattermost' );
 define( 'CBMM_PLUGINNAME_SLUG',         'cloudbridge-mattermost' );
@@ -137,27 +137,22 @@ class Cloudbridge_Mattermost {
     protected $cbmm_wordpress_users_can_register;               // @since 2.2.0
 
 
-    public static function getInstance( string $version = '', string $slug = '' ) {
-        null === self::$instance AND self::$instance = new self( $version, $slug );
+    public static function getInstance( string $version = '' ) {
+        null === self::$instance AND self::$instance = new self( $version );
         return self::$instance;
     }
     /**
      * Start me up ...
      */
-    public function __construct( string $version = '', string $slug = '' ) {
+    public function __construct( string $version = '' ) {
         if ( empty( $version ) ) {
             if ( defined( 'CBMM_VERSION' ) ) {
                 $this->version = CBMM_VERSION;
             } else {
-                $this->version = '2.2.0';
+                $this->version = '2.2.1';
             }
         } else {
             $this->version = $version;
-        }
-        if ( empty( $slug ) ) {
-            $this->plugin_name = CBMM_PLUGINNAME_SLUG;
-        } else {
-            $this->plugin_name = $slug;
         }
         // Fetch WordPress stuff
         $this->cbmm_wordpress_users_can_register = get_option( 'users_can_register' );
@@ -253,8 +248,8 @@ class Cloudbridge_Mattermost {
      * @since 2.1.0
      */
     public function cbmm_settings_link( array $links ) {
-        $our_link = '<a href ="' . esc_url( admin_url() . 'options-general.php?page=' . $this->plugin_name ) . '">' .
-                                   esc_html__( 'Settings', $this->plugin_name ) . '</a> ';
+        $our_link = '<a href ="' . esc_url( admin_url() . 'options-general.php?page=' . 'cloudbridge-mattermost' ) . '">' .
+                                   esc_html__( 'Settings', 'cloudbridge-mattermost' ) . '</a> ';
         array_unshift( $links, $our_link );
         return ( $links );
     }
@@ -376,7 +371,7 @@ class Cloudbridge_Mattermost {
      * @since 1.0.0
      */
     public function cbmm_setup_css() {
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css', array(), $this->resource_mtime( dirname(__FILE__).'/css/cloudbridge-mattermost.css' ), 'all' );
+        wp_enqueue_style( 'cloudbridge-mattermost', plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css', array(), $this->resource_mtime( dirname(__FILE__).'/css/cloudbridge-mattermost.css' ), 'all' );
     }
     /**
      * Setup CSS for login page
@@ -405,7 +400,7 @@ class Cloudbridge_Mattermost {
         if ( $this->cbmm_force_locale_ENUS || $force_override ) {
             return( $lang_string );
         } else {
-            return( __($lang_string, $this->plugin_name ) );
+            return( __( $lang_string, 'cloudbridge-mattermost' ) );
         }
     }
 
@@ -558,28 +553,28 @@ class Cloudbridge_Mattermost {
         //
         $html = '<div class="wrap">';
             $html .= '<h1><span class="dashicons dashicons-cloud" style="vertical-align:middle;"></span>&nbsp;' . CBMM_PLUGINNAME_HUMAN . '</h1>';
-            $html .= '<p>' . esc_html__( 'Provides integration between Mattermost and WordPress', $this->plugin_name ) . '</p>';
+            $html .= '<p>' . esc_html__( 'Provides integration between Mattermost and WordPress', 'cloudbridge-mattermost' ) . '</p>';
             $html .= '<nav class="nav-tab-wrapper">';
             $html .= '<a href="' . $action . '" class="nav-tab' . ( empty( $this->cbmm_settings_tab ) ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'Basic configuration', $this->plugin_name ) .
+                     esc_html__( 'Basic configuration', 'cloudbridge-mattermost' ) .
                      '</a>';
             $html .= '<a href="' . $action . '&tab=notify" class="nav-tab' . ( $this->cbmm_settings_tab === 'notify' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'Notifications', $this->plugin_name ) .
+                     esc_html__( 'Notifications', 'cloudbridge-mattermost' ) .
                      '</a>';
             $html .= '<a href="' . $action . '&tab=emoji" class="nav-tab' . ( $this->cbmm_settings_tab === 'emoji' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'Emoji', $this->plugin_name ) .
+                     esc_html__( 'Emoji', 'cloudbridge-mattermost' ) .
                      '</a>';
             $html .= '<a href="' . $action . '&tab=advanced" class="nav-tab' . ( $this->cbmm_settings_tab === 'advanced' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'Advanced', $this->plugin_name ) .
+                     esc_html__( 'Advanced', 'cloudbridge-mattermost' ) .
                      '</a>';
             $html .= '<a href="' . $action . '&tab=oauth2" class="nav-tab' . ( $this->cbmm_settings_tab === 'oauth2' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'OAuth2', $this->plugin_name ) .
+                     esc_html__( 'OAuth2', 'cloudbridge-mattermost' ) .
                      '</a>';//@since 2.0.0
             $html .= '<a href="' . $action . '&tab=cloudflare" class="nav-tab' . ( $this->cbmm_settings_tab === 'cloudflare' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'Cloudflare', $this->plugin_name ) .
+                     esc_html__( 'Cloudflare', 'cloudbridge-mattermost' ) .
                      '</a>';//@since 2.1.0
             $html .= '<a href="' . $action . '&tab=about" class="nav-tab' . ( $this->cbmm_settings_tab === 'about' ? ' nav-tab-active':'' ) . '">'.
-                     esc_html__( 'About', $this->plugin_name ) .
+                     esc_html__( 'About', 'cloudbridge-mattermost' ) .
                      '</a>';
             $html .= '</nav>';
             ob_start();
@@ -595,7 +590,7 @@ class Cloudbridge_Mattermost {
                                 ! wp_http_validate_url( $this->cbmm_mm_webhook ) ) {
 
                             $html .= '<div class="notice notice-error is-dismissible"><p><strong>'.
-                                     esc_html__( 'Please enter a valid URL for your Mattermost webhook', $this->plugin_name ).
+                                     esc_html__( 'Please enter a valid URL for your Mattermost webhook', 'cloudbridge-mattermost' ).
                                      '</strong></p></div>';
                         }
                         break;
@@ -604,7 +599,7 @@ class Cloudbridge_Mattermost {
                                 esc_url_raw( $this->cbmm_oauth2_mm_base_url ) !== $this->cbmm_oauth2_mm_base_url ||
                                     ! wp_http_validate_url( $this->cbmm_oauth2_mm_base_url ) ) {
                             $html .= '<div class="notice notice-error is-dismissible"><p><strong>'.
-                                     esc_html__( 'Please enter a valid URL for your Mattermost instance', $this->plugin_name ).
+                                     esc_html__( 'Please enter a valid URL for your Mattermost instance', 'cloudbridge-mattermost' ).
                                      '</strong></p></div>';
                         }
                         break;
@@ -645,23 +640,41 @@ class Cloudbridge_Mattermost {
     public function cbmm_about_page() {
         echo '<div class="tab-content">';
         echo '<div class="cbmm-config-header">'.
-             '<p>'  . esc_html__( 'Thank you for installing', $this->plugin_name ) .' Cloudbridge Mattermost!' . '</p>'.
-             '<p>'  . esc_html__( 'This plugin will provide some integration between WordPress and', $this->plugin_name ) . ' <a href="https://mattermost.org" class="cbmm-ext-link" target="_blank">Mattermost</a></p>'.
+             '<p>'  . esc_html__( 'Thank you for installing', 'cloudbridge-mattermost' ) .' Cloudbridge Mattermost!' . '</p>'.
+             '<p>'  . esc_html__( 'This plugin will provide some integration between WordPress and', 'cloudbridge-mattermost' ) . ' <a href="https://mattermost.org" class="cbmm-ext-link" target="_blank">Mattermost</a></p>'.
              '</div>';
         echo '<div class="cbmm-config-section">'.
              '<p>'  . '<img class="cbmm-wps-logo" alt="" src="' . plugin_dir_url( __FILE__ ) . 'img/webbplatsen_logo.png" />' .
-                      esc_html__( 'Commercial support and customizations for this plugin is available from', $this->plugin_name ) .
+                      esc_html__( 'Commercial support and customizations for this plugin is available from', 'cloudbridge-mattermost' ) .
                       ' <a class="cbmm-ext-link" href="https://webbplatsen.se" target="_blank">WebbPlatsen i Sverige AB</a> '.
-                      esc_html__('in Stockholm, Sweden. We speak Swedish and English', $this->plugin_name ) . ' :-)' .
+                      esc_html__('in Stockholm, Sweden. We speak Swedish and English', 'cloudbridge-mattermost' ) . ' :-)' .
                       '<br/><br/>' .
-                      esc_html__( 'The plugin is written by Joaquim Homrighausen and sponsored by WebbPlatsen i Sverige AB.', $this->plugin_name ) . '</p>' .
-             '<p>'  . esc_html__( 'If you find this plugin useful, the author is happy to receive a donation, good review, or just a kind word.', $this->plugin_name ) .
+                      esc_html__( 'The plugin is written by Joaquim Homrighausen and sponsored by WebbPlatsen i Sverige AB.', 'cloudbridge-mattermost' ) . '</p>' .
+             '<p>'  . esc_html__( 'If you find this plugin useful, the author is happy to receive a donation, good review, or just a kind word.', 'cloudbridge-mattermost' ) .
                       ' ' .
-                      esc_html__( 'If there is something you feel to be missing from this plugin, or if you have found a problem with the code or a feature, please do not hesitate to reach out to', $this->plugin_name ) .
+                      esc_html__( 'If there is something you feel to be missing from this plugin, or if you have found a problem with the code or a feature, please do not hesitate to reach out to', 'cloudbridge-mattermost' ) .
                                   ' <a class="cbmm-ext-link" href="mailto:support@webbplatsen.se">support@webbplatsen.se</a>.' .
                       ' ' .
-                      esc_html__( 'There is more documentation available at', $this->plugin_name ) . ' <a href="https://code.webbplatsen.net/documentation/cloudbridge-mattermost" target="_blank">code.webbplatsen.net/documentation/cloudbridge-mattermost</a>' .
-             '</p>';
+                      esc_html__( 'There is more documentation available at', 'cloudbridge-mattermost' ) . ' <a href="https://code.webbplatsen.net/documentation/cloudbridge-mattermost" target="_blank">code.webbplatsen.net/documentation/cloudbridge-mattermost</a>' .
+             '</p>' .
+            '<p style="margin-top:20px;">' .
+                '<h3>' . esc_html__( 'Other plugins', 'cloudbridge-mattermost' ) . '</h3>' .
+                '<p style="margin-top:5px;">' .
+                    '<a href="https://wordpress.org/plugins/fail2wp" target="_blank" class="cbmm-ext-link">Fail2WP</a>' .
+                    '<br/>' .
+                    esc_html__( 'Security plugin that provides integration with fail2ban and many other security features for WordPress', 'cloudbridge-mattermost' ) . '.' .
+                '</p>' .
+                '<p style="margin-top:5px;">' .
+                    '<a href="https://wordpress.org/plugins/cloudbridge-2fa" target="_blank" class="cbmm-ext-link">Cloudbridge 2FA</a>' .
+                    '<br/>' .
+                    esc_html__( 'Plugin that provides uncomplicated 2FA functionality for WordPress', 'cloudbridge-mattermost' ) . '.' .
+                '</p>' .
+                '<p style="margin-top:5px;">' .
+                    '<a href="https://wordpress.org/plugins/easymap" target="_blank" class="cbmm-ext-link">EasyMap</a>' .
+                    '<br/>' .
+                    esc_html__( 'Plugin that provides uncomplicated map functionality', 'cloudbridge-mattermost' ) . '.' .
+               '</p>' .
+            '</p>' .
              '</div>';
         echo '</div>';
     }
@@ -675,51 +688,51 @@ class Cloudbridge_Mattermost {
             return;
         }
         add_settings_section( 'cbmm-settings', '', false, 'cbmm-settings' );
-          add_settings_field( 'cbmm-site-label', esc_html__( 'Site label', $this->plugin_name ), [$this, 'cbmm_setting_site_label'], 'cbmm-settings', 'cbmm-settings', ['label_for' => 'cbmm-site-label'] );
-          add_settings_field( 'cbmm-mm-webhook', esc_html__( 'Webhook URL', $this->plugin_name ), [$this, 'cbmm_setting_webhook_url'], 'cbmm-settings', 'cbmm-settings', ['label_for' => 'cbmm-mm-webhook'] );
-        add_settings_section( 'cbmm_section_other', esc_html__( 'Other settings', $this->plugin_name ), false, 'cbmm-settings' );
-          add_settings_field( 'cbmm-force-locale-enus', esc_html__( 'Force locale en_US', $this->plugin_name ), [$this, 'cbmm_setting_force_locale_enus'], 'cbmm-settings', 'cbmm_section_other', ['label_for' => 'cbmm-force-locale-enus'] );
-          add_settings_field( 'cbmm-settings-remove', esc_html__( 'Remove settings', $this->plugin_name ), [$this, 'cbmm_setting_remove'], 'cbmm-settings', 'cbmm_section_other', ['label_for' => 'cbmm-settings-remove'] );
+          add_settings_field( 'cbmm-site-label', esc_html__( 'Site label', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_site_label'], 'cbmm-settings', 'cbmm-settings', ['label_for' => 'cbmm-site-label'] );
+          add_settings_field( 'cbmm-mm-webhook', esc_html__( 'Webhook URL', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_webhook_url'], 'cbmm-settings', 'cbmm-settings', ['label_for' => 'cbmm-mm-webhook'] );
+        add_settings_section( 'cbmm_section_other', esc_html__( 'Other settings', 'cloudbridge-mattermost' ), false, 'cbmm-settings' );
+          add_settings_field( 'cbmm-force-locale-enus', esc_html__( 'Force locale en_US', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_force_locale_enus'], 'cbmm-settings', 'cbmm_section_other', ['label_for' => 'cbmm-force-locale-enus'] );
+          add_settings_field( 'cbmm-settings-remove', esc_html__( 'Remove settings', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_remove'], 'cbmm-settings', 'cbmm_section_other', ['label_for' => 'cbmm-settings-remove'] );
 
         add_settings_section( 'cbmm_settings_notify', '', false, 'cbmm_settings_notify' );
-          add_settings_field( 'cbmm-roles-notify', esc_html__( 'Successful login', $this->plugin_name ), [$this, 'cbmm_setting_roles_notify'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-notify'] );
-          add_settings_field( 'cbmm-roles-warn', esc_html__( 'Unsuccessful login', $this->plugin_name ), [$this, 'cbmm_setting_roles_warn'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-warn'] );
+          add_settings_field( 'cbmm-roles-notify', esc_html__( 'Successful login', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_notify'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-notify'] );
+          add_settings_field( 'cbmm-roles-warn', esc_html__( 'Unsuccessful login', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_warn'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-warn'] );
           add_settings_field( 'cbmm-unknown-warn', '', [$this, 'cbmm_setting_unknown_notify'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-unknown-warn'] );
-          add_settings_field( 'cbmm-roles-password-reset', esc_html__( 'Password reset', $this->plugin_name ), [$this, 'cbmm_setting_roles_password_reset'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-password-reset'] );
-          add_settings_field( 'cbmm-roles-password-skip-email', esc_html__( 'Password reset, skip e-mail', $this->plugin_name ), [$this, 'cbmm_setting_password_reset_skip_email'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-password-skip-email'] );
-          add_settings_field( 'cbmm-notify-activate-plugin', esc_html__( 'Plugin activated', $this->plugin_name ), [$this, 'cbmm_setting_notify_plugin_activate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-activate-plugin'] );
-          add_settings_field( 'cbmm-notify-deactivate-plugin', esc_html__( 'Plugin deactivated', $this->plugin_name ), [$this, 'cbmm_setting_notify_plugin_deactivate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-deactivate-plugin'] );
-          add_settings_field( 'cbmm-notify-uninstall-plugin', esc_html__( 'Plugin uninstalled', $this->plugin_name ), [$this, 'cbmm_setting_notify_plugin_uninstall'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-uninstall-plugin'] );
-          add_settings_field( 'cbmm-roles-user-add', esc_html__( 'New user added', $this->plugin_name ), [$this, 'cbmm_setting_roles_adduser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-add'] );
-          add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'User deleted', $this->plugin_name ), [$this, 'cbmm_setting_roles_deleteuser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-delete'] );
-          add_settings_field( 'cbmm-link-admin', esc_html__( 'Link to WP Admin', $this->plugin_name ), [$this, 'cbmm_setting_link_admin'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-link-admin'] );
+          add_settings_field( 'cbmm-roles-password-reset', esc_html__( 'Password reset', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_password_reset'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-password-reset'] );
+          add_settings_field( 'cbmm-roles-password-skip-email', esc_html__( 'Password reset, skip e-mail', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_password_reset_skip_email'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-password-skip-email'] );
+          add_settings_field( 'cbmm-notify-activate-plugin', esc_html__( 'Plugin activated', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_activate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-activate-plugin'] );
+          add_settings_field( 'cbmm-notify-deactivate-plugin', esc_html__( 'Plugin deactivated', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_deactivate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-deactivate-plugin'] );
+          add_settings_field( 'cbmm-notify-uninstall-plugin', esc_html__( 'Plugin uninstalled', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_uninstall'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-uninstall-plugin'] );
+          add_settings_field( 'cbmm-roles-user-add', esc_html__( 'New user added', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_adduser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-add'] );
+          add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'User deleted', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_deleteuser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-delete'] );
+          add_settings_field( 'cbmm-link-admin', esc_html__( 'Link to WP Admin', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_link_admin'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-link-admin'] );
 
         add_settings_section( 'cbmm_settings_emoji', '', [$this, 'cbmm_settings_emoji_callback'], 'cbmm_settings_emoji' );
-          add_settings_field( 'cbmm-notice-emoji', esc_html__( 'Successful login', $this->plugin_name ), [$this, 'cbmm_setting_notice_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-notice-emoji'] );
-          add_settings_field( 'cbmm-warning-emoji', esc_html__( 'Failed login', $this->plugin_name ), [$this, 'cbmm_setting_warning_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-warning-emoji'] );
-          add_settings_field( 'cbmm-link-emoji', esc_html__( 'Admin link', $this->plugin_name ), [$this, 'cbmm_setting_link_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-link-emoji'] );
-          add_settings_field( 'cbmm-bell-emoji', esc_html__( 'General notice', $this->plugin_name ), [$this, 'cbmm_setting_bell_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-bell-emoji'] );
+          add_settings_field( 'cbmm-notice-emoji', esc_html__( 'Successful login', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notice_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-notice-emoji'] );
+          add_settings_field( 'cbmm-warning-emoji', esc_html__( 'Failed login', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_warning_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-warning-emoji'] );
+          add_settings_field( 'cbmm-link-emoji', esc_html__( 'Admin link', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_link_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-link-emoji'] );
+          add_settings_field( 'cbmm-bell-emoji', esc_html__( 'General notice', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_bell_emoji'], 'cbmm_settings_emoji', 'cbmm_settings_emoji', ['label_for' => 'cbmm-bell-emoji'] );
 
         add_settings_section( 'cbmm_settings_advanced', '', [$this, 'cbmm_settings_advanced_callback'], 'cbmm_settings_advanced' );
-          add_settings_field( 'cbmm-mm-username', esc_html__( 'Webhook username', $this->plugin_name ), [$this, 'cbmm_setting_mm_username'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-username'] );
-          add_settings_field( 'cbmm-mm-channel', esc_html__( 'Webhook channel', $this->plugin_name ), [$this, 'cbmm_setting_mm_channel'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-channel'] );
-          add_settings_field( 'cbmm-mm-mention', esc_html__( 'Additional @mention', $this->plugin_name ), [$this, 'cbmm_setting_mm_mention'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-mention'] );
+          add_settings_field( 'cbmm-mm-username', esc_html__( 'Webhook username', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_mm_username'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-username'] );
+          add_settings_field( 'cbmm-mm-channel', esc_html__( 'Webhook channel', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_mm_channel'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-channel'] );
+          add_settings_field( 'cbmm-mm-mention', esc_html__( 'Additional @mention', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_mm_mention'], 'cbmm_settings_advanced', 'cbmm_settings_advanced', ['label_for' => 'cbmm-mm-mention'] );
         //@since 2.0.0
         add_settings_section( 'cbmm_settings_oauth2', '', [$this, 'cbmm_settings_oauth2_callback'], 'cbmm_settings_oauth2' );
-          add_settings_field( 'cbmm-oauth2-base-url', esc_html__( 'Mattermost base URL', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_base_url'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-base-url'] );
-          add_settings_field( 'cbmm-oauth2-client-id', esc_html__( 'OAuth2 client ID', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_client_id'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-client-id'] );
-          add_settings_field( 'cbmm-oauth2-client-secret', esc_html__( 'OAuth2 client secret', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_client_secret'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-client-secret'] );
-          add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'Allowed OAuth2 login roles', $this->plugin_name ), [$this, 'cbmm_oauth2_mm_login_roles'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-roles-user-delete'] );
-          add_settings_field( 'cbmm-oauth2-allow-usernames', esc_html__( 'Match usernames', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_allow_usernames'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-usernames'] );
+          add_settings_field( 'cbmm-oauth2-base-url', esc_html__( 'Mattermost base URL', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_mm_base_url'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-base-url'] );
+          add_settings_field( 'cbmm-oauth2-client-id', esc_html__( 'OAuth2 client ID', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_mm_client_id'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-client-id'] );
+          add_settings_field( 'cbmm-oauth2-client-secret', esc_html__( 'OAuth2 client secret', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_mm_client_secret'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-client-secret'] );
+          add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'Allowed OAuth2 login roles', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_mm_login_roles'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-roles-user-delete'] );
+          add_settings_field( 'cbmm-oauth2-allow-usernames', esc_html__( 'Match usernames', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_setting_allow_usernames'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-usernames'] );
           //@since 2.2.0
-          add_settings_field( 'cbmm-oauth2-allow-register', esc_html__( 'Allow registration', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_allow_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-register'] );
-          add_settings_field( 'cbmm-oauth2-force-register', esc_html__( 'Force registration', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_force_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-force-register'] );
-          add_settings_field( 'cbmm-oauth2-use-mmidforuuname', esc_html__( 'Use Mattermost ID', $this->plugin_name ), [$this, 'cbmm_oauth2_setting_use_id_for_uuname'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-use-mmidforuuname'] );
+          add_settings_field( 'cbmm-oauth2-allow-register', esc_html__( 'Allow registration', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_setting_allow_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-allow-register'] );
+          add_settings_field( 'cbmm-oauth2-force-register', esc_html__( 'Force registration', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_setting_force_register'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-force-register'] );
+          add_settings_field( 'cbmm-oauth2-use-mmidforuuname', esc_html__( 'Use Mattermost ID', 'cloudbridge-mattermost' ), [$this, 'cbmm_oauth2_setting_use_id_for_uuname'], 'cbmm_settings_oauth2', 'cbmm_settings_oauth2', ['label_for' => 'cbmm-oauth2-use-mmidforuuname'] );
           //@since 2.1.0
         add_settings_section( 'cbmm_settings_cloudflare', '', [$this, 'cbmm_settings_cloudflare_callback'], 'cbmm_settings_cloudflare' );
-          add_settings_field( 'cbmm-cloudflare-check', esc_html__( 'Check for Cloudflare IP', $this->plugin_name ), [$this, 'cbmm_setting_cloudflare_check'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-check'] );
-          add_settings_field( 'cbmm-cloudflare-ipv4', esc_html__( 'Cloudflare IPv4', $this->plugin_name ), [$this, 'cbmm_settings_cloudflare_ipv4'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-ipv4'] );
-          add_settings_field( 'cbmm-cloudflare-ipv6', esc_html__( 'Cloudflare IPv6', $this->plugin_name ), [$this, 'cbmm_settings_cloudflare_ipv6'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-ipv6'] );
+          add_settings_field( 'cbmm-cloudflare-check', esc_html__( 'Check for Cloudflare IP', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_cloudflare_check'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-check'] );
+          add_settings_field( 'cbmm-cloudflare-ipv4', esc_html__( 'Cloudflare IPv4', 'cloudbridge-mattermost' ), [$this, 'cbmm_settings_cloudflare_ipv4'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-ipv4'] );
+          add_settings_field( 'cbmm-cloudflare-ipv6', esc_html__( 'Cloudflare IPv6', 'cloudbridge-mattermost' ), [$this, 'cbmm_settings_cloudflare_ipv6'], 'cbmm_settings_cloudflare', 'cbmm_settings_cloudflare', ['label_for' => 'cbmm-cloudflare-ipv6'] );
 
         register_setting( 'cbmm-settings', 'cbmm-site-label', ['type' => 'string', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_site_label']] );
         register_setting( 'cbmm-settings', 'cbmm-mm-webhook', ['type' => 'string', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_webhook']] );
@@ -865,15 +878,15 @@ class Cloudbridge_Mattermost {
     public function cbmm_setting_site_label() {
         $option_val = $this->cbmm_get_option( 'cbmm-site-label', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-site-label" name="cbmm-site-label" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'The site name to use for the webhook, defaults to your site name if left empty.', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'The site name to use for the webhook, defaults to your site name if left empty.', 'cloudbridge-mattermost' ) . '</p>';
     }
     public function cbmm_setting_webhook_url() {
         $option_val = $this->cbmm_get_option( 'cbmm-mm-webhook', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-mm-webhook" name="cbmm-mm-webhook" value="' . esc_attr( $option_val ). '" />';
         echo '<p class="description">' .
-             esc_html__( 'The URL for the Mattermost incoming webhook', $this->plugin_name ) .
+             esc_html__( 'The URL for the Mattermost incoming webhook', 'cloudbridge-mattermost' ) .
              '. ' .
-             '<a href="https://docs.mattermost.com/developer/webhooks-incoming.html" target="_blank">' . esc_html__( 'Please check the documentation for details', $this->plugin_name ) . '</a>' .
+             '<a href="https://docs.mattermost.com/developer/webhooks-incoming.html" target="_blank">' . esc_html__( 'Please check the documentation for details', 'cloudbridge-mattermost' ) . '</a>' .
              '</p>';
     }
     public function cbmm_setting_roles_notify($args) {
@@ -916,7 +929,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-unknown-warn', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-unknown-warn" id="cbmm-unknown-warn" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-unknown-warn">'. esc_html__( 'Unknown users', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-unknown-warn">'. esc_html__( 'Unknown users', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -962,7 +975,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-notify-activate-plugin', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-notify-activate-plugin" id="cbmm-notify-activate-plugin" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-notify-activate-plugin">'. esc_html__( 'Send notification when plugin is activated.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-notify-activate-plugin">'. esc_html__( 'Send notification when plugin is activated.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -970,7 +983,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-notify-deactivate-plugin', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-notify-deactivate-plugin" id="cbmm-notify-deactivate-plugin" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-notify-deactivate-plugin">'. esc_html__( 'Send notification when plugin is deactivated.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-notify-deactivate-plugin">'. esc_html__( 'Send notification when plugin is deactivated.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -978,7 +991,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-notify-uninstall-plugin', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-notify-uninstall-plugin" id="cbmm-notify-uninstall-plugin" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-notify-uninstall-plugin">'. esc_html__( 'Send notification when plugin is uninstalled.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-notify-uninstall-plugin">'. esc_html__( 'Send notification when plugin is uninstalled.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -1023,7 +1036,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-link-admin', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-link-admin" id="cbmm-link-admin" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-link-admin">'. esc_html__( 'Include link to WordPress Admin in notifications.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-link-admin">'. esc_html__( 'Include link to WordPress Admin in notifications.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -1031,14 +1044,14 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-force-locale-enus', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-force-locale-enus" id="cbmm-force-locale-enus" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-force-locale-enus">'. esc_html__( 'Force notifications to be sent in en_US locale (English).', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-force-locale-enus">'. esc_html__( 'Force notifications to be sent in en_US locale (English).', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     public function cbmm_setting_remove() {
         $option_val = $this->cbmm_get_option( 'cbmm-settings-remove', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-settings-remove" id="cbmm-settings-remove" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-settings-remove">'. esc_html__( 'Remove all CBMM plugin settings and data when plugin is uninstalled.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-settings-remove">'. esc_html__( 'Remove all CBMM plugin settings and data when plugin is uninstalled.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     public function cbmm_settings_emoji_callback() {
@@ -1047,9 +1060,9 @@ class Cloudbridge_Mattermost {
         }
         echo '<p>'.
              esc_html__( 'Emojis (markdown) can be configured for notices, warnings, and the admin link. ' .
-                         'If left empty here, the defaults will be used.', $this->plugin_name ).
+                         'If left empty here, the defaults will be used.', 'cloudbridge-mattermost' ).
              '<br/><br/>'.
-             esc_html__( 'You can find an emoji cheat sheet here', $this->plugin_name ).
+             esc_html__( 'You can find an emoji cheat sheet here', 'cloudbridge-mattermost' ).
              ': ' .
              '<a href="' . 'https://www.webfx.com/tools/emoji-cheat-sheet/' .'" target="_blank">'.
              'https://www.webfx.com/tools/emoji-cheat-sheet/' .
@@ -1058,22 +1071,22 @@ class Cloudbridge_Mattermost {
     public function cbmm_setting_notice_emoji() {
         $option_val = $this->cbmm_get_option( 'cbmm-notice-emoji', false );
         echo '<input type="text" size="30" maxlength="30" id="cbmm-notice-emoji" name="cbmm-notice-emoji" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', $this->plugin_name ) .' ' . CBMM_EMOJI_DEFAULT_NOTICE . '</p>';
+        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', 'cloudbridge-mattermost' ) .' ' . CBMM_EMOJI_DEFAULT_NOTICE . '</p>';
     }
     public function cbmm_setting_warning_emoji() {
         $option_val = $this->cbmm_get_option( 'cbmm-warning-emoji', false );
         echo '<input type="text" size="30" maxlength="30" id="cbmm-warning-emoji" name="cbmm-warning-emoji" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', $this->plugin_name ) .' ' . CBMM_EMOJI_DEFAULT_WARNING . '</p>';
+        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', 'cloudbridge-mattermost' ) .' ' . CBMM_EMOJI_DEFAULT_WARNING . '</p>';
     }
     public function cbmm_setting_link_emoji() {
         $option_val = $this->cbmm_get_option( 'cbmm-link-emoji', false );
         echo '<input type="text" size="30" maxlength="30" id="cbmm-link-emoji" name="cbmm-link-emoji" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', $this->plugin_name ) .' ' . CBMM_EMOJI_DEFAULT_LINK . '</p>';
+        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', 'cloudbridge-mattermost' ) .' ' . CBMM_EMOJI_DEFAULT_LINK . '</p>';
     }
     public function cbmm_setting_bell_emoji() {
         $option_val = $this->cbmm_get_option( 'cbmm-bell-emoji', false );
         echo '<input type="text" size="30" maxlength="30" id="cbmm-bell-emoji" name="cbmm-bell-emoji" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', $this->plugin_name ) .' ' . CBMM_EMOJI_DEFAULT_BELL . '</p>';
+        echo '<p class="description">' . esc_html__( 'Default emoji markdown is', 'cloudbridge-mattermost' ) .' ' . CBMM_EMOJI_DEFAULT_BELL . '</p>';
     }
     public function cbmm_settings_advanced_callback() {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
@@ -1082,23 +1095,23 @@ class Cloudbridge_Mattermost {
         echo '<p>'.
              esc_html__( 'These settings allow you to modify the content sent to Mattermost. Use of these ' .
                          'settings depend on how the webhook has been created/configured in Mattermost. Some ' .
-                         'of these settings may cause a notification to be rejected by Mattermost.', $this->plugin_name ).
+                         'of these settings may cause a notification to be rejected by Mattermost.', 'cloudbridge-mattermost' ).
              '</p>';
     }
     public function cbmm_setting_mm_username() {
         $option_val = $this->cbmm_get_option( 'cbmm-mm-username', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-mm-username" name="cbmm-mm-username" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'The username to use for the webhook, this should normally be left empty.', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'The username to use for the webhook, this should normally be left empty.', 'cloudbridge-mattermost' ) . '</p>';
     }
     public function cbmm_setting_mm_channel() {
         $option_val = $this->cbmm_get_option( 'cbmm-mm-channel', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-mm-channel" name="cbmm-mm-channel" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'The channel to use for the webhook, this should normally be left empty.', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'The channel to use for the webhook, this should normally be left empty.', 'cloudbridge-mattermost' ) . '</p>';
     }
     public function cbmm_setting_mm_mention() {
         $option_val = $this->cbmm_get_option( 'cbmm-mm-mention', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-mm-mention" name="cbmm-mm-mention" value="' . esc_attr( $option_val ). '" />';
-        echo '<p class="description">' . esc_html__( 'Additional @mention to include with the notification, this should normally be left empty.', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Additional @mention to include with the notification, this should normally be left empty.', 'cloudbridge-mattermost' ) . '</p>';
     }
     //@since 2.0.0
     public function cbmm_settings_oauth2_callback() {
@@ -1106,9 +1119,9 @@ class Cloudbridge_Mattermost {
             return;
         }
         echo '<p>' .
-             esc_html__( 'These settings allow you to configure the OAuth2 integration between WordPress and Mattermost.', $this->plugin_name ).
+             esc_html__( 'These settings allow you to configure the OAuth2 integration between WordPress and Mattermost.', 'cloudbridge-mattermost' ).
              '<br/>' .
-             '<a href="https://developers.mattermost.com/integrate/admin-guide/admin-oauth2/" target="_blank">' . esc_html__( 'Please check the documentation for details', $this->plugin_name ) . '</a>' .
+             '<a href="https://developers.mattermost.com/integrate/admin-guide/admin-oauth2/" target="_blank">' . esc_html__( 'Please check the documentation for details', 'cloudbridge-mattermost' ) . '</a>' .
              '<br/>' .
              '<br/>' .
              '</p>';
@@ -1118,7 +1131,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-base-url', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-oauth2-base-url" name="cbmm-oauth2-base-url" value="' . esc_attr( $option_val ). '" />';
         echo '<p class="description">' .
-             esc_html__( 'The base URL for Mattermost to use for OAuth2 integration', $this->plugin_name ) .
+             esc_html__( 'The base URL for Mattermost to use for OAuth2 integration', 'cloudbridge-mattermost' ) .
              '</p>';
     }
     //@since 2.0.0
@@ -1126,7 +1139,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-client-id', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-oauth2-client-id" name="cbmm-oauth2-client-id" value="' . esc_attr( $option_val ). '" />';
         echo '<p class="description">' .
-             esc_html__( 'OAuth2 client ID, from your Mattermost integration setting', $this->plugin_name ) .
+             esc_html__( 'OAuth2 client ID, from your Mattermost integration setting', 'cloudbridge-mattermost' ) .
              '</p>';
     }
     //@since 2.0.0
@@ -1134,7 +1147,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-client-secret', false );
         echo '<input type="text" size="60" maxlength="200" id="cbmm-oauth2-client-secret" name="cbmm-oauth2-client-secret" value="' . esc_attr( $option_val ). '" />';
         echo '<p class="description">' .
-             esc_html__( 'OAuth2 client secret, from your Mattermost integration setting', $this->plugin_name ) .
+             esc_html__( 'OAuth2 client secret, from your Mattermost integration setting', 'cloudbridge-mattermost' ) .
              '</p>';
     }
     //@since 2.0.0
@@ -1160,7 +1173,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-allow-usernames', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-oauth2-allow-usernames" id="cbmm-oauth2-allow-usernames" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-oauth2-allow-usernames">'. esc_html__( 'Attempt to match Mattermost and WordPress usernames if e-mail match fails.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-oauth2-allow-usernames">'. esc_html__( 'Attempt to match Mattermost and WordPress usernames if e-mail match fails.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 2.2.0
@@ -1168,9 +1181,9 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-allow-register', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-oauth2-allow-register" id="cbmm-oauth2-allow-register" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-oauth2-allow-register">'. esc_html__( 'Allow new users to sign up to WordPress via Mattermost.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-oauth2-allow-register">'. esc_html__( 'Allow new users to sign up to WordPress via Mattermost.', 'cloudbridge-mattermost' ) . '</label> ';
         if ( ! $this->cbmm_wordpress_users_can_register ) {
-            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', $this->plugin_name ) . '</strong></p>';
+            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', 'cloudbridge-mattermost' ) . '</strong></p>';
         }
         echo '</div>';
     }
@@ -1178,9 +1191,9 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-force-register', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-oauth2-force-register" id="cbmm-oauth2-force-register" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-oauth2-force-register">'. esc_html__( 'Only allow new users to sign up to WordPress via Mattermost.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-oauth2-force-register">'. esc_html__( 'Only allow new users to sign up to WordPress via Mattermost.', 'cloudbridge-mattermost' ) . '</label> ';
         if ( ! $this->cbmm_wordpress_users_can_register ) {
-            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', $this->plugin_name ) . '</strong></p>';
+            echo '<p class="description"><strong>' . esc_html__( 'Note: WordPress user registration is disabled', 'cloudbridge-mattermost' ) . '</strong></p>';
         }
         echo '</div>';
     }
@@ -1188,7 +1201,7 @@ class Cloudbridge_Mattermost {
         $option_val = $this->cbmm_get_option( 'cbmm-oauth2-use-mmidforuuname', false );
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-oauth2-use-mmidforuuname" id="cbmm-oauth2-use-mmidforuuname" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
-        echo '<label for="cbmm-oauth2-use-mmidforuuname">'. esc_html__( 'Use Mattermost user ID to avoid duplicate usernames.', $this->plugin_name ) . '</label> ';
+        echo '<label for="cbmm-oauth2-use-mmidforuuname">'. esc_html__( 'Use Mattermost user ID to avoid duplicate usernames.', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 2.1.0
@@ -1197,11 +1210,11 @@ class Cloudbridge_Mattermost {
             return;
         }
         echo '<p>'.
-             esc_html__( 'These settings allows the plugin to better interact with Cloudflare.', $this->plugin_name ).
+             esc_html__( 'These settings allows the plugin to better interact with Cloudflare.', 'cloudbridge-mattermost' ).
              ' ' .
-             esc_html__( 'If your site is not published via Cloudflare, you can safely ignore these settings.', $this->plugin_name ).
+             esc_html__( 'If your site is not published via Cloudflare, you can safely ignore these settings.', 'cloudbridge-mattermost' ).
              '<br/><br/>' .
-             esc_html__( 'For an updated list of Cloudflare IPs, please use this link', $this->plugin_name ) .
+             esc_html__( 'For an updated list of Cloudflare IPs, please use this link', 'cloudbridge-mattermost' ) .
              ': '.
              '<a href="https://www.cloudflare.com/ips/" target="_blank">'.
              'www.cloudflare.com/ips' .
@@ -1213,20 +1226,20 @@ class Cloudbridge_Mattermost {
         echo '<div class="cbmm-role-option">';
         echo '<label for="cbmm-cloudflare-check">';
         echo '<input type="checkbox" name="cbmm-cloudflare-check" id="cbmm-cloudflare-check" value="1" ' . ( checked( $this->cbmm_cloudflare_check, 1, false ) ) . '/>';
-        echo esc_html__( 'Attempt to unmask real IP when Cloudflare IP is detected', $this->plugin_name ) . '</label> ';
+        echo esc_html__( 'Attempt to unmask real IP when Cloudflare IP is detected', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     public function cbmm_settings_cloudflare_ipv4() {
         echo '<textarea rows="10" cols="30" id="cbmm-cloudflare-ipv4" name="cbmm-cloudflare-ipv4" class="large-text code">';
         echo implode( "\n", $this->cbmm_cloudflare_ipv4 );
         echo '</textarea>';
-        echo '<p class="description">' . esc_html__( 'IPs matching these addresses will be considerd to be coming from Cloudflare', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'IPs matching these addresses will be considerd to be coming from Cloudflare', 'cloudbridge-mattermost' ) . '</p>';
     }
     public function cbmm_settings_cloudflare_ipv6() {
         echo '<textarea rows="10" cols="30" id="cbmm-cloudflare-ipv6" name="cbmm-cloudflare-ipv6" class="large-text code">';
         echo implode( "\n", $this->cbmm_cloudflare_ipv6 );
         echo '</textarea>';
-        echo '<p class="description">' . esc_html__( 'IPs matching these addresses will be considerd to be coming from Cloudflare', $this->plugin_name ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'IPs matching these addresses will be considerd to be coming from Cloudflare', 'cloudbridge-mattermost' ) . '</p>';
     }
 
     /**
@@ -1357,7 +1370,7 @@ class Cloudbridge_Mattermost {
                 }
                 $name = $this->cbmm_get_message_user_display( $context );
                 $alert_message = $this->cbmm_bell_emoji . ' ' . $this->cbmm_get_lang_string( 'Password reset by' ) .
-                                 ' ' . $name . $remote_ip . ' ' . __( 'on', $this->plugin_name ) . ' ' . '`' . $this->cbmm_site_label . '`' . "\n";
+                                 ' ' . $name . $remote_ip . ' ' . __( 'on', 'cloudbridge-mattermost' ) . ' ' . '`' . $this->cbmm_site_label . '`' . "\n";
                 break;
             case CBMM_ALERT_PLUGIN_ACTIVATE:                    // @since 1.1.0
             case CBMM_ALERT_PLUGIN_DEACTIVATE:                  // @since 1.1.0
@@ -1442,7 +1455,7 @@ class Cloudbridge_Mattermost {
         // too, but we're likely to have less configured roles/caps than what
         // is available. So maybe this will save an iteration or two :-)
         foreach( $notify_array as $role ) {
-            if ( in_array( $role, $roles ) && $roles[$role] ) {
+            if ( in_array( $role, $roles ) && ! empty( $roles[$role] ) ) {
                 return( true );
             }
         }
@@ -1470,7 +1483,7 @@ class Cloudbridge_Mattermost {
         // too, but we're likely to have less configured roles/caps than what
         // is available. So maybe this will save an iteration or two :-)
         foreach( $notify_array as $role ) {
-            if ( in_array( $role, $roles ) && $roles[$role] ) {
+            if ( in_array( $role, $roles ) && ! empty( $roles[$role] ) ) {
                 $new_roles[] = $role;
             }
         }
@@ -1712,8 +1725,9 @@ class Cloudbridge_Mattermost {
      * Handle notifications for when a user is deleted.
      *
      * @since 1.1.0
-     * @param string $plugin The relative path and the filename of the main plugin file
-     * @param bool $uninstall_success If the uninstallation was successful
+     * @param int $user_id The (numerical) user ID of the user being deleted
+     * @param bool $reassign If reassignment should occur
+     * @param WP_User $user The user object being deleted
      */
     public function cbmm_handle_delete_user( int $user_id, $reassign, \WP_User $user ) {
         $role_caps = $user->get_role_caps();
@@ -1741,37 +1755,37 @@ class Cloudbridge_Mattermost {
         if ( empty( $message ) && ! empty( $_GET['cbmm_oauth2_failed'] )) {
             switch( (int)$_GET['cbmm_oauth2_failed'] ) {
                 case CBMM_OAUTH_REDERR_NOEMAIL:
-                    $message = __('Mattermost account indicates no valid e-mail address', $this->plugin_name );
+                    $message = __('Mattermost account indicates no valid e-mail address', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOID:
-                    $message = __('Mattermost account indicates no valid ID', $this->plugin_name );
+                    $message = __('Mattermost account indicates no valid ID', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOTOKEN:
-                    $message = __( 'Unable to retrieve OAuth2 access token', $this->plugin_name );
+                    $message = __( 'Unable to retrieve OAuth2 access token', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOVERIFY:
-                    $message = __( 'Unable to verify OAuth2 callback', $this->plugin_name );
+                    $message = __( 'Unable to verify OAuth2 callback', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_BADSTATE:
-                    $message = __( 'Invalid OAuth2 state', $this->plugin_name );
+                    $message = __( 'Invalid OAuth2 state', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOUSER:
-                    $message = __( 'Unable to match WordPress user with Mattermost user', $this->plugin_name );
+                    $message = __( 'Unable to match WordPress user with Mattermost user', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOSESSION:
-                    $message = __( 'Unable to initialize OAuth2 session framework', $this->plugin_name );
+                    $message = __( 'Unable to initialize OAuth2 session framework', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOROLE:
-                    $message = __( 'Your user role is not allowed to sign in with OAuth2', $this->plugin_name );
+                    $message = __( 'Your user role is not allowed to sign in with OAuth2', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_NOREG:
-                    $message = __( 'New user registration via Mattermost is not enabled', $this->plugin_name );
+                    $message = __( 'New user registration via Mattermost is not enabled', 'cloudbridge-mattermost' );
                     break;
                 case CBMM_OAUTH_REDERR_BADCRED:
-                    $message = __( 'Unable to register via Mattermost', $this->plugin_name );
+                    $message = __( 'Unable to register via Mattermost', 'cloudbridge-mattermost' );
                     break;
                 default:
-                    $message = __('Unable to complete OAuth2 authentication', $this->plugin_name );
+                    $message = __('Unable to complete OAuth2 authentication', 'cloudbridge-mattermost' );
                     break;
             }
             $message = '<div id="login_error">' . esc_html( $message ) . '<br /></div>';
@@ -1801,11 +1815,11 @@ class Cloudbridge_Mattermost {
             $url = $this->cbmm_config_get_oauth2_callback_url();
         }
         $filter_parm = array( 'url'  => $url,
-                              'text' => esc_html__( 'Use Mattermost to login', $this->plugin_name ),
+                              'text' => esc_html__( 'Use Mattermost to login', 'cloudbridge-mattermost' ),
                               'full' => '<div id="cbmm_login_form">' .
                                         '<a href="' . esc_url_raw( $url ). '" '.
                                         'class="button button-secondary button-large cbmm-mattermost-button">'.
-                                        esc_html__( 'Use Mattermost to login', $this->plugin_name ).
+                                        esc_html__( 'Use Mattermost to login', 'cloudbridge-mattermost' ).
                                         '</a>'.
                                         '</div>');
         $filtered = apply_filters( 'cbmm_login_filter', $filter_parm );
@@ -1845,11 +1859,11 @@ class Cloudbridge_Mattermost {
         $url = add_query_arg( 'cbmm_register', 'yes', $url );
         // Build array for filter
         $filter_parm = array( 'url'  => $url,
-                              'text' => esc_html__( 'Use Mattermost to register', $this->plugin_name ),
+                              'text' => esc_html__( 'Use Mattermost to register', 'cloudbridge-mattermost' ),
                               'full' => '<div id="cbmm_login_form">' .
                                         '<a href="' . esc_url_raw( $url ). '" '.
                                         'class="button button-secondary button-large cbmm-mattermost-button">'.
-                                        esc_html__( 'Use Mattermost to register', $this->plugin_name ).
+                                        esc_html__( 'Use Mattermost to register', 'cloudbridge-mattermost' ).
                                         '</a>'.
                                         '</div>');
         // Allow filter to override output
@@ -2008,7 +2022,7 @@ class Cloudbridge_Mattermost {
      * @since 1.0.0
      */
     public function setup_locale() {
-        if ( ! load_plugin_textdomain( $this->plugin_name,
+        if ( ! load_plugin_textdomain( 'cloudbridge-mattermost',
                                        false,
                                        dirname( plugin_basename( __FILE__ ) ) . '/languages' ) ) {
             /**

@@ -1,4 +1,9 @@
 {
+    "config": {
+        "platform": {
+            "php": "7.4.33"
+        }
+    },
     "require": {
         "league/oauth2-client": "^2.6"
     }
