@@ -133,6 +133,7 @@ class Cloudbridge_Mattermost {
     protected $cbmm_cloudflare_ipv6;                            // @since 2.1.0
     protected $cbmm_cloudflare_check;                           // @since 2.1.0
     protected $cbmm_settings_remove;
+    protected $cbmm_site_label;
 
     protected $cbmm_wordpress_users_can_register;               // @since 2.2.0
 
