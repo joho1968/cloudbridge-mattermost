@@ -215,11 +215,11 @@ if ( ! empty( $_GET['error'] ) ) {
     header( 'Location: ' . $auth_url );
     die();
 } elseif ( empty( $_GET ['state'] ) ) {
-    error_log( basename( __FILE__ ) . ': Invalid OAuth2 state [' . $e->getMessage() . ']' );
+    // error_log( basename( __FILE__ ) . ': Invalid OAuth2 state [' . $e->getMessage() . ']' );
     cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADSTATE );
     die();
 } else {
-    $our_transient = CBMM_OAUTH_TRANSIENT_PREFIX . filter_var( $_GET['state'], FILTER_SANITIZE_STRING );
+    $our_transient = CBMM_OAUTH_TRANSIENT_PREFIX . filter_var( $_GET['state'], FILTER_SANITIZE_FULL_SPECIAL_CHARS );
     $transient_data = get_transient( $our_transient );
     if ( $transient_data === false ) {
         if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
