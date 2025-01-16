@@ -78,6 +78,11 @@ The 'url' item contains the url to the OAuth2 handler for the plugin, you should
 
 Your function should always return an associative array. If you want to update just the 'text' item, simply do so in the array passed to your function and then return the same array. If you want to completely replace the full HTML output, add an item named 'override' to the returned array.
 
+= What callback url do I have to setup on mattermost to make this application work? =
+
+Glad you asked! https://<the name of your site>/wp-content/plugins/mattermost/includes/cbmm-oauth2.php 
+if your wp-content/plugins folders are not in the same place than ours, then you will need to replace that with the correct route to it.
+
 == Changelog ==
 
 = 2.2.1 =
