@@ -2,10 +2,10 @@
 Contributors: joho68, webbplatsen
 Donate link: https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
 Tags: mattermost, cloud, integration, notifications, security
-Requires at least: 5.4.0
-Tested up to: 6.5
+Requires at least: 5.5.0
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,14 +30,16 @@ The plugin additionally provides the following **notification** functionality, u
 * Notifications for plugin uninstallation
 * Notifications for new/edited user
 * Notifications for deleted user
+* Notifications for admin e-mail change
 
 The plugin can also make use of additional functionality such as posting to a specific channel/user, overriding bot names, and additionally mention specific users.
 
 Other notes:
 
 * This plugin **may** work with earlier versions of WordPress
-* This plugin has been tested with **WordPress 5.5.3 to 6.5.5** at the time of this writing
-* This plugin has been tested with **Mattermost 5.x to 9.x** at the time of this writing
+* This plugin has been tested with **PHP 7.4.x and 8.1.x** at the time of this writing
+* This plugin has been tested with **WordPress 5.5.x to 6.7.x** at the time of this writing
+* This plugin has been tested with **Mattermost 5.x to 10.x** at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -78,7 +80,24 @@ The 'url' item contains the url to the OAuth2 handler for the plugin, you should
 
 Your function should always return an associative array. If you want to update just the 'text' item, simply do so in the array passed to your function and then return the same array. If you want to completely replace the full HTML output, add an item named 'override' to the returned array.
 
+= What callback URL do I have to setup on Mattermost =
+
+The URL should be:
+`https://<the name of your site>/wp-content/plugins/mattermost/includes/cbmm-oauth2.php`
+
+If your `wp-content/plugins` is not in a standard place, then you will need to replace that with the correct URL to it.
+
 == Changelog ==
+
+= 2.2.2 =
+* Added support for admin e-mail change notification
+* Added support for inhibiting admin e-mail address change e-mail sending
+* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.7.x
+* Thanks to Nelson (castillo-n) for various fixes (PR#1)
+* Added missing property `$cbmm_site_label` to class
+* Removed use of `FILTER_SANITIZE_STRING` (deprecated in PHP 8.1)
+* Removed use of uninitialized variables (exception handling)
+* Changed link to documentation for Mattermost webhooks
 
 = 2.2.1 =
 * Refactor code to prevent warnings in PHP log while checking roles
@@ -120,6 +139,9 @@ Your function should always return an associative array. If you want to update j
 
 == Upgrade Notice ==
 
+= 2.2.2 =
+* Simply install/upgrade to 2.2.2 and walk through the settings
+
 = 2.2.1 =
 * Simply install/upgrade to 2.2.1 and walk through the settings
 
@@ -139,9 +161,9 @@ Your function should always return an associative array. If you want to update j
 
 The Cloudbridge Mattermost WordPress Plugin was written by Joaquim Homrighausen while converting caffeine into code.
 
-Cloudbridge Mattermost is sponsored by [WebbPlatsen i Sverige AB](https://webbplatsen.se), Stockholm, Sweden.
+Cloudbridge Mattermost is sponsored by [WebbPlatsen i Sverige AB](https://webbplatsen.se), Sweden.
 
-Commercial support and customizations for this plugin is available from WebbPlatsen i Sverige AB in Stockholm, Sweden.
+Commercial support and customizations for this plugin is available from WebbPlatsen i Sverige AB in Sweden.
 
 If you find this plugin useful, the author is happy to receive a donation, good review, or just a kind word.
 

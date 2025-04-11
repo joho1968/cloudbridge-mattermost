@@ -30,19 +30,26 @@
  */
 namespace CloudbridgeMattermost;
 
-@ include $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
+if ( ! empty( $_SERVER['DOCUMENT_ROOT'] ) ) {
+	@ include $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
+} else {
+	$error_message = '$_SERVER[\'DOCUMENT_ROOT\'] not set';
+	error_log( basename( __FILE__ ) . ': ' . $error_message );
+	echo '<h3>' . esc_html( $error_message ) . '</h3>';
+	die ();
+}
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) || ! defined( 'ABSPATH' ) ) {
     $error_message = 'WordPress has not been initialized';
     error_log( basename( __FILE__ ) . ': ' . $error_message . ' [' . $_SERVER['DOCUMENT_ROOT'] . ']' );
-    echo '<h3>' . $error_message . '</h3>';
+    echo '<h3>' . esc_html( $error_message ) . '</h3>';
     die ();
 }
 
 if ( ! defined ( 'CBMM_VERSION' ) ) {
     error_log( basename( __FILE__ ) . ': We should not be called without the plugin loaded ' );
-    wp_die( __( 'This file should not be called directly', 'cloudbridge-mattermost' ), 'Cloudbridge Mattermost' );
+    wp_die( esc_html__( 'This file should not be called directly', 'cloudbridge-mattermost' ), 'Cloudbridge Mattermost' );
 }
 
 
@@ -76,7 +83,7 @@ $cbmm = Cloudbridge_Mattermost::getInstance();
 if ( ! $cbmm->cbmm_oauth2_active() ) {
     // This shouldn't happen
     error_log( basename( __FILE__ ) . ': OAuth2 is not active' );
-    wp_die( __('OAuth2 is not active', 'cloudbridge-mattermost' ), CBMM_PLUGINNAME_HUMAN );
+    wp_die( esc_html__('OAuth2 is not active', 'cloudbridge-mattermost' ), 'Cloudbridge Mattermost' );
 }
 if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
     error_log( basename( __FILE__ ) . ': $_REQUEST before OAuth2 ' . var_export( $_REQUEST, true ) );
@@ -97,7 +104,7 @@ try {
         'urlResourceOwnerDetails' => $cbmm->cbmm_config_get_oauth2_url() . '/api/v4/users/me', /* ?format=json', */
         'prompt'                  => 'consent',
     ]);
-} catch (Exception $e) {
+} catch ( \Exception $e ) {
     error_log( basename( __FILE__ ) . ': Unable to initialize OAuth2 client [' . $e->getMessage() . ']' );
     echo '<h3>' . esc_html__( 'Unable to initialize OAuth2 client', 'cloudbridge-mattermost' ) . '</h3>';
     die ();
@@ -148,8 +155,8 @@ if ( ! empty( $_GET['error'] ) ) {
                                      'mode' => $mode_string );
             if ( set_transient( $our_transient, $transient_data, CBMM_OAUTH_TRANSIENT_TIMER ) ) {
                 $db_transient = get_transient( $our_transient );
+	            $db_time = false;
                 if ( $db_transient === false ) {
-                    $db_time = false;
                     if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
                         error_log( basename( __FILE__ ) . '(' . __LINE__ .'): Unable to locate transient "' . $our_transient . '"' );
                     }
@@ -215,11 +222,11 @@ if ( ! empty( $_GET['error'] ) ) {
     header( 'Location: ' . $auth_url );
     die();
 } elseif ( empty( $_GET ['state'] ) ) {
-    error_log( basename( __FILE__ ) . ': Invalid OAuth2 state [' . $e->getMessage() . ']' );
+    error_log( basename( __FILE__ ) . ': Invalid OAuth2 state' );
     cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_BADSTATE );
     die();
 } else {
-    $our_transient = CBMM_OAUTH_TRANSIENT_PREFIX . filter_var( $_GET['state'], FILTER_SANITIZE_STRING );
+    $our_transient = CBMM_OAUTH_TRANSIENT_PREFIX . filter_var( $_GET['state'], FILTER_SANITIZE_FULL_SPECIAL_CHARS );
     $transient_data = get_transient( $our_transient );
     if ( $transient_data === false ) {
         if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
@@ -241,16 +248,17 @@ if ( ! empty( $_GET['error'] ) ) {
     }
     // Try to get an access token (using the authorization code grant)
     try {
-        $token = $provider->getAccessToken( 'authorization_code', ['code' => $_GET['code']] );
-    } catch( Exception $e ) {
+	    $token = $provider->getAccessToken( 'authorization_code', ['code' => filter_var( $_GET['code'], FILTER_SANITIZE_FULL_SPECIAL_CHARS ) ] );
+	    // Check for expired token
+	    if ( $token->hasExpired() ) {
+		    error_log( basename( __FILE__ ) . ': External OAuth2 token has expired' );
+		    echo '<h3>' . esc_html__( 'External OAuth2 token has expired', 'cloudbridge-mattermost' ) . '</h3>';
+		    die();
+	    }
+    } catch( \Exception $e ) {
         error_log( basename( __FILE__ ) . ': Unable to retrieve OAuth2 access token [' . $e->getMessage() . ']' );
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOTOKEN );
-    }
-    // Check for expired token
-    if ( $token->hasExpired() ) {
-        error_log( basename( __FILE__ ) . ': External OAuth2 token has expired [' . $e->getMessage() . ']' );
-        echo '<h3>' . esc_html__( 'External OAuth2 token has expired', 'cloudbridge-mattermost' ) . '</h3>';
-        die();
+		die();
     }
     // Fetch user details
     $ownerDetails = $provider->getResourceOwner( $token );

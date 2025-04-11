@@ -1,15 +1,15 @@
 # Cloudbridge Mattermost WordPress plugin SWEDISH translation
-# Copyright (C) 2020-2024 Joaquim Homrighausen
+# Copyright 2020-2025 Joaquim Homrighausen
 # This file is distributed under the same license as the Cloudbridge Mattermost package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost-2.2.0\n"
+"Project-Id-Version: cloudbridge-mattermost-2.2.2\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
 "POT-Creation-Date: 2020-11-26 11:05+0000\n"
-"PO-Revision-Date: 2024-06-25 09:30+0100\n"
+"PO-Revision-Date: 2025-04-11 12:03+0100\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: SWEDISH <joho@webbplatsen.se>\n"
 "Language: sv_SE\n"
@@ -270,6 +270,9 @@ msgstr "Inloggning"
 msgid "on"
 msgstr "på"
 
+msgid "to"
+msgstr "till"
+
 #: cloudbridge-mattermost.php:662 cloudbridge-mattermost.php:885
 #: cloudbridge-mattermost.php:1124
 msgid "Invalid username"
@@ -319,6 +322,10 @@ msgstr "Tillägg avaktiverat"
 msgid "Plugin uninstalled"
 msgstr "Tillägg avinstallerat"
 
+#: cloudbridge-mattermost.php:720
+msgid "Admin e-mail change"
+msgstr "Ändrad admin e-post"
+
 #: cloudbridge-mattermost.php:435 cloudbridge-mattermost.php:583
 msgid "New user added"
 msgstr "Ny användare"
@@ -343,6 +350,14 @@ msgstr "Skicka avisering när tillägg avaktiveras"
 #: cloudbridge-mattermost.php:655 cloudbridge-mattermost.php:831
 msgid "Send notification when plugin is uninstalled."
 msgstr "Skicka avisering när tillägg avinstalleras"
+
+#: cloudbridge-mattermost.php:1019
+msgid "Send notification when admin e-mail is changed"
+msgstr "Skicka avisering när admin e-post ändras"
+
+#: cloudbridge-mattermost.php:1024
+msgid "Inhibit WordPress e-mail of confirmed change"
+msgstr "Förhindra WordPress bekräftelsemeddelande efter ändring"
 
 #: cloudbridge-mattermost.php:708 cloudbridge-mattermost.php:884
 msgid "Force notifications to be sent in en_US locale (English)."

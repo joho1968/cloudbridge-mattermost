@@ -8,7 +8,7 @@
  * @author   Joaquim Homrighausen <joho@webbplatsen.se>
  *
  * uninstall.php
- * Copyright (C) 2020, 2021, 2022 Joaquim Homrighausen; all rights reserved.
+ * Copyright 2020-2025 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -33,26 +33,32 @@
 defined( 'ABSPATH' ) || die( '-1' );
 // If uninstall not called from WordPress, then exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
+    die();
 }
+/**
+ * We don't check these anymore.
+ * https://developer.wordpress.org/plugins/plugin-basics/uninstall-methods/
+ */
+/*
 // If action is not to uninstall, then exit
 if ( empty( $_REQUEST['action'] ) || $_REQUEST['action'] !== 'delete-plugin' ) {
-	exit;
+    exit;
 }
 // If it's not us, then exit
 if ( empty( $_REQUEST['slug'] ) || $_REQUEST['slug'] !== 'cloudbridge-mattermost' ) {
-	exit;
+    exit;
 }
 // If we shouldn't do this, then exit
 if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'delete_plugins' ) ) {
-	exit;
+    exit;
 }
+*/
 
 // Figure out if an uninstall should remove plugin settings
 $remove_settings = get_option( 'cbmm-remove-settings', '0' );
 
 if ( $remove_settings == '1' ) {
-	// Remove Cloudbridge Mattermost settings. Transients are removed upon
+    // Remove Cloudbridge Mattermost settings. Transients are removed upon
     // plugin deactivation and do not need to be cleaned up here.
     delete_option( 'cbmm-site-label' );
     delete_option( 'cbmm-mm-webhook' );
@@ -64,6 +70,8 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-notify-activate-plugin' );
     delete_option( 'cbmm-notify-deactivate-plugin' );
     delete_option( 'cbmm-notify-uninstall-plugin' );
+    delete_option( 'cbmm-notify-change-admin-email' );
+    delete_option( 'cbmm-notify-change-admin-email-inhibit-email' );
     delete_option( 'cbmm-roles-user-add' );
     delete_option( 'cbmm-roles-user-delete' );
     delete_option( 'cbmm-link-admin' );

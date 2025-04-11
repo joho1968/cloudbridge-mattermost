@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpParamsInspection */
+
 /**
  * Cloudbridge Mattermost
  *
@@ -11,7 +12,7 @@
  * Plugin Name:       Cloudbridge Mattermost
  * Plugin URI:        https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
  * Description:       Mattermost integration for WordPress
- * Version:           2.2.1
+ * Version:           2.2.2
  * Author:            WebbPlatsen, Joaquim Homrighausen <joho@webbplatsen.se>
  * Author URI:        https://webbplatsen.se/
  * License:           GPL-2.0+
@@ -20,7 +21,7 @@
  * Domain Path:       /languages
  *
  * cloudbridge-mattermost.php
- * Copyright (C) 2020-2024 Joaquim Homrighausen; all rights reserved.
+ * Copyright 2020-2025 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -52,36 +53,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-define( 'CBMM_VERSION',                 '2.2.1'                  );
-define( 'CBMM_REV',                     1                        );
-define( 'CBMM_PLUGINNAME_HUMAN',        'Cloudbridge Mattermost' );
-define( 'CBMM_PLUGINNAME_SLUG',         'cloudbridge-mattermost' );
-define( 'CBMM_ALERT_SUCCESS',           1                        );
-define( 'CBMM_ALERT_FAILURE',           2                        );
-define( 'CBMM_ALERT_RESET_PASSWORD',    3                        ); // @since 1.1.0
-define( 'CBMM_ALERT_PLUGIN_ACTIVATE',   4                        ); // @since 1.1.0
-define( 'CBMM_ALERT_PLUGIN_DEACTIVATE', 5                        ); // @since 1.1.0
-define( 'CBMM_ALERT_PLUGIN_UNINSTALL',  6                        ); // @since 1.1.0
-define( 'CBMM_ALERT_USER_ADD',          7                        ); // @since 1.1.0
-define( 'CBMM_ALERT_USER_DELETE',       8                        ); // @since 1.1.0
-define( 'CBMM_EMOJI_DEFAULT_NOTICE',    ':unlock:'               );
-define( 'CBMM_EMOJI_DEFAULT_WARNING',   ':stop_sign:'            );
-define( 'CBMM_EMOJI_DEFAULT_LINK',      ':link:'                 ); // @since 2.0.0
-define( 'CBMM_EMOJI_DEFAULT_BELL',      ':bell:'                 ); // @since 1.1.0
+define( 'CBMM_VERSION',                   '2.2.2'                  );
+define( 'CBMM_REV',                       1                        );
+define( 'CBMM_PLUGINNAME_HUMAN',          'Cloudbridge Mattermost' );
+define( 'CBMM_PLUGINNAME_SLUG',           'cloudbridge-mattermost' );
+define( 'CBMM_ALERT_SUCCESS',              1                       );
+define( 'CBMM_ALERT_FAILURE',              2                       );
+define( 'CBMM_ALERT_RESET_PASSWORD',       3                       ); // @since 1.1.0
+define( 'CBMM_ALERT_PLUGIN_ACTIVATE',      4                       ); // @since 1.1.0
+define( 'CBMM_ALERT_PLUGIN_DEACTIVATE',    5                       ); // @since 1.1.0
+define( 'CBMM_ALERT_PLUGIN_UNINSTALL',     6                       ); // @since 1.1.0
+define( 'CBMM_ALERT_USER_ADD',             7                       ); // @since 1.1.0
+define( 'CBMM_ALERT_USER_DELETE',          8                       ); // @since 1.1.0
+define( 'CBMM_ALERT_ADMIN_EMAIL',          9                       ); // @since 2.2.2
+define( 'CBMM_ALERT_ADMIN_EMAIL_CONFIRM', 10                       ); // @since 2.2.2
+define( 'CBMM_EMOJI_DEFAULT_NOTICE',      ':unlock:'               );
+define( 'CBMM_EMOJI_DEFAULT_WARNING',     ':stop_sign:'            );
+define( 'CBMM_EMOJI_DEFAULT_LINK',        ':link:'                 ); // @since 2.0.0
+define( 'CBMM_EMOJI_DEFAULT_BELL',        ':bell:'                 ); // @since 1.1.0
 
-define( 'CBMM_OAUTH_TRANSIENT_TIMER',   900                      ); // @since 2.0.0
-define( 'CBMM_OAUTH_TRANSIENT_PREFIX',  'cbmm_oauth_'            ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_AUTHFAIL',   1                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOEMAIL',    2                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOTOKEN',    3                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOVERIFY',   4                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_BADSTATE',   5                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOUSER',     6                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOSESSION',  7                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOROLE',     8                        ); // @since 2.0.0
-define( 'CBMM_OAUTH_REDERR_NOID',       9                        ); // @since 2.2.0
-define( 'CBMM_OAUTH_REDERR_NOREG',      20                       ); // @since 2.2.0
-define( 'CBMM_OAUTH_REDERR_BADCRED',    21                       ); // @since 2.2.0
+define( 'CBMM_OAUTH_TRANSIENT_TIMER',     900                      ); // @since 2.0.0
+define( 'CBMM_OAUTH_TRANSIENT_PREFIX',    'cbmm_oauth_'            ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_AUTHFAIL',      1                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOEMAIL',       2                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOTOKEN',       3                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOVERIFY',      4                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_BADSTATE',      5                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOUSER',        6                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOSESSION',     7                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOROLE',        8                       ); // @since 2.0.0
+define( 'CBMM_OAUTH_REDERR_NOID',          9                       ); // @since 2.2.0
+define( 'CBMM_OAUTH_REDERR_NOREG',        20                       ); // @since 2.2.0
+define( 'CBMM_OAUTH_REDERR_BADCRED',      21                       ); // @since 2.2.0
 
 
 // https://github.com/tholu/php-cidr-match
@@ -104,12 +107,15 @@ class Cloudbridge_Mattermost {
     protected $cbmm_notify_deactivate_plugin;                   // @since 1.1.0
     protected $cbmm_notify_install_plugin;                      // @since 1.1.0
     protected $cbmm_notify_uninstall_plugin;                    // @since 1.1.0
+    protected $cbmm_notify_change_admin_email;                  // @since 2.2.2
+    protected $cbmm_notify_change_admin_email_inhibit_email;    // @since 2.2.2
     protected $cbmm_notice_emoji; // Historical head trip, it should have been "login" :-)
     protected $cbmm_warning_emoji;
     protected $cbmm_link_emoji;
     protected $cbmm_bell_emoji;                                 // @since 1.1.0
     protected $cbmm_link_admin;
     protected $cbmm_mm_webhook;
+	protected $cbmm_site_label;                                 // @since 2.2.2
     protected $cbmm_mm_username;
     protected $cbmm_mm_channel;
     protected $cbmm_mm_mention;
@@ -167,6 +173,9 @@ class Cloudbridge_Mattermost {
         $this->cbmm_notify_activate_plugin = $this->cbmm_get_option( 'cbmm-notify-activate-plugin', false );
         $this->cbmm_notify_deactivate_plugin = $this->cbmm_get_option( 'cbmm-notify-deactivate-plugin', false );
         $this->cbmm_notify_uninstall_plugin = $this->cbmm_get_option( 'cbmm-notify-uninstall-plugin', false );
+        $this->cbmm_notify_change_admin_email = $this->cbmm_get_option( 'cbmm-notify-change-admin-email', false );
+        $this->cbmm_notify_change_admin_email_inhibit_email = $this->cbmm_get_option( 'cbmm-notify-change-admin-email-inhibit-email', false );
+
         $this->cbmm_mm_roles_user_add = $this->cbmm_get_option( 'cbmm-roles-user-add', false );
         $this->cbmm_mm_roles_user_delete = $this->cbmm_get_option( 'cbmm-roles-user-delete', false );
 
@@ -199,7 +208,7 @@ class Cloudbridge_Mattermost {
         $this->cbmm_cloudflare_ipv4 = @ json_decode( get_option ( 'cbmm-cloudflare-ipv4', null ), true, 2 );
         if ( ! is_array( $this->cbmm_cloudflare_ipv4 ) ) {
             $this->cbmm_cloudflare_ipv4 = array();
-            update_option( 'cbmm-cloudflare-ipv4', json_encode( $this->cbmm_cloudflare_ipv4 ) );
+            update_option( 'cbmm-cloudflare-ipv4', wp_json_encode( $this->cbmm_cloudflare_ipv4 ) );
         }
         // ..Cloudflare
         $this->cbmm_cloudflare_check = get_option( 'cbmm-cloudflare-check', null );
@@ -211,11 +220,11 @@ class Cloudbridge_Mattermost {
         $this->cbmm_cloudflare_ipv6 = @ json_decode( get_option ( 'cbmm-cloudflare-ipv6', null ), true, 2 );
         if ( ! is_array( $this->cbmm_cloudflare_ipv6 ) ) {
             $this->cbmm_cloudflare_ipv6 = array();
-            update_option( 'cbmm-cloudflare-ipv6', json_encode( $this->cbmm_cloudflare_ipv6 ) );
+            update_option( 'cbmm-cloudflare-ipv6', wp_json_encode( $this->cbmm_cloudflare_ipv6 ) );
         }
         $this->cbmm_settings_remove = $this->cbmm_get_option( 'cbmm-settings-remove', false );
 
-        $this->cbmm_settings_tab = ( ! empty( $_GET['tab'] ) ? $_GET['tab'] : '' );
+        $this->cbmm_settings_tab = ( isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '' );
         if ( ! in_array( $this->cbmm_settings_tab, ['notify', 'emoji', 'advanced', 'oauth2', 'cloudflare', 'about'] ) ) {
             $this->cbmm_settings_tab = '';
         }
@@ -225,7 +234,7 @@ class Cloudbridge_Mattermost {
                      ! empty( $this->cbmm_oauth2_mm_client_secret ) ) {
             if ( esc_url_raw( $this->cbmm_oauth2_mm_base_url ) !== $this->cbmm_oauth2_mm_base_url ||
                     ! wp_http_validate_url( $this->cbmm_oauth2_mm_base_url ) ) {
-                error_log( basename(__FILE__) . ' Invalid Mattermost base URL ');
+                error_log( basename(__FILE__) . ': Invalid Mattermost base URL' );
             } else {
                 $login_roles = @ json_decode( $this->cbmm_oauth2_mm_login_roles, true, 2 );
                 if ( is_array( $login_roles ) && ! empty( $login_roles ) ) {
@@ -309,7 +318,7 @@ class Cloudbridge_Mattermost {
                 }
             }
             if ( $is_cloudflare && ! empty( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
-                $remote_ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+                $remote_ip = filter_var( $_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             }
         }
         return( $remote_ip );
@@ -371,7 +380,11 @@ class Cloudbridge_Mattermost {
      * @since 1.0.0
      */
     public function cbmm_setup_css() {
-        wp_enqueue_style( 'cloudbridge-mattermost', plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css', array(), $this->resource_mtime( dirname(__FILE__).'/css/cloudbridge-mattermost.css' ), 'all' );
+        wp_enqueue_style( 'cloudbridge-mattermost',
+                          plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css',
+                          array(),
+                          $this->resource_mtime( dirname(__FILE__) . '/css/cloudbridge-mattermost.css' ),
+                          'all' );
     }
     /**
      * Setup CSS for login page
@@ -380,7 +393,8 @@ class Cloudbridge_Mattermost {
      */
     public function cbmm_setup_css_login() {
         echo '<link rel="stylesheet" id="cbmm-css"  href="' .
-             plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css?ver=' . $this->resource_mtime( dirname(__FILE__).'/css/cloudbridge-mattermost.css' ).
+             esc_url( plugin_dir_url( __FILE__ ) . 'css/cloudbridge-mattermost.css?ver=' .
+                $this->resource_mtime( dirname(__FILE__).'/css/cloudbridge-mattermost.css' ) ) .
              '" />' . "\n";
     }
 
@@ -416,9 +430,9 @@ class Cloudbridge_Mattermost {
                 if ( empty( $option_val ) && $auto_logic ) {
                     $option_val = trim( get_bloginfo( 'name' ) );
                     if ( empty( $option_val ) ) {
-                        $option_val = trim( $_SERVER['SERVER_NAME'] );
+                        $option_val = trim( filter_var( $_SERVER['SERVER_NAME'], FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
                         if ( empty( $option_val ) ) {
-                            $option_val = 'IP:' . $_SERVER['SERVER_ADDR'];https://matrix.webbplatsen.se/fd/com/tickets/view.php?tin=2022-3E2ZLO-KK
+                            $option_val = 'IP:' . filter_var( $_SERVER['SERVER_ADDR'], FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                         }
                     }
                 }
@@ -513,7 +527,7 @@ class Cloudbridge_Mattermost {
                 }
             }
         } else {
-            error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): wp_roles() returned empty' );
+            error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): wp_roles() returned empty' );
         }
         $this->cbmm_wp_roles = $return_roles;
         $this->cbmm_wp_roles_enus = $return_roles_en;
@@ -644,7 +658,7 @@ class Cloudbridge_Mattermost {
              '<p>'  . esc_html__( 'This plugin will provide some integration between WordPress and', 'cloudbridge-mattermost' ) . ' <a href="https://mattermost.org" class="cbmm-ext-link" target="_blank">Mattermost</a></p>'.
              '</div>';
         echo '<div class="cbmm-config-section">'.
-             '<p>'  . '<img class="cbmm-wps-logo" alt="" src="' . plugin_dir_url( __FILE__ ) . 'img/webbplatsen_logo.png" />' .
+             '<p>'  . '<img class="cbmm-wps-logo" alt="" src="' . esc_url( plugin_dir_url( __FILE__ ) . 'img/webbplatsen_logo.png' ) . '" />' .
                       esc_html__( 'Commercial support and customizations for this plugin is available from', 'cloudbridge-mattermost' ) .
                       ' <a class="cbmm-ext-link" href="https://webbplatsen.se" target="_blank">WebbPlatsen i Sverige AB</a> '.
                       esc_html__('in Stockholm, Sweden. We speak Swedish and English', 'cloudbridge-mattermost' ) . ' :-)' .
@@ -703,6 +717,7 @@ class Cloudbridge_Mattermost {
           add_settings_field( 'cbmm-notify-activate-plugin', esc_html__( 'Plugin activated', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_activate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-activate-plugin'] );
           add_settings_field( 'cbmm-notify-deactivate-plugin', esc_html__( 'Plugin deactivated', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_deactivate'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-deactivate-plugin'] );
           add_settings_field( 'cbmm-notify-uninstall-plugin', esc_html__( 'Plugin uninstalled', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_plugin_uninstall'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-uninstall-plugin'] );
+          add_settings_field( 'cbmm-notify-change-admin-email', esc_html__( 'Admin e-mail change', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_notify_admin_email_change'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-notify-change-admin-email'] );
           add_settings_field( 'cbmm-roles-user-add', esc_html__( 'New user added', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_adduser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-add'] );
           add_settings_field( 'cbmm-roles-user-delete', esc_html__( 'User deleted', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_roles_deleteuser'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-roles-user-delete'] );
           add_settings_field( 'cbmm-link-admin', esc_html__( 'Link to WP Admin', 'cloudbridge-mattermost' ), [$this, 'cbmm_setting_link_admin'], 'cbmm_settings_notify', 'cbmm_settings_notify', ['label_for' => 'cbmm-link-admin'] );
@@ -747,6 +762,8 @@ class Cloudbridge_Mattermost {
         register_setting( 'cbmm_settings_notify', 'cbmm-notify-activate-plugin' );
         register_setting( 'cbmm_settings_notify', 'cbmm-notify-deactivate-plugin' );
         register_setting( 'cbmm_settings_notify', 'cbmm-notify-uninstall-plugin' );
+        register_setting( 'cbmm_settings_notify', 'cbmm-notify-change-admin-email' );
+        register_setting( 'cbmm_settings_notify', 'cbmm-notify-change-admin-email-inhibit-email' );
         register_setting( 'cbmm_settings_notify', 'cbmm-roles-user-add', ['type' => 'array', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_roles']] );
         register_setting( 'cbmm_settings_notify', 'cbmm-roles-user-delete', ['type' => 'array', 'sanitize_callback' => [$this, 'cbmm_setting_sanitize_roles']] );
         register_setting( 'cbmm_settings_notify', 'cbmm-link-admin' );
@@ -783,7 +800,7 @@ class Cloudbridge_Mattermost {
      */
     public function cbmm_setting_sanitize_site_label( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         if ( function_exists( 'mb_substr' ) ) {
             return( mb_substr( sanitize_text_field( $input ), 0, 200 ) );
@@ -792,13 +809,13 @@ class Cloudbridge_Mattermost {
     }
     public function cbmm_setting_sanitize_webhook( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         return( esc_url_raw( $input, ['https','http'] ) );
     }
     public function cbmm_setting_sanitize_roles( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         $available_roles = $this->cbmm_get_wp_roles( false );
         $return_val = array();
@@ -811,11 +828,11 @@ class Cloudbridge_Mattermost {
                 }
             }
         }
-        return( json_encode( $return_val ) );
+        return( wp_json_encode( $return_val ) );
     }
     public function cbmm_setting_sanitize_emoji( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         if ( function_exists( 'mb_substr' ) ) {
             return( mb_substr( sanitize_text_field( $input ), 0, 30 ) );
@@ -824,7 +841,7 @@ class Cloudbridge_Mattermost {
     }
     public function cbmm_setting_sanitize_advanced( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         if ( function_exists( 'mb_substr' ) ) {
             return( mb_substr( sanitize_text_field( $input ), 0, 200 ) );
@@ -833,13 +850,13 @@ class Cloudbridge_Mattermost {
     }
     public function cbmm_oauth2_mm_sanitize_base_url( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         return( esc_url_raw( $input, ['https','http'] ) );
     }
     public function cbmm_oauth2_mm_sanitize_client_id_secret( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         if ( function_exists( 'mb_substr' ) ) {
             return( mb_substr( sanitize_text_field( $input ), 0, 200 ) );
@@ -848,7 +865,7 @@ class Cloudbridge_Mattermost {
     }
     public function cbmm_setting_sanitize_textarea_setting( $input ) {
         if ( ! is_admin( ) || ! is_user_logged_in() || ! current_user_can( 'administrator' ) )  {
-            return;
+            return( '' );
         }
         $input = explode( "\n", sanitize_textarea_field( $input ) );
         $output = array();
@@ -867,7 +884,7 @@ class Cloudbridge_Mattermost {
                 }
             }
         }
-        $input = @ json_encode( $output );
+        $input = @ wp_json_encode( $output );
         return( $input );
     }
     /**
@@ -886,7 +903,7 @@ class Cloudbridge_Mattermost {
         echo '<p class="description">' .
              esc_html__( 'The URL for the Mattermost incoming webhook', 'cloudbridge-mattermost' ) .
              '. ' .
-             '<a href="https://docs.mattermost.com/developer/webhooks-incoming.html" target="_blank">' . esc_html__( 'Please check the documentation for details', 'cloudbridge-mattermost' ) . '</a>' .
+             '<a href="https://developers.mattermost.com/integrate/webhooks/incoming" target="_blank">' . esc_html__( 'Please check the documentation for details', 'cloudbridge-mattermost' ) . '</a>' .
              '</p>';
     }
     public function cbmm_setting_roles_notify($args) {
@@ -992,6 +1009,19 @@ class Cloudbridge_Mattermost {
         echo '<div class="cbmm-role-option">';
         echo '<input type="checkbox" name="cbmm-notify-uninstall-plugin" id="cbmm-notify-uninstall-plugin" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
         echo '<label for="cbmm-notify-uninstall-plugin">'. esc_html__( 'Send notification when plugin is uninstalled.', 'cloudbridge-mattermost' ) . '</label> ';
+        echo '</div>';
+    }
+    // @since 2.2.0
+    public function cbmm_setting_notify_admin_email_change() {
+        $option_val = $this->cbmm_get_option( 'cbmm-notify-change-admin-email', false );
+        echo '<div class="cbmm-role-option">';
+        echo '<input type="checkbox" name="cbmm-notify-change-admin-email" id="cbmm-notify-change-admin-email" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
+        echo '<label for="cbmm-notify-change-admin-email">'. esc_html__( 'Send notification when admin e-mail is changed', 'cloudbridge-mattermost' ) . '</label> ';
+        echo '&nbsp;</div>';
+        $option_val = $this->cbmm_get_option( 'cbmm-notify-change-admin-email-inhibit-email', false );
+        echo '<div class="cbmm-role-option">';
+        echo '<input type="checkbox" name="cbmm-notify-change-admin-email-inhibit-email" id="cbmm-notify-change-admin-email-inhibit-email" value="1" ' . ( checked( $option_val, 1, false ) ) . '/>';
+        echo '<label for="cbmm-notify-change-admin-email-inhibit-email">'. esc_html__( 'Inhibit WordPress e-mail of confirmed change', 'cloudbridge-mattermost' ) . '</label> ';
         echo '</div>';
     }
     // @since 1.1.0
@@ -1254,7 +1284,7 @@ class Cloudbridge_Mattermost {
      */
     protected function cbmm_alert_send( string $alert_message ) : bool {
         if ( empty( $this->cbmm_mm_webhook ) ) {
-            error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Webhook URL has not been configured, not sending alert' );
+            error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Webhook URL has not been configured, not sending alert' );
             return( false );
         }
         // Possibly add additional mention(s)
@@ -1280,7 +1310,7 @@ class Cloudbridge_Mattermost {
                         'headers'     => [ 'Content-Type' => 'application/json; charset=utf-8' ],
                         'method'      => 'POST',
                         'timeout'     => 45,
-                        'body'        => json_encode( $mattermost_post ),
+                        'body'        => wp_json_encode( $mattermost_post ),
                         'data_format' => 'body',
                     )
                 );
@@ -1323,7 +1353,7 @@ class Cloudbridge_Mattermost {
     protected function cbmm_make_alert_message( string $username, $context, int $alert_type ) {
         $alert_message = '';
         // Fetch remote IP if set
-        $remote_ip = $this->cbmm_do_cloudflare_lookup( $_SERVER['REMOTE_ADDR'] );
+        $remote_ip = $this->cbmm_do_cloudflare_lookup( filter_var( $_SERVER['REMOTE_ADDR'], FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
         if ( ! empty( $remote_ip ) ) {
             $remote_ip = ' ' . $this->cbmm_get_lang_string( 'from' ) . ' ' . $remote_ip;
         }
@@ -1331,7 +1361,7 @@ class Cloudbridge_Mattermost {
         switch( $alert_type ) {
             default: // Notification
                 if ( ! is_a( $context, 'WP_User' ) ) {
-                    error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
+                    error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
                     return( false );
                 }
                 $name = $this->cbmm_get_message_user_display( $context );
@@ -1340,7 +1370,7 @@ class Cloudbridge_Mattermost {
                 break;
             case CBMM_ALERT_FAILURE:
                 if ( ! is_a( $context, 'WP_Error' ) ) {
-                    error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
+                    error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
                     return( false );
                 }
                 $alert_code = key( $context->errors );
@@ -1365,7 +1395,7 @@ class Cloudbridge_Mattermost {
                 break;
             case CBMM_ALERT_RESET_PASSWORD:// @since 1.1.0
                 if ( ! is_a( $context, 'WP_User' ) ) {
-                    error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
+                    error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
                     return( false );
                 }
                 $name = $this->cbmm_get_message_user_display( $context );
@@ -1376,7 +1406,7 @@ class Cloudbridge_Mattermost {
             case CBMM_ALERT_PLUGIN_DEACTIVATE:                  // @since 1.1.0
             case CBMM_ALERT_PLUGIN_UNINSTALL:                   // @since 1.1.0
                 if ( ! is_a( $context, 'WP_User' ) ) {
-                    error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
+                    error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
                     return( false );
                 }
                 switch( $alert_type ) {
@@ -1397,7 +1427,7 @@ class Cloudbridge_Mattermost {
             case CBMM_ALERT_USER_ADD:                           // @since 1.1.0
             case CBMM_ALERT_USER_DELETE:                        // @since 1.1.0
                 if ( ! is_a( $context, 'WP_User' ) ) {
-                    error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
+                    error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): Unknown context "' . get_class( $context ) . '" for alert_type (' . $alert_type . ')' );
                     return( false );
                 }
                 // From admin interface, create some additional information
@@ -1426,6 +1456,19 @@ class Cloudbridge_Mattermost {
                 $name = $this->cbmm_get_message_user_display( $context );
                 $alert_message = $this->cbmm_bell_emoji . ' **' . $action_msg .
                                  ':** ' . $name . $new_user_roles . $admin_string . ' ' . $this->cbmm_get_lang_string( 'on' ) . ' ' . '`' . $this->cbmm_site_label . '`' . "\n";
+                break;
+            case CBMM_ALERT_ADMIN_EMAIL:                        // @since 2.2.2
+                $action_msg = $this->cbmm_get_lang_string( 'Admin e-mail address change requested' );
+                $alert_message = $this->cbmm_bell_emoji . ' ' . $action_msg . ' (**`' . $username . '`**)' .
+                                 $remote_ip . ' ' .
+                                 $this->cbmm_get_lang_string( 'on' ) . ' ' . '`' . $this->cbmm_site_label . '`' . "\n";
+                break;
+            case CBMM_ALERT_ADMIN_EMAIL_CONFIRM:                // @since 2.2.2
+                $action_msg = $this->cbmm_get_lang_string( 'Admin e-mail address changed' );
+                $alert_message = $this->cbmm_bell_emoji . ' ' . $action_msg . ' ' .
+                                 $this->cbmm_get_lang_string( 'from' ) . ' `' . $username . '` ' .
+                                 $this->cbmm_get_lang_string( 'to' ) . ' `' . $context . '` ' .
+                                 $this->cbmm_get_lang_string( 'on' ) . ' ' . '`' . $this->cbmm_site_label . '`' . "\n";
                 break;
         } // switch
         //Add link to admin for site, optional
@@ -1509,7 +1552,7 @@ class Cloudbridge_Mattermost {
      */
     public function cbmm_alert_login( string $username, object $user ) {
         if ( ! is_a( $user, 'WP_User' ) ) {
-            error_log( basename(__FILE__) . ' (' . __FUNCTION__ . '): No user information?' );
+            error_log( basename(__FILE__) . '(' . __FUNCTION__ . '): No user information?' );
             error_log( get_class ($user));
             return;
         }
@@ -1533,7 +1576,7 @@ class Cloudbridge_Mattermost {
      */
     public function cbmm_alert_failed_login( string $username, object $error ) {
         if ( ! is_a( $error, 'WP_Error' ) ) {
-            error_log( basename( __FILE__ ) . ' (' . __FUNCTION__ . '): No error information?' );
+            error_log( basename( __FILE__ ) . '(' . __FUNCTION__ . '): No error information?' );
             error_log( get_class ($error));
             return;
         }
@@ -1727,7 +1770,7 @@ class Cloudbridge_Mattermost {
      * @since 1.1.0
      * @param int $user_id The (numerical) user ID of the user being deleted
      * @param bool $reassign If reassignment should occur
-     * @param WP_User $user The user object being deleted
+     * @param \WP_User $user The user object being deleted
      */
     public function cbmm_handle_delete_user( int $user_id, $reassign, \WP_User $user ) {
         $role_caps = $user->get_role_caps();
@@ -1921,6 +1964,45 @@ class Cloudbridge_Mattermost {
         $url = add_query_arg( 'cbmm_register', 'yes', $url );
         return( $url );
     }
+    /**
+     * Notify of admin e-mail change (before it's confirmed)
+     * @since 2.2.2
+     * @param string $option_name
+     * @param string $new_admin_email
+     * @return void
+     */
+    public function cbmm_add_option_new_admin_email( $option_name, $new_admin_email ) {
+        $alert_message = $this->cbmm_make_alert_message( $new_admin_email, '', CBMM_ALERT_ADMIN_EMAIL );
+        if ( ! empty( $alert_message ) ) {
+            $this->cbmm_alert_send( $alert_message );
+        }
+    }
+    /**
+     * Notify of admin e-mail change (when it is actually changed)
+     * @since 2.2.2
+     * @param string $old_admin_email
+     * @param string $new_admin_email
+     * @param string $option_name
+     * @return void
+     */
+    public function cbmm_update_option_admin_email( $old_admin_email, $new_admin_email, $option_name ) {
+        $alert_message = $this->cbmm_make_alert_message( $old_admin_email, $new_admin_email, CBMM_ALERT_ADMIN_EMAIL_CONFIRM );
+        if ( ! empty( $alert_message ) ) {
+            $this->cbmm_alert_send( $alert_message );
+        }
+    }
+    /**
+     * Inhibit admin e-mail address change e-mail notification.
+     * @since 2.2.2
+     * @param bool $send
+     * @param string $old
+     * @param string $new
+     * @return bool
+     */
+    public function cbmm_site_admin_email_change_notification( $send, $old, $new ) {
+        return( false );
+    }
+
 
     /**
      * Add hooks we're watching when WordPress is fully loaded.
@@ -1971,7 +2053,7 @@ class Cloudbridge_Mattermost {
             if ( ! empty( $this->cbmm_mm_roles_password_reset_skip_email ) ) {
                 // Remove standard handling
                 if ( ! remove_action( 'after_password_reset', 'wp_password_change_notification' ) ) {
-                    error_log( basename( __FILE__ ) . ' (' . __FUNCTION__ . '): Unable to remove wp_password_change_notification from after_password_reset' );
+                    error_log( basename( __FILE__ ) . '(' . __FUNCTION__ . '): Unable to remove wp_password_change_notification from after_password_reset' );
                 }
             }
             // User added handler, we should only do this if we have roles to notify for
@@ -2049,6 +2131,16 @@ class Cloudbridge_Mattermost {
         // Setup CSS
         if ( is_admin() ) {
             add_action( 'admin_enqueue_scripts', [$this, 'cbmm_setup_css']  );
+            // Admin e-mail change hooks
+            if ( $this->cbmm_notify_change_admin_email ) {
+                add_action( 'add_option_new_admin_email', [$this, 'cbmm_add_option_new_admin_email'], 10, 2 );
+                add_action( 'update_option_admin_email', [$this, 'cbmm_update_option_admin_email'], 10, 3 );
+            }
+            if ( $this->cbmm_notify_change_admin_email_inhibit_email ) {
+                add_filter( 'send_site_admin_email_change_email', [$this, 'cbmm_site_admin_email_change_notification'], 10, 3 );
+            }
+            // Not currently used
+            // add_filter( 'site_admin_email_change_email', [$this, 'cbmm_site_admin_email_change_email'] );
         } else {
             add_filter( 'login_head', [$this, 'cbmm_setup_css_login']  );
         }

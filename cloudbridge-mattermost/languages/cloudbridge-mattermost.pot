@@ -1,15 +1,15 @@
 # Cloudbridge Mattermost WordPress plugin <LANGUAGE> translation
-# Copyright (C) 2020-2024 Joaquim Homrighausen
+# Copyright 2020-2025 Joaquim Homrighausen
 # This file is distributed under the same license as the Cloudbridge Mattermost package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost-2.2.0\n"
+"Project-Id-Version: cloudbridge-mattermost-2.2.2\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
 "POT-Creation-Date: 2022-08-02 08:57+0100\n"
-"PO-Revision-Date: 2024-06-25 09:30+0100\n"
+"PO-Revision-Date: 2025-04-11 11:51+0100\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: EN_US <joho@webbplatsen.se>\n"
 "Language: English\n"
@@ -17,271 +17,321 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cloudbridge-mattermost.php:200 cloudbridge-mattermost.php:320
-msgid "Unknown"
+#: includes/cbmm-oauth2.php:52
+msgid "This file should not be called directly"
 msgstr ""
 
-#: cloudbridge-mattermost.php:280 cloudbridge-mattermost.php:285
-#: cloudbridge-mattermost.php:401 cloudbridge-mattermost.php:406
-msgid "Unknown role"
+#: includes/cbmm-oauth2.php:86
+msgid "OAuth2 is not active"
 msgstr ""
 
-#: cloudbridge-mattermost.php:329 cloudbridge-mattermost.php:450
-#: cloudbridge-mattermost.php:531
+#: includes/cbmm-oauth2.php:109
+msgid "Unable to initialize OAuth2 client"
+msgstr ""
+
+#: includes/cbmm-oauth2.php:255
+msgid "External OAuth2 token has expired"
+msgstr ""
+
+#: cloudbridge-mattermost.php:261
+msgid "Settings"
+msgstr ""
+
+#: cloudbridge-mattermost.php:570
 msgid "Provides integration between Mattermost and WordPress"
 msgstr ""
 
-#: cloudbridge-mattermost.php:332 cloudbridge-mattermost.php:453
-#: cloudbridge-mattermost.php:534
+#: cloudbridge-mattermost.php:573
 msgid "Basic configuration"
 msgstr ""
 
-#: cloudbridge-mattermost.php:335 cloudbridge-mattermost.php:456
-#: cloudbridge-mattermost.php:537
+#: cloudbridge-mattermost.php:576
 msgid "Notifications"
 msgstr ""
 
-#: cloudbridge-mattermost.php:338 cloudbridge-mattermost.php:459
-#: cloudbridge-mattermost.php:540
+#: cloudbridge-mattermost.php:579
 msgid "Emoji"
 msgstr ""
 
-#: cloudbridge-mattermost.php:341 cloudbridge-mattermost.php:462
-#: cloudbridge-mattermost.php:543
+#: cloudbridge-mattermost.php:582
 msgid "Advanced"
 msgstr ""
 
-#: cloudbridge-mattermost.php:344 cloudbridge-mattermost.php:468
-#: cloudbridge-mattermost.php:552
+#: cloudbridge-mattermost.php:585
+msgid "OAuth2"
+msgstr ""
+
+#: cloudbridge-mattermost.php:588
+msgid "Cloudflare"
+msgstr ""
+
+#: cloudbridge-mattermost.php:591
 msgid "About"
 msgstr ""
 
-#: cloudbridge-mattermost.php:394 cloudbridge-mattermost.php:542
-#: cloudbridge-mattermost.php:618
+#: cloudbridge-mattermost.php:607
+msgid "Please enter a valid URL for your Mattermost webhook"
+msgstr ""
+
+#: cloudbridge-mattermost.php:616
+msgid "Please enter a valid URL for your Mattermost instance"
+msgstr ""
+
+#: cloudbridge-mattermost.php:657
 msgid "Thank you for installing"
 msgstr ""
 
-#: cloudbridge-mattermost.php:395 cloudbridge-mattermost.php:543
-#: cloudbridge-mattermost.php:619
+#: cloudbridge-mattermost.php:658
 msgid "This plugin will provide some integration between WordPress and"
 msgstr ""
 
-#: cloudbridge-mattermost.php:399 cloudbridge-mattermost.php:547
-#: cloudbridge-mattermost.php:623
+#: cloudbridge-mattermost.php:662
 msgid "Commercial support and customizations for this plugin is available from"
 msgstr ""
 
-#: cloudbridge-mattermost.php:401 cloudbridge-mattermost.php:549
-#: cloudbridge-mattermost.php:625
+#: cloudbridge-mattermost.php:664
 msgid "in Stockholm, Sweden. We speak Swedish and English"
 msgstr ""
 
-#: cloudbridge-mattermost.php:403 cloudbridge-mattermost.php:551
-#: cloudbridge-mattermost.php:627
+#: cloudbridge-mattermost.php:666
 msgid ""
 "The plugin is written by Joaquim Homrighausen and sponsored by WebbPlatsen i "
 "Sverige AB."
 msgstr ""
 
-#: cloudbridge-mattermost.php:404 cloudbridge-mattermost.php:552
-#: cloudbridge-mattermost.php:628
+#: cloudbridge-mattermost.php:667
 msgid ""
 "If you find this plugin useful, the author is happy to receive a donation, "
 "good review, or just a kind word."
 msgstr ""
 
-#: cloudbridge-mattermost.php:405 cloudbridge-mattermost.php:553
-#: cloudbridge-mattermost.php:630
+#: cloudbridge-mattermost.php:669
 msgid ""
 "If there is something you feel to be missing from this plugin, or if you "
 "have found a problem with the code or a feature, please do not hesitate to "
 "reach out to"
 msgstr ""
 
-#: cloudbridge-mattermost.php:420 cloudbridge-mattermost.php:568
-#: cloudbridge-mattermost.php:648
+#: cloudbridge-mattermost.php:672
+msgid "There is more documentation available at"
+msgstr ""
+
+#: cloudbridge-mattermost.php:675
+msgid "Other plugins"
+msgstr ""
+
+#: cloudbridge-mattermost.php:679
+msgid ""
+"Security plugin that provides integration with fail2ban and many other "
+"security features for WordPress"
+msgstr ""
+
+#: cloudbridge-mattermost.php:684
+msgid "Plugin that provides uncomplicated 2FA functionality for WordPress"
+msgstr ""
+
+#: cloudbridge-mattermost.php:689
+msgid "Plugin that provides uncomplicated map functionality"
+msgstr ""
+
+#: cloudbridge-mattermost.php:705
 msgid "Site label"
 msgstr ""
 
-#: cloudbridge-mattermost.php:421 cloudbridge-mattermost.php:569
-#: cloudbridge-mattermost.php:649
+#: cloudbridge-mattermost.php:706
 msgid "Webhook URL"
 msgstr ""
 
-#: cloudbridge-mattermost.php:422 cloudbridge-mattermost.php:570
-#: cloudbridge-mattermost.php:650
+#: cloudbridge-mattermost.php:707
 msgid "Other settings"
 msgstr ""
 
-#: cloudbridge-mattermost.php:423 cloudbridge-mattermost.php:571
-#: cloudbridge-mattermost.php:651
+#: cloudbridge-mattermost.php:708
 msgid "Force locale en_US"
 msgstr ""
 
-#: cloudbridge-mattermost.php:424 cloudbridge-mattermost.php:572
-#: cloudbridge-mattermost.php:652
+#: cloudbridge-mattermost.php:709
 msgid "Remove settings"
 msgstr ""
 
-#: cloudbridge-mattermost.php:427 cloudbridge-mattermost.php:440
-#: cloudbridge-mattermost.php:575 cloudbridge-mattermost.php:588
-#: cloudbridge-mattermost.php:655 cloudbridge-mattermost.php:668
+#: cloudbridge-mattermost.php:712 cloudbridge-mattermost.php:726
 msgid "Successful login"
 msgstr ""
 
-#: cloudbridge-mattermost.php:428 cloudbridge-mattermost.php:576
-#: cloudbridge-mattermost.php:656
+#: cloudbridge-mattermost.php:713
 msgid "Unsuccessful login"
 msgstr ""
 
-#: cloudbridge-mattermost.php:430 cloudbridge-mattermost.php:578
-#: cloudbridge-mattermost.php:658
+#: cloudbridge-mattermost.php:715
 msgid "Password reset"
 msgstr ""
 
-#: cloudbridge-mattermost.php:431 cloudbridge-mattermost.php:579
-#: cloudbridge-mattermost.php:659
+#: cloudbridge-mattermost.php:716
 msgid "Password reset, skip e-mail"
 msgstr ""
 
-#: cloudbridge-mattermost.php:432 cloudbridge-mattermost.php:580
-#: cloudbridge-mattermost.php:660
+#: cloudbridge-mattermost.php:717
 msgid "Plugin activated"
 msgstr ""
 
-#: cloudbridge-mattermost.php:433 cloudbridge-mattermost.php:581
-#: cloudbridge-mattermost.php:661
+#: cloudbridge-mattermost.php:718
 msgid "Plugin deactivated"
 msgstr ""
 
-#: cloudbridge-mattermost.php:434 cloudbridge-mattermost.php:582
-#: cloudbridge-mattermost.php:662
+#: cloudbridge-mattermost.php:719
 msgid "Plugin uninstalled"
 msgstr ""
 
-#: cloudbridge-mattermost.php:435 cloudbridge-mattermost.php:583
-#: cloudbridge-mattermost.php:663
+#: cloudbridge-mattermost.php:720
+msgid "Admin e-mail change"
+msgstr ""
+
+#: cloudbridge-mattermost.php:721
 msgid "New user added"
 msgstr ""
 
-#: cloudbridge-mattermost.php:436 cloudbridge-mattermost.php:951
-#: cloudbridge-mattermost.php:584 cloudbridge-mattermost.php:1190
-#: cloudbridge-mattermost.php:664
+#: cloudbridge-mattermost.php:722
 msgid "User deleted"
 msgstr ""
 
-#: cloudbridge-mattermost.php:437 cloudbridge-mattermost.php:585
-#: cloudbridge-mattermost.php:665
+#: cloudbridge-mattermost.php:723
 msgid "Link to WP Admin"
 msgstr ""
 
-#: cloudbridge-mattermost.php:441 cloudbridge-mattermost.php:881
-#: cloudbridge-mattermost.php:589 cloudbridge-mattermost.php:1120
-#: cloudbridge-mattermost.php:669
+#: cloudbridge-mattermost.php:727
 msgid "Failed login"
 msgstr ""
 
-#: cloudbridge-mattermost.php:442 cloudbridge-mattermost.php:590
-#: cloudbridge-mattermost.php:670
+#: cloudbridge-mattermost.php:728
 msgid "Admin link"
 msgstr ""
 
-#: cloudbridge-mattermost.php:443 cloudbridge-mattermost.php:591
-#: cloudbridge-mattermost.php:671
+#: cloudbridge-mattermost.php:729
 msgid "General notice"
 msgstr ""
 
-#: cloudbridge-mattermost.php:446 cloudbridge-mattermost.php:594
-#: cloudbridge-mattermost.php:674
+#: cloudbridge-mattermost.php:732
 msgid "Webhook username"
 msgstr ""
 
-#: cloudbridge-mattermost.php:447 cloudbridge-mattermost.php:595
-#: cloudbridge-mattermost.php:675
+#: cloudbridge-mattermost.php:733
 msgid "Webhook channel"
 msgstr ""
 
-#: cloudbridge-mattermost.php:448 cloudbridge-mattermost.php:596
-#: cloudbridge-mattermost.php:676
+#: cloudbridge-mattermost.php:734
 msgid "Additional @mention"
 msgstr ""
 
-#: cloudbridge-mattermost.php:542 cloudbridge-mattermost.php:718
-#: cloudbridge-mattermost.php:831
+#: cloudbridge-mattermost.php:737
+msgid "Mattermost base URL"
+msgstr ""
+
+#: cloudbridge-mattermost.php:738
+msgid "OAuth2 client ID"
+msgstr ""
+
+#: cloudbridge-mattermost.php:739
+msgid "OAuth2 client secret"
+msgstr ""
+
+#: cloudbridge-mattermost.php:740
+msgid "Allowed OAuth2 login roles"
+msgstr ""
+
+#: cloudbridge-mattermost.php:741
+msgid "Match usernames"
+msgstr ""
+
+#: cloudbridge-mattermost.php:743
+msgid "Allow registration"
+msgstr ""
+
+#: cloudbridge-mattermost.php:744
+msgid "Force registration"
+msgstr ""
+
+#: cloudbridge-mattermost.php:745
+msgid "Use Mattermost ID"
+msgstr ""
+
+#: cloudbridge-mattermost.php:748
+msgid "Check for Cloudflare IP"
+msgstr ""
+
+#: cloudbridge-mattermost.php:749
+msgid "Cloudflare IPv4"
+msgstr ""
+
+#: cloudbridge-mattermost.php:750
+msgid "Cloudflare IPv6"
+msgstr ""
+
+#: cloudbridge-mattermost.php:898
 msgid ""
 "The site name to use for the webhook, defaults to your site name if left "
 "empty."
 msgstr ""
 
-#: cloudbridge-mattermost.php:548 cloudbridge-mattermost.php:724
-#: cloudbridge-mattermost.php:837
+#: cloudbridge-mattermost.php:904
 msgid "The URL for the Mattermost incoming webhook"
 msgstr ""
 
-#: cloudbridge-mattermost.php:550 cloudbridge-mattermost.php:726
-#: cloudbridge-mattermost.php:961 cloudbridge-mattermost.php:839
-#: cloudbridge-mattermost.php:1074
+#: cloudbridge-mattermost.php:906 cloudbridge-mattermost.php:1154
 msgid "Please check the documentation for details"
 msgstr ""
 
-#: cloudbridge-mattermost.php:593 cloudbridge-mattermost.php:769
-#: cloudbridge-mattermost.php:882
+#: cloudbridge-mattermost.php:949
 msgid "Unknown users"
 msgstr ""
 
-#: cloudbridge-mattermost.php:639 cloudbridge-mattermost.php:815
-#: cloudbridge-mattermost.php:928
+#: cloudbridge-mattermost.php:995
 msgid "Send notification when plugin is activated."
 msgstr ""
 
-#: cloudbridge-mattermost.php:647 cloudbridge-mattermost.php:823
-#: cloudbridge-mattermost.php:936
+#: cloudbridge-mattermost.php:1003
 msgid "Send notification when plugin is deactivated."
 msgstr ""
 
-#: cloudbridge-mattermost.php:655 cloudbridge-mattermost.php:831
-#: cloudbridge-mattermost.php:944
+#: cloudbridge-mattermost.php:1011
 msgid "Send notification when plugin is uninstalled."
 msgstr ""
 
-#: cloudbridge-mattermost.php:700 cloudbridge-mattermost.php:876
-#: cloudbridge-mattermost.php:989
+#: cloudbridge-mattermost.php:1019
+msgid "Send notification when admin e-mail is changed"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1024
+msgid "Inhibit WordPress e-mail of confirmed change"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1069
 msgid "Include link to WordPress Admin in notifications."
 msgstr ""
 
-#: cloudbridge-mattermost.php:708 cloudbridge-mattermost.php:884
-#: cloudbridge-mattermost.php:997
+#: cloudbridge-mattermost.php:1077
 msgid "Force notifications to be sent in en_US locale (English)."
 msgstr ""
 
-#: cloudbridge-mattermost.php:715 cloudbridge-mattermost.php:891
-#: cloudbridge-mattermost.php:1004
+#: cloudbridge-mattermost.php:1084
 msgid "Remove all CBMM plugin settings and data when plugin is uninstalled."
 msgstr ""
 
-#: cloudbridge-mattermost.php:723 cloudbridge-mattermost.php:899
-#: cloudbridge-mattermost.php:1012
+#: cloudbridge-mattermost.php:1092
 msgid ""
 "Emojis (markdown) can be configured for notices, warnings, and the admin "
 "link. If left empty here, the defaults will be used."
 msgstr ""
 
-#: cloudbridge-mattermost.php:726 cloudbridge-mattermost.php:902
-#: cloudbridge-mattermost.php:1015
+#: cloudbridge-mattermost.php:1095
 msgid "You can find an emoji cheat sheet here"
 msgstr ""
 
-#: cloudbridge-mattermost.php:735 cloudbridge-mattermost.php:740
-#: cloudbridge-mattermost.php:745 cloudbridge-mattermost.php:750
-#: cloudbridge-mattermost.php:911 cloudbridge-mattermost.php:916
-#: cloudbridge-mattermost.php:921 cloudbridge-mattermost.php:926
-#: cloudbridge-mattermost.php:1024 cloudbridge-mattermost.php:1029
-#: cloudbridge-mattermost.php:1034 cloudbridge-mattermost.php:1039
+#: cloudbridge-mattermost.php:1104 cloudbridge-mattermost.php:1109
+#: cloudbridge-mattermost.php:1114 cloudbridge-mattermost.php:1119
 msgid "Default emoji markdown is"
 msgstr ""
 
-#: cloudbridge-mattermost.php:757 cloudbridge-mattermost.php:933
-#: cloudbridge-mattermost.php:1046
+#: cloudbridge-mattermost.php:1126
 msgid ""
 "These settings allow you to modify the content sent to Mattermost. Use of "
 "these settings depend on how the webhook has been created/configured in "
@@ -289,302 +339,135 @@ msgid ""
 "by Mattermost."
 msgstr ""
 
-#: cloudbridge-mattermost.php:765 cloudbridge-mattermost.php:941
-#: cloudbridge-mattermost.php:1054
+#: cloudbridge-mattermost.php:1134
 msgid ""
 "The username to use for the webhook, this should normally be left empty."
 msgstr ""
 
-#: cloudbridge-mattermost.php:770 cloudbridge-mattermost.php:946
-#: cloudbridge-mattermost.php:1059
+#: cloudbridge-mattermost.php:1139
 msgid "The channel to use for the webhook, this should normally be left empty."
 msgstr ""
 
-#: cloudbridge-mattermost.php:775 cloudbridge-mattermost.php:951
-#: cloudbridge-mattermost.php:1064
+#: cloudbridge-mattermost.php:1144
 msgid ""
 "Additional @mention to include with the notification, this should normally "
 "be left empty."
 msgstr ""
 
-#: cloudbridge-mattermost.php:861 cloudbridge-mattermost.php:1100
-msgid "from"
-msgstr ""
-
-#: cloudbridge-mattermost.php:871 cloudbridge-mattermost.php:1110
-msgid "Login by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:872 cloudbridge-mattermost.php:882
-#: cloudbridge-mattermost.php:903 cloudbridge-mattermost.php:925
-#: cloudbridge-mattermost.php:958 cloudbridge-mattermost.php:1111
-#: cloudbridge-mattermost.php:1121 cloudbridge-mattermost.php:1142
-#: cloudbridge-mattermost.php:1164 cloudbridge-mattermost.php:1197
-#: cloudbridge-mattermost.php:1295
-msgid "on"
-msgstr ""
-
-#: cloudbridge-mattermost.php:885 cloudbridge-mattermost.php:1124
-msgid "Invalid username"
-msgstr ""
-
-#: cloudbridge-mattermost.php:888 cloudbridge-mattermost.php:1127
-msgid "Incorrect password"
-msgstr ""
-
-#: cloudbridge-mattermost.php:891 cloudbridge-mattermost.php:1130
-msgid "Unknown error"
-msgstr ""
-
-#: cloudbridge-mattermost.php:894 cloudbridge-mattermost.php:1133
-msgid "username"
-msgstr ""
-
-#: cloudbridge-mattermost.php:902 cloudbridge-mattermost.php:1141
-msgid "Password reset by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:914 cloudbridge-mattermost.php:1153
-msgid "Plugin activated by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:917 cloudbridge-mattermost.php:1156
-msgid "Plugin deactivated by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:920 cloudbridge-mattermost.php:1159
-msgid "Plugin uninstalled by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:936 cloudbridge-mattermost.php:1175
-msgid "by"
-msgstr ""
-
-#: cloudbridge-mattermost.php:943 cloudbridge-mattermost.php:1182
-msgid "unknown"
-msgstr ""
-
-#: cloudbridge-mattermost.php:949 cloudbridge-mattermost.php:1188
-msgid "User added/edited"
-msgstr ""
-
-#: includes/cbmm-oauth2.php:45 includes/cbmm-oauth2.php:45
-msgid "This file should not be called directly"
-msgstr ""
-
-#: includes/cbmm-oauth2.php:80 includes/cbmm-oauth2.php:80
-msgid "OAuth2 is not active"
-msgstr ""
-
-#: includes/cbmm-oauth2.php:101 includes/cbmm-oauth2.php:101
-msgid "Unable to initialize OAuth2 client"
-msgstr ""
-
-#: includes/cbmm-oauth2.php:208 includes/cbmm-oauth2.php:208
-msgid "External OAuth2 token has expired"
-msgstr ""
-
-#: cloudbridge-mattermost.php:465 cloudbridge-mattermost.php:546
-msgid "OAuth2"
-msgstr ""
-
-#: cloudbridge-mattermost.php:484 cloudbridge-mattermost.php:568
-msgid "Please enter a valid URL for your Mattermost webhook"
-msgstr ""
-
-#: cloudbridge-mattermost.php:493 cloudbridge-mattermost.php:577
-msgid "Please enter a valid URL for your Mattermost instance"
-msgstr ""
-
-#: cloudbridge-mattermost.php:599 cloudbridge-mattermost.php:679
-msgid "Mattermost base URL"
-msgstr ""
-
-#: cloudbridge-mattermost.php:600 cloudbridge-mattermost.php:680
-msgid "OAuth2 client ID"
-msgstr ""
-
-#: cloudbridge-mattermost.php:601 cloudbridge-mattermost.php:681
-msgid "OAuth2 client secret"
-msgstr ""
-
-#: cloudbridge-mattermost.php:602 cloudbridge-mattermost.php:682
-msgid "Allowed OAuth2 login roles"
-msgstr ""
-
-#: cloudbridge-mattermost.php:603 cloudbridge-mattermost.php:683
-msgid "Match usernames"
-msgstr ""
-
-#: cloudbridge-mattermost.php:959 cloudbridge-mattermost.php:1072
+#: cloudbridge-mattermost.php:1152
 msgid ""
 "These settings allow you to configure the OAuth2 integration between "
 "WordPress and Mattermost."
 msgstr ""
 
-#: cloudbridge-mattermost.php:971 cloudbridge-mattermost.php:1084
+#: cloudbridge-mattermost.php:1164
 msgid "The base URL for Mattermost to use for OAuth2 integration"
 msgstr ""
 
-#: cloudbridge-mattermost.php:979 cloudbridge-mattermost.php:1092
+#: cloudbridge-mattermost.php:1172
 msgid "OAuth2 client ID, from your Mattermost integration setting"
 msgstr ""
 
-#: cloudbridge-mattermost.php:987 cloudbridge-mattermost.php:1100
+#: cloudbridge-mattermost.php:1180
 msgid "OAuth2 client secret, from your Mattermost integration setting"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1013 cloudbridge-mattermost.php:1126
+#: cloudbridge-mattermost.php:1206
 msgid ""
 "Attempt to match Mattermost and WordPress usernames if e-mail match fails."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1526 cloudbridge-mattermost.php:1679
-msgid "Mattermost account indicates no valid e-mail address"
+#: cloudbridge-mattermost.php:1214
+msgid "Allow new users to sign up to WordPress via Mattermost."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1529 cloudbridge-mattermost.php:1682
-msgid "Unable to retrieve OAuth2 access token"
+#: cloudbridge-mattermost.php:1216 cloudbridge-mattermost.php:1226
+msgid "Note: WordPress user registration is disabled"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1532 cloudbridge-mattermost.php:1685
-msgid "Unable to verify OAuth2 callback"
+#: cloudbridge-mattermost.php:1224
+msgid "Only allow new users to sign up to WordPress via Mattermost."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1535 cloudbridge-mattermost.php:1688
-msgid "Invalid OAuth2 state"
+#: cloudbridge-mattermost.php:1234
+msgid "Use Mattermost user ID to avoid duplicate usernames."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1538 cloudbridge-mattermost.php:1691
-msgid "Unable to match WordPress user with Mattermost user"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1541 cloudbridge-mattermost.php:1694
-msgid "Unable to initialize OAuth2 session framework"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1544 cloudbridge-mattermost.php:1697
-msgid "Your user role is not allowed to sign in with OAuth2"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1547 cloudbridge-mattermost.php:1700
-msgid "Unable to complete OAuth2 authentication"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1577 cloudbridge-mattermost.php:1581
-#: cloudbridge-mattermost.php:1730 cloudbridge-mattermost.php:1734
-msgid "Use Mattermost to login"
-msgstr ""
-
-#: cloudbridge-mattermost.php:237
-msgid "Settings"
-msgstr ""
-
-#: cloudbridge-mattermost.php:549
-msgid "Cloudflare"
-msgstr ""
-
-#: cloudbridge-mattermost.php:633
-msgid "There is more documentation available at"
-msgstr ""
-
-#: cloudbridge-mattermost.php:686
-msgid "Check for Cloudflare IP"
-msgstr ""
-
-#: cloudbridge-mattermost.php:687
-msgid "Cloudflare IPv4"
-msgstr ""
-
-#: cloudbridge-mattermost.php:688
-msgid "Cloudflare IPv6"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1135
+#: cloudbridge-mattermost.php:1243
 msgid "These settings allows the plugin to better interact with Cloudflare."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1137
+#: cloudbridge-mattermost.php:1245
 msgid ""
 "If your site is not published via Cloudflare, you can safely ignore these "
 "settings."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1139
+#: cloudbridge-mattermost.php:1247
 msgid "For an updated list of Cloudflare IPs, please use this link"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1151
+#: cloudbridge-mattermost.php:1259
 msgid "Attempt to unmask real IP when Cloudflare IP is detected"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1158 cloudbridge-mattermost.php:1164
+#: cloudbridge-mattermost.php:1266 cloudbridge-mattermost.php:1272
 msgid ""
 "IPs matching these addresses will be considerd to be coming from Cloudflare"
 msgstr ""
 
-#: cloudbridge-mattermost.php:715
-msgid "Allow registration"
+#: cloudbridge-mattermost.php:1403
+msgid "on"
 msgstr ""
 
-#: cloudbridge-mattermost.php:716
-msgid "Force registration"
+#: cloudbridge-mattermost.php:1801
+msgid "Mattermost account indicates no valid e-mail address"
 msgstr ""
 
-#: cloudbridge-mattermost.php:717
-msgid "Use Mattermost ID"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1171
-msgid "Allow new users to sign up to WordPress via Mattermost."
-msgstr ""
-
-#: cloudbridge-mattermost.php:1173 cloudbridge-mattermost.php:1183
-msgid "Note: WordPress user registration is disabled"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1181
-msgid "Only allow new users to sign up to WordPress via Mattermost."
-msgstr ""
-
-#: cloudbridge-mattermost.php:1191
-msgid "Use Mattermost user ID to avoid duplicate usernames."
-msgstr ""
-
-#: cloudbridge-mattermost.php:1345
-msgid "Invalid e-mail"
-msgstr ""
-
-#: cloudbridge-mattermost.php:1747
+#: cloudbridge-mattermost.php:1804
 msgid "Mattermost account indicates no valid ID"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1768
+#: cloudbridge-mattermost.php:1807
+msgid "Unable to retrieve OAuth2 access token"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1810
+msgid "Unable to verify OAuth2 callback"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1813
+msgid "Invalid OAuth2 state"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1816
+msgid "Unable to match WordPress user with Mattermost user"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1819
+msgid "Unable to initialize OAuth2 session framework"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1822
+msgid "Your user role is not allowed to sign in with OAuth2"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1825
 msgid "New user registration via Mattermost is not enabled"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1771
+#: cloudbridge-mattermost.php:1828
 msgid "Unable to register via Mattermost"
 msgstr ""
 
-#: cloudbridge-mattermost.php:1848 cloudbridge-mattermost.php:1852
+#: cloudbridge-mattermost.php:1831
+msgid "Unable to complete OAuth2 authentication"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1861 cloudbridge-mattermost.php:1865
+msgid "Use Mattermost to login"
+msgstr ""
+
+#: cloudbridge-mattermost.php:1905 cloudbridge-mattermost.php:1909
 msgid "Use Mattermost to register"
-msgstr ""
-
-#: cloudbridge-mattermost.php:661
-msgid "Other plugins"
-msgstr ""
-
-#: cloudbridge-mattermost.php:665
-msgid ""
-"Security plugin that provides integration with fail2ban and many other "
-"security features for WordPress"
-msgstr ""
-
-#: cloudbridge-mattermost.php:670
-msgid "Plugin that provides uncomplicated 2FA functionality for WordPress"
-msgstr ""
-
-#: cloudbridge-mattermost.php:675
-msgid "Plugin that provides uncomplicated map functionality"
 msgstr ""
