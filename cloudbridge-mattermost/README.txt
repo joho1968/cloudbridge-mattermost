@@ -3,7 +3,7 @@ Contributors: joho68, webbplatsen
 Donate link: https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
 Tags: mattermost, cloud, integration, notifications, security
 Requires at least: 5.4.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 2.2.2
 License: GPLv2 or later
@@ -88,7 +88,7 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 == Changelog ==
 
 = 2.2.2 =
-* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.8.x
+* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.9.x
 * Thanks to Nelson (castillo-n) for various fixes (PR#1)
 * Added missing property `$cbmm_site_label` to class
 * Removed use of `FILTER_SANITIZE_STRING` (deprecated in PHP 8.1)
