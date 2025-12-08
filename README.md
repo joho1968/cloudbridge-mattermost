@@ -1,4 +1,4 @@
-[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 8.1\+](https://img.shields.io/badge/PHP-8.1-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5.5](https://img.shields.io/badge/WordPress-5.5-orange?style=flat-square)](https://wordpress.org) [![WordPress 6.8](https://img.shields.io/badge/WordPress-6.8-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com) [![Mattermost 8](https://img.shields.io/badge/Mattermost-8-blue?style=flat-square)](https://mattermost.com) [![Mattermost 9](https://img.shields.io/badge/Mattermost-9-blue?style=flat-square)](https://mattermost.com) [![Mattermost 10](https://img.shields.io/badge/Mattermost-10-blue?style=flat-square)](https://mattermost.com)
+[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 8.1\+](https://img.shields.io/badge/PHP-8.1-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5.5](https://img.shields.io/badge/WordPress-5.5-orange?style=flat-square)](https://wordpress.org) [![WordPress 6.9](https://img.shields.io/badge/WordPress-6.9-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com) [![Mattermost 8](https://img.shields.io/badge/Mattermost-8-blue?style=flat-square)](https://mattermost.com) [![Mattermost 9](https://img.shields.io/badge/Mattermost-9-blue?style=flat-square)](https://mattermost.com) [![Mattermost 10](https://img.shields.io/badge/Mattermost-10-blue?style=flat-square)](https://mattermost.com)
 
 # Cloudbridge Mattermost (CBMM)
 
@@ -88,7 +88,7 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 ### 2.2.2
 * Added support for admin e-mail change notification
 * Added support for inhibiting admin e-mail address change e-mail sending
-* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.8.x
+* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.9.x
 * Thanks to Nelson (castillo-n) for various fixes (PR#1)
 * Added missing property `$cbmm_site_label` to class
 * Removed use of `FILTER_SANITIZE_STRING` (deprecated in PHP 8.1)
