@@ -1,4 +1,4 @@
-[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 8.1\+](https://img.shields.io/badge/PHP-8.1-blue?style=flat-square)](https://php.net) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4-blue?style=flat-square)](https://php.net) [![WordPress 5.5](https://img.shields.io/badge/WordPress-5.5-orange?style=flat-square)](https://wordpress.org) [![WordPress 6.9](https://img.shields.io/badge/WordPress-6.9-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5](https://img.shields.io/badge/Mattermost-5-blue?style=flat-square)](https://mattermost.com) [![Mattermost 6](https://img.shields.io/badge/Mattermost-6-blue?style=flat-square)](https://mattermost.com) [![Mattermost 7](https://img.shields.io/badge/Mattermost-7-blue?style=flat-square)](https://mattermost.com) [![Mattermost 8](https://img.shields.io/badge/Mattermost-8-blue?style=flat-square)](https://mattermost.com) [![Mattermost 9](https://img.shields.io/badge/Mattermost-9-blue?style=flat-square)](https://mattermost.com) [![Mattermost 10](https://img.shields.io/badge/Mattermost-10-blue?style=flat-square)](https://mattermost.com)
+[![Software License](https://img.shields.io/badge/License-GPL%20v2-green.svg?style=flat-square)](LICENSE) [![PHP 7.4\+](https://img.shields.io/badge/PHP-7.4+-blue?style=flat-square)](https://php.net) [![WordPress 5.5](https://img.shields.io/badge/WordPress-5.5-orange?style=flat-square)](https://wordpress.org) [![WordPress 6.9](https://img.shields.io/badge/WordPress-6.9-orange?style=flat-square)](https://wordpress.org) [![Mattermost 5-11](https://img.shields.io/badge/Mattermost-5,_6,_7,_8,_9,_10,_11-blue?style=flat-square)](https://mattermost.com)
 
 # Cloudbridge Mattermost (CBMM)
 
@@ -34,9 +34,9 @@ The plugin can also make use of additional functionality such as posting to a sp
 ### Other notes
 
 * This plugin may work with earlier versions of WordPress
-* This plugin has been tested with PHP `7.4.x` and `8.1.x` at the time of this writing
-* This plugin has been tested with WordPress `5.5.x` to `6.8.x` at the time of this writing
-* This plugin has been tested with Mattermost `5.x` to `10.x` at the time of this writing
+* This plugin has been tested with PHP `7.4.x`, `8.1.x`, `8.2.x`, and `8.3.x` at the time of this writing
+* This plugin has been tested with WordPress `5.5.x` to `6.9.x` at the time of this writing
+* This plugin has been tested with Mattermost `5.x` to `11.x` at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -84,6 +84,13 @@ The URL should be:
 If your `wp-content/plugins` is not in a standard place, then you will need to replace that with the correct URL to it.
 
 ## Changelog
+
+### 2.2.3
+* Verified with Mattermost version 8-11 and WordPress 6.9.x
+* Notifications are no longer sent for non‑standard login errors when all “Unsuccessful login” roles are unchecked (#2, itsumonotakumi)
+* Fix override handling for Mattermost login/register button filter output
+* Hardened OAuth2 post-login redirects to same-host only; external redirect_to values now fall back to admin/home
+* Updated Composer dependencies (guzzlehttp/*, league/oauth2-client, symfony/deprecation-contracts) and removed paragonie/random_compat
 
 ### 2.2.2
 * Added support for admin e-mail change notification
@@ -160,7 +167,7 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 
 Please see [LICENSE](LICENSE) for a full copy of GPLv2
 
-Copyright 2020-2025 [Joaquim Homrighausen](https://github.com/joho1968); all rights reserved.
+Copyright 2020-2026 [Joaquim Homrighausen](https://github.com/joho1968); all rights reserved.
 
 This file is part of Cloudbridge Mattermost (CBMM). Cloudbridge Mattermost is free software.
 

@@ -5,7 +5,7 @@ Tags: mattermost, cloud, integration, notifications, security
 Requires at least: 5.4.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,8 +36,9 @@ The plugin can also make use of additional functionality such as posting to a sp
 Other notes:
 
 * This plugin **may** work with earlier versions of WordPress
-* This plugin has been tested with **WordPress 5.5.3 to 6.8.x** at the time of this writing
-* This plugin has been tested with **Mattermost 5.x to 10.x** at the time of this writing
+* This plugin has been tested with **WordPress 5.5.3 to 6.9.x** at the time of this writing
+* This plugin has been tested with **Mattermost 5.x to 11.x** at the time of this writing
+* This plugin has been tested with **PHP 7.4.x, 8.1.x, 8.2.x, and 8.3.x** at the time of this writing
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
 * This plugin contains no Javascript
@@ -87,8 +88,15 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 
 == Changelog ==
 
+= 2.2.3 =
+* Verified with Mattermost version 8-11 and WordPress 6.9.x
+* Notifications are no longer sent for non‑standard login errors when all “Unsuccessful login” roles are unchecked (#2, itsumonotakumi)
+* Fix override handling for Mattermost login/register button filter output
+* Hardened OAuth2 post-login redirects to same-host only; external redirect_to values now fall back to admin/home
+* Updated Composer dependencies (guzzlehttp/*, league/oauth2-client, symfony/deprecation-contracts) and removed paragonie/random_compat
+
 = 2.2.2 =
-* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.9.x
+* Verified with Mattermost 8.x, 9.x, 10.x and WordPress 6.8.x
 * Thanks to Nelson (castillo-n) for various fixes (PR#1)
 * Added missing property `$cbmm_site_label` to class
 * Removed use of `FILTER_SANITIZE_STRING` (deprecated in PHP 8.1)
@@ -150,6 +158,8 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 * Initial release
 
 == Credits ==
+
+Copyright 2020-2026 Joaquim Homrighausen; all rights reserved.
 
 The Cloudbridge Mattermost WordPress Plugin was written by Joaquim Homrighausen while converting caffeine into code.
 

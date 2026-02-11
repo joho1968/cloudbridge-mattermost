@@ -12,7 +12,7 @@
  * Plugin Name:       Cloudbridge Mattermost
  * Plugin URI:        https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
  * Description:       Mattermost integration for WordPress
- * Version:           2.2.2
+ * Version:           2.2.3
  * Author:            WebbPlatsen, Joaquim Homrighausen <joho@webbplatsen.se>
  * Author URI:        https://webbplatsen.se/
  * License:           GPL-2.0+
@@ -21,7 +21,7 @@
  * Domain Path:       /languages
  *
  * cloudbridge-mattermost.php
- * Copyright 2020-2025 Joaquim Homrighausen; all rights reserved.
+ * Copyright 2020-2026 Joaquim Homrighausen; all rights reserved.
  * Development sponsored by WebbPlatsen i Sverige AB, www.webbplatsen.se
  *
  * This file is part of Cloudbridge Mattermost. Cloudbridge Mattermost is free software.
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-define( 'CBMM_VERSION',                   '2.2.2'                  );
+define( 'CBMM_VERSION',                   '2.2.3'                  );
 define( 'CBMM_REV',                       1                        );
 define( 'CBMM_PLUGINNAME_HUMAN',          'Cloudbridge Mattermost' );
 define( 'CBMM_PLUGINNAME_SLUG',           'cloudbridge-mattermost' );
@@ -1580,18 +1580,33 @@ class Cloudbridge_Mattermost {
             error_log( get_class ($error));
             return;
         }
-        $error_code = key( $error->errors );
-        if ( $error_code == 'invalid_username' && empty( $this->cbmm_mm_unknown_warn ) ) {
-            // We're configured to not notify about unknown users
+        // If no notifications are enabled, bail early
+        if ( empty( $this->cbmm_mm_roles_warn ) && empty( $this->cbmm_mm_unknown_warn ) ) {
             return;
-        } elseif ( $error_code == 'incorrect_password' ) {
-            // We can get user info for this, so let's see if we should notify
-            $failed_user = new \WP_User( 0, $username );
-            $role_caps = $failed_user->get_role_caps();
-            if ( is_array( $role_caps ) ) {
-                if ( ! $this->cbmm_role_is_active( $role_caps, $this->cbmm_mm_roles_warn ) ) {
-                    // We're not configured to notify for this user role/cap, bail
+        }
+        $error_code = key( $error->errors );
+        if ( $error_code == 'invalid_username' ) {
+            // Unknown user
+            if ( empty( $this->cbmm_mm_unknown_warn ) ) {
+                return;
+            }
+        } else {
+            // All other errors: check roles if user exists, else treat as unknown
+            $failed_user = get_user_by( 'login', $username );
+            if ( $failed_user === false && is_email( $username ) ) {
+                $failed_user = get_user_by( 'email', $username );
+            }
+            if ( $failed_user === false ) {
+                if ( empty( $this->cbmm_mm_unknown_warn ) ) {
                     return;
+                }
+            } else {
+                $role_caps = $failed_user->get_role_caps();
+                if ( is_array( $role_caps ) && ! empty( $role_caps ) ) {
+                    if ( ! $this->cbmm_role_is_active( $role_caps, $this->cbmm_mm_roles_warn ) ) {
+                        // We're not configured to notify for this user role/cap, bail
+                        return;
+                    }
                 }
             }
         }
@@ -1868,7 +1883,7 @@ class Cloudbridge_Mattermost {
         $filtered = apply_filters( 'cbmm_login_filter', $filter_parm );
         if ( ! empty( $filtered['override'] ) ) {
             // Complete override, do whatever filter gave us
-            echo $filtered_login_form;
+            echo $filtered['override'];
         } else {
             // Partially filtered or not filtered, use what we get from filter
             echo '<div id="cbmm_login_form"><a href="' . esc_url_raw( $filtered['url'] ) . '" ' .
@@ -1913,7 +1928,7 @@ class Cloudbridge_Mattermost {
         $filtered = apply_filters( 'cbmm_login_filter', $filter_parm );
         if ( ! empty( $filtered['override'] ) ) {
             // Complete override, do whatever filter gave us, this may break things
-            echo $filtered_login_form;
+            echo $filtered['override'];
         } else {
             // Partially filtered or not filtered, use what we get from filter
             echo '<div id="cbmm_login_form"><a href="' . esc_url_raw( $filtered['url'] ) . '" ' .

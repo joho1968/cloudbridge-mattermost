@@ -64,7 +64,7 @@ function cbmm_admin_error_redirect( int $code ) {
     // preserve parameters we send to it, and place them inside the
     // redirect_to ?get parameter. Odd, but it's the way it is :-)
     nocache_headers();
-    header( 'Location: ' . wp_login_url() . '?cbmm_oauth2_failed=' . (int)$code );
+    wp_safe_redirect( wp_login_url() . '?cbmm_oauth2_failed=' . (int) $code );
     die();
 }
 
@@ -393,13 +393,22 @@ if ( ! empty( $_GET['error'] ) ) {
         error_log( basename( __FILE__ ) . ': User role does not match allowed OAuth2 roles, "' . $wp_user->user_login . '"' );
         cbmm_admin_error_redirect( CBMM_OAUTH_REDERR_NOROLE );
     }
-    // Validate our (possible) redirection URL
+    // Validate and constrain redirect URL to same-host
+    $default_redirect = ( $is_administrator ? admin_url() : home_url() );
     if ( empty( $transient_data['redirect'] ) ) {
-        $redirect_to = ( $is_administrator ? admin_url() : home_url() );
-    } elseif ( esc_url_raw( $transient_data['redirect'] ) !== $transient_data['redirect'] || ! wp_http_validate_url( $transient_data['redirect'] ) ) {
-        $redirect_to = ( $is_administrator ? admin_url() : home_url() );
+        $redirect_to = $default_redirect;
     } else {
-        $redirect_to = $transient_data['redirect'];
+        $redirect_candidate = $transient_data['redirect'];
+        // wp_validate_redirect() falls back to default if invalid
+        $validated = wp_validate_redirect( $redirect_candidate, $default_redirect );
+        // Enforce same host as site (defense in depth)
+        $site_host = wp_parse_url( home_url(), PHP_URL_HOST );
+        $redir_host = wp_parse_url( $validated, PHP_URL_HOST );
+        if ( empty( $redir_host ) || $redir_host !== $site_host ) {
+            $redirect_to = $default_redirect;
+        } else {
+            $redirect_to = $validated;
+        }
     }
     if ( defined( 'CBMM_OAUTH_DEBUG' ) ) {
         error_log( basename( __FILE__ ) . ': redirect_to="' . $redirect_to . '"' );
@@ -410,6 +419,6 @@ if ( ! empty( $_GET['error'] ) ) {
     do_action( 'wp_login', $wp_user->user_login, $wp_user );
     // Carry on, we're logged in
     nocache_headers();
-    wp_redirect( $redirect_to );
+    wp_safe_redirect( $redirect_to );
     die ();
 }
