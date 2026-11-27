@@ -3,55 +3,38 @@ Contributors: joho68, webbplatsen
 Donate link: https://code.webbplatsen.net/wordpress/cloudbridge-mattermost/
 Tags: mattermost, cloud, integration, notifications, security
 Requires at least: 5.4.0
-Tested up to: 6.9
-Requires PHP: 7.4
-Stable tag: 2.2.3
+Tested up to: 7.1
+Requires PHP: 8.1
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Mattermost integration for WordPress. Tested with Mattermost 5.30.1+ and WordPress 5.5+.
+Sign in to WordPress with Mattermost and send WordPress event notifications to a Mattermost channel.
 
 == Description ==
 
-This WordPress plugin provides integration with Mattermost.
+Use Mattermost to sign in to WordPress or register a WordPress account. Set up a Mattermost incoming webhook to get notifications for these events.
 
-The plugin provides **OAuth2 authentication** functionality for logging into WordPress via Mattermost.
+* Successful and failed sign-ins, including attempts by unknown users
+* Password resets
+* User creation, updates, and deletion
+* Changes to the site administrator's email address
+* Plugin activation, deactivation, and removal
 
-The plugin provides **OAuth2 authentication** functionality for registering new WordPress users via Mattermost.
+Choose the channel, set the bot name, and add mentions in the notification settings.
 
-The plugin additionally provides the following **notification** functionality, using an **incoming webhook** in Mattermost:
-
-* Notifications for successful login
-* Notifications for failed login
-* Notifications for unknown user login attempt
-* Notifications for password reset
-* Notifications for plugin activation
-* Notifications for plugin deactivation
-* Notifications for plugin uninstallation
-* Notifications for new/edited user
-* Notifications for deleted user
-
-The plugin can also make use of additional functionality such as posting to a specific channel/user, overriding bot names, and additionally mention specific users.
-
-Other notes:
-
-* This plugin **may** work with earlier versions of WordPress
-* This plugin has been tested with **WordPress 5.5.3 to 6.9.x** at the time of this writing
-* This plugin has been tested with **Mattermost 5.x to 11.x** at the time of this writing
-* This plugin has been tested with **PHP 7.4.x, 8.1.x, 8.2.x, and 8.3.x** at the time of this writing
+* Requires PHP 8.1 or later and was tested on PHP 8.1 through 8.5.
 * This plugin optionally makes use of the `mb_` PHP functions
 * This plugin may create entries in your PHP error log (if active)
-* This plugin contains no Javascript
-* This plugin contains no tracking code and does not process or store any information about users
+* This plugin contains no JavaScript
+* This plugin contains no tracking code. See below for the data used by notifications and Mattermost sign-in.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-1. Upload the contents of the `cloudbridge-mattermost` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Configure the basic settings, such as the webhook URL
-4. To enable OAuth2 authentication, you'll need to configure your Mattermost instance to allow this: [OAuth 2.0 Applications](https://docs.mattermost.com/developer/oauth-2-0-applications.html)
+1. Install Cloudbridge Mattermost from the WordPress Plugins screen. For a manual installation, copy the `cloudbridge-mattermost` folder into `wp-content/plugins/`.
+2. Activate the plugin from the Plugins screen.
+3. To enable notifications, enter a Mattermost incoming webhook URL in the plugin settings.
+4. To enable OAuth2, register a confidential application in Mattermost and enter its credentials in the plugin's OAuth2 settings. [Mattermost OAuth 2.0 documentation](https://developers.mattermost.com/integrate/apps/authentication/oauth2/)
 
 == Frequently Asked Questions ==
 
@@ -63,32 +46,79 @@ For notifications sent to Mattermost, there is a setting since 1.1.0 that will a
 
 = Are there any incompatibilities =
 
-This is a hard question to answer. There are no known incompatibilities.
+Test Mattermost sign-in with any plugin or custom code that restricts WordPress accounts. If you require local two-factor verification for Mattermost sign-in, use Cloudbridge 2FA 2.1.0 or later with external login API 2.
 
 = Is there a way to customize the Mattermost login button =
 
-The short answer is yes. The long answer follows:
-
-Add a filter hook in your functions.php or elsewhere like so:
+Add the `cbmm_login_filter` filter in your theme's `functions.php` or in a plugin.
 
 > add_filter('cbmm_login_filter', 'name_of_your_function', 10, 1);
 
-Your function will receive one argument, which is an associative array with three items: url, text, and full.
+The filter receives an array with `url`, `text`, and `full` keys. Return the array with a new `text` value to change the label. Use plain text and let the plugin escape it for display. The `url` value is escaped for HTML, and `full` contains the complete markup for the Mattermost sign-in section. To replace that markup, return it in an `override` key and escape any dynamic values in your own code.
 
-The 'url' item contains the url to the OAuth2 handler for the plugin, you should not modify this. The 'text' item contains the prompt ("Use Mattermost to login"). The 'full' item contains the entire HTML output for the additional Mattermost login section on the WordPress login form.
+= Can accounts be matched only by email =
 
-Your function should always return an associative array. If you want to update just the 'text' item, simply do so in the array passed to your function and then return the same array. If you want to completely replace the full HTML output, add an item named 'override' to the returned array.
+Yes. Leave "Attempt to match Mattermost and WordPress usernames if e-mail match fails" unchecked in the OAuth2 settings. Login then requires the authenticated Mattermost account's verified email to match the WordPress account's email. Only enable username fallback when usernames are centrally controlled and identify the same people in both systems. Email reassignment should also be considered when managing account access.
+
+= Can Mattermost registration remain enabled while public WordPress registration is disabled =
+
+Yes. Enable registration in the plugin's OAuth2 settings. Users must sign in to Mattermost with a verified email before the plugin creates their WordPress account. The Mattermost registration button appears on the login form when public registration is disabled. New accounts get the WordPress default role. The allowed OAuth2 roles determine whether they can sign in with Mattermost.
+
+= Are HTTPS URLs required =
+
+HTTPS is recommended for Mattermost OAuth2 and incoming webhook URLs. HTTP URLs remain supported, with a warning in the corresponding settings field that traffic is not encrypted.
+
+= Does Mattermost login require cookies =
+
+Yes. Allow cookies and finish signing in or registering within 15 minutes in the same browser. The plugin sets an HttpOnly, SameSite=Lax cookie for the WordPress login path and marks it Secure on HTTPS. Restart any sign-in or registration that began before the 2.3.0 upgrade.
+
+= How does OAuth2 interact with local MFA and account restrictions =
+
+After updating, choose and save "Local login verification" in the OAuth2 settings. If you require local verification, update Cloudbridge 2FA to 2.1.0 or later first. Update Cloudbridge Mattermost, save "Require Cloudbridge 2FA integration" again, then test both Mattermost and WordPress sign-in. A saved API 1 required policy blocks Mattermost sign-in until you save the API 2 policy. Before removing a custom API 1 adapter, keep any account restrictions it enforces.
+
+"Require Cloudbridge 2FA integration" requires external login API 2. Cloudbridge Mattermost verifies the Mattermost identity and allowed roles. WordPress and Cloudbridge 2FA then apply local account restrictions and the configured two-factor requirements. WordPress creates the session after verification completes. If the required integration is unavailable or the account or policy changes during the attempt, sign-in stops.
+
+"Existing WordPress login policy" applies WordPress authentication filters to the matched account. If a local two-factor plugin denies Mattermost sign-in, use the normal WordPress login for that account. Test site-specific restrictions with both sign-in methods. Password-only checks apply to password sign-in. Use a general account policy hook for restrictions that also need to apply to OAuth.
+
+= What information is sent or stored =
+
+Webhook notifications can include usernames, display names, roles, source IP addresses, site and plugin names, administrator email changes, and the type of event. Your Mattermost server controls how long it keeps the messages. Notifications omit passwords and password-reset keys. The plugin escapes account details that could trigger mentions and keeps mentions you configured in the settings.
+
+For OAuth2, the plugin uses verified Mattermost profile details to match or create a WordPress account. WordPress stores the account and the completed login session. While sign-in is pending, the plugin stores the expiry, the destination if supplied, and the information it needs to check that the browser, settings, and login policy still match. The browser secret stays in the HttpOnly cookie.
+
+When Cloudbridge 2FA is required, its temporary challenge stores account identifiers, checks for changes to the settings and selected policy, and holds the destination until verification finishes. It omits OAuth tokens and the client secret. The callback debug log records events and omits profiles, codes, state values, cookies, and redirect URLs. Your server and other plugins may log requests separately.
+
+By default, failed sign-ins generate at most one notification per source every 30 seconds when a persistent object cache is active. Sites using database transients can send duplicates if requests arrive together. The rate limit uses a site-specific hash of the source IP. Use the `cbmm_failed_login_notice_interval` filter to set the interval in seconds. The maximum is 300. Set it to 0 to turn off this limit.
+
+Use the final webhook URL because the plugin doesn't follow redirects. Delivery waits up to five seconds and requires an HTTP 2xx response. A failed notification leaves the login or password reset in place.
 
 = What callback URL do I have to setup on Mattermost =
 
-The URL should be:
-`https://<the name of your site>/wp-content/plugins/mattermost/includes/cbmm-oauth2.php`
+For a standard WordPress installation, register `https://example.com/wp-content/plugins/cloudbridge-mattermost/includes/cbmm-oauth2.php` with your own domain.
 
-If your `wp-content/plugins` is not in a standard place, then you will need to replace that with the correct URL to it.
+If WordPress uses a custom plugin directory, register the actual URL of `includes/cbmm-oauth2.php`. Keep the existing Mattermost callback when upgrading. Cloudbridge Mattermost forwards the callback to the site's WordPress login endpoint.
 
 == Changelog ==
 
+= 2.3.0 =
+
+* Verified with Mattermost 8 through 12 and WordPress 7.1.x.
+* Add a local login verification setting and support required two-factor verification with Cloudbridge 2FA 2.1.0 and external login API 2
+* Keep the registered Mattermost callback URL and complete OAuth through the WordPress login endpoint
+* Require administrators to save the OAuth verification policy after upgrading, and restart any sign-ins already in progress
+* Check account matching, allowed roles, provider settings and verification expiry again before starting a WordPress session
+* Require PHP 8.1 or later and update the bundled HTTP, OAuth, and CIDR libraries
+* Show Mattermost registration on the login form when it is enabled and public WordPress registration is disabled
+* Warn about unencrypted HTTP OAuth2 and webhook URLs without preventing their use
+* Require sign-ins to finish in the same browser and verify the Mattermost response before logging in
+* Keep account details and OAuth secrets out of callback logs
+* Limit failed-sign-in notifications and prevent account details from triggering mentions
+* Set a five-second webhook timeout and report failed deliveries
+* Fix duplicate password-change notifications, private Mattermost URL validation, and transient cleanup on uninstall
+* Require the WordPress `manage_options` capability to view or save plugin settings
+
 = 2.2.3 =
+
 * Verified with Mattermost version 8-11 and WordPress 6.9.x
 * Notifications are no longer sent for non‑standard login errors when all “Unsuccessful login” roles are unchecked (#2, itsumonotakumi)
 * Fix override handling for Mattermost login/register button filter output
@@ -142,6 +172,10 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 
 == Upgrade Notice ==
 
+= 2.3.0 =
+
+Requires PHP 8.1. For required local verification, upgrade Cloudbridge 2FA to 2.1.0 first, then upgrade Cloudbridge Mattermost, save the required policy again, and test sign-in.
+
 = 2.2.1 =
 * Simply install/upgrade to 2.2.1 and walk through the settings
 
@@ -158,8 +192,6 @@ If your `wp-content/plugins` is not in a standard place, then you will need to r
 * Initial release
 
 == Credits ==
-
-Copyright 2020-2026 Joaquim Homrighausen; all rights reserved.
 
 The Cloudbridge Mattermost WordPress Plugin was written by Joaquim Homrighausen while converting caffeine into code.
 

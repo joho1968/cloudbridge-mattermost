@@ -3,30 +3,19 @@
 # This file is distributed under the same license as the Cloudbridge Mattermost package.
 # Joaquim Homrighausen <joho@webbplatsen.se>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost-2.2.2\n"
+"Project-Id-Version: cloudbridge-mattermost-2.3.0\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
 "POT-Creation-Date: 2020-11-26 11:05+0000\n"
-"PO-Revision-Date: 2025-04-11 12:03+0100\n"
+"PO-Revision-Date: 2026-11-27 10:50+0000\n"
 "Last-Translator: Joaquim Homrighausen <joho@webbplatsen.se>\n"
 "Language-Team: SWEDISH <joho@webbplatsen.se>\n"
 "Language: sv_SE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: cloudbridge-mattermost.php:151 cloudbridge-mattermost.php:200
-#: cloudbridge-mattermost.php:320
-msgid "Unknown"
-msgstr "Okänd"
-
-#: cloudbridge-mattermost.php:217 cloudbridge-mattermost.php:280
-#: cloudbridge-mattermost.php:285 cloudbridge-mattermost.php:401
-#: cloudbridge-mattermost.php:406
-msgid "Unknown role"
-msgstr "Okänd roll"
 
 #: cloudbridge-mattermost.php:257 cloudbridge-mattermost.php:329
 #: cloudbridge-mattermost.php:450
@@ -198,14 +187,6 @@ msgstr "Inkludera länk till WordPress-Admin i aviseringar."
 msgid "Remove all CBMM plugin settings and data when plugin is uninstalled."
 msgstr "Ta bort alla inställningar när tillägget avinstalleras."
 
-#: cloudbridge-mattermost.php:507
-msgid ""
-"Three emojis (markdown) can be configured for notices, warnings, and the "
-"admin link. If left empty here, the defaults will be used."
-msgstr ""
-"Tre emoji (markdown) kan anges för notiser, varningar och admin-länken. Om "
-"något fält lämnas tomt används standardinställningen för det fältet."
-
 #: cloudbridge-mattermost.php:510 cloudbridge-mattermost.php:726
 #: cloudbridge-mattermost.php:902
 msgid "You can find an emoji cheat sheet here"
@@ -251,16 +232,6 @@ msgid ""
 "be left empty."
 msgstr "Ytterligare @mention som skall inkluderas i aviseringar."
 
-#: cloudbridge-mattermost.php:622 cloudbridge-mattermost.php:861
-#: cloudbridge-mattermost.php:1100
-msgid "from"
-msgstr "från"
-
-#: cloudbridge-mattermost.php:640 cloudbridge-mattermost.php:871
-#: cloudbridge-mattermost.php:1110
-msgid "Login by"
-msgstr "Inloggning"
-
 #: cloudbridge-mattermost.php:646 cloudbridge-mattermost.php:659
 #: cloudbridge-mattermost.php:872 cloudbridge-mattermost.php:882
 #: cloudbridge-mattermost.php:903 cloudbridge-mattermost.php:925
@@ -269,29 +240,6 @@ msgstr "Inloggning"
 #: cloudbridge-mattermost.php:1164 cloudbridge-mattermost.php:1197
 msgid "on"
 msgstr "på"
-
-msgid "to"
-msgstr "till"
-
-#: cloudbridge-mattermost.php:662 cloudbridge-mattermost.php:885
-#: cloudbridge-mattermost.php:1124
-msgid "Invalid username"
-msgstr "Ogiltig användare"
-
-#: cloudbridge-mattermost.php:665 cloudbridge-mattermost.php:888
-#: cloudbridge-mattermost.php:1127
-msgid "Incorrect password"
-msgstr "Ogiltigt lösenord"
-
-#: cloudbridge-mattermost.php:668 cloudbridge-mattermost.php:891
-#: cloudbridge-mattermost.php:1130
-msgid "Unknown error"
-msgstr "Okänt fel"
-
-#: cloudbridge-mattermost.php:671 cloudbridge-mattermost.php:894
-#: cloudbridge-mattermost.php:1133
-msgid "username"
-msgstr "användarnamn"
 
 #: cloudbridge-mattermost.php:322 cloudbridge-mattermost.php:401
 #: cloudbridge-mattermost.php:549
@@ -370,38 +318,6 @@ msgid ""
 msgstr ""
 "Emoji (markdown) kan konfigureras för notiser, varningar och admin-länken. "
 "Om dessa fält lämnas tomma används standardvärdet."
-
-#: cloudbridge-mattermost.php:902 cloudbridge-mattermost.php:1141
-msgid "Password reset by"
-msgstr "Lösenord återställt av"
-
-#: cloudbridge-mattermost.php:914 cloudbridge-mattermost.php:1153
-msgid "Plugin activated by"
-msgstr "Tillägg aktiverat av"
-
-#: cloudbridge-mattermost.php:917 cloudbridge-mattermost.php:1156
-msgid "Plugin deactivated by"
-msgstr "Tillägg avaktiverat av"
-
-#: cloudbridge-mattermost.php:920 cloudbridge-mattermost.php:1159
-msgid "Plugin uninstalled by"
-msgstr "Tillägg avinstallerat av"
-
-#: cloudbridge-mattermost.php:936 cloudbridge-mattermost.php:1175
-msgid "by"
-msgstr "av"
-
-#: cloudbridge-mattermost.php:943 cloudbridge-mattermost.php:1182
-msgid "unknown"
-msgstr "okänd"
-
-#: cloudbridge-mattermost.php:949 cloudbridge-mattermost.php:1188
-msgid "User added/edited"
-msgstr "Användare tillagd/ändrad"
-
-#: includes/cbmm-oauth2.php:45
-msgid "This file should not be called directly"
-msgstr "Denna fil skall inte laddas fristående"
 
 #: includes/cbmm-oauth2.php:80
 msgid "OAuth2 is not active"
@@ -575,10 +491,6 @@ msgstr "Använd Mattermost-ID"
 msgid "Allow new users to sign up to WordPress via Mattermost."
 msgstr "Tillåt nya användare att registrera sig via Mattermost"
 
-#: cloudbridge-mattermost.php:1173 cloudbridge-mattermost.php:1183
-msgid "Note: WordPress user registration is disabled"
-msgstr "OBS: WordPress-registrering är avstängd"
-
 #: cloudbridge-mattermost.php:1181
 msgid "Only allow new users to sign up to WordPress via Mattermost."
 msgstr "Tillåt enbart registreringar i WordPress via Mattermost"
@@ -586,10 +498,6 @@ msgstr "Tillåt enbart registreringar i WordPress via Mattermost"
 #: cloudbridge-mattermost.php:1191
 msgid "Use Mattermost user ID to avoid duplicate usernames."
 msgstr "Använd Mattermost användar-ID för att skapa unika användarnamn"
-
-#: cloudbridge-mattermost.php:1345
-msgid "Invalid e-mail"
-msgstr "Ogiltig e-postadress"
 
 #: cloudbridge-mattermost.php:1747
 msgid "Mattermost account indicates no valid ID"
@@ -626,3 +534,39 @@ msgstr "Ett tillägg som tillhandahåller okomplicerad 2FA-funktionalitet för W
 #: cloudbridge-mattermost.php:675
 msgid "Plugin that provides uncomplicated map functionality"
 msgstr "Ett tillägg som tillhandahåller okomplicerad kartfunktionalitet"
+
+#: cloudbridge-mattermost.php:908
+msgid "This URL uses HTTP. Traffic to this address is not encrypted. Use HTTPS where available."
+msgstr "Den här URL:en använder HTTP. Trafiken till adressen är inte krypterad. Använd HTTPS där det är möjligt."
+
+#: cloudbridge-mattermost.php:1230 cloudbridge-mattermost.php:1240
+msgid "Public WordPress registration is disabled. Mattermost registration remains available when enabled here."
+msgstr "Offentlig WordPress-registrering är inaktiverad. Registrering via Mattermost är fortfarande tillgänglig om den aktiveras här."
+
+#: includes/class-cbmm-local-auth.php:13 includes/class-cbmm-oauth.php:39
+msgid "Unable to complete local login verification. Please start again or contact the site administrator."
+msgstr "Det gick inte att slutföra den lokala inloggningsverifieringen. Försök igen eller kontakta webbplatsens administratör."
+
+#: includes/class-cbmm-local-auth.php:56
+msgid "Choose a local login verification policy before using OAuth."
+msgstr "Välj en policy för lokal inloggningsverifiering innan du använder OAuth."
+
+#: includes/class-cbmm-local-auth.php:75
+msgid "Choose a policy"
+msgstr "Välj en policy"
+
+#: includes/class-cbmm-local-auth.php:76
+msgid "Existing WordPress login policy"
+msgstr "Befintlig inloggningspolicy i WordPress"
+
+#: includes/class-cbmm-local-auth.php:77
+msgid "Require Cloudbridge 2FA integration"
+msgstr "Kräv integration med Cloudbridge 2FA"
+
+#: includes/class-cbmm-local-auth.php:80
+msgid "Review your site’s login restrictions, then choose and save a policy. Required verification uses Cloudbridge 2FA 2.1.0 or later with external login API 2. Changing the policy restarts pending Mattermost sign-ins."
+msgstr "Granska webbplatsens inloggningsbegränsningar och välj och spara sedan en policy. Obligatorisk verifiering använder Cloudbridge 2FA 2.1.0 eller senare med API 2 för extern inloggning. Pågående Mattermost-inloggningar måste startas om när policyn ändras."
+
+#: cloudbridge-mattermost.php:790
+msgid "Local login verification"
+msgstr "Lokal inloggningsverifiering"

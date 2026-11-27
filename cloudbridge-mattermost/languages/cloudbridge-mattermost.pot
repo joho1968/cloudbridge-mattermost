@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: cloudbridge-mattermost-2.2.2\n"
+"Project-Id-Version: cloudbridge-mattermost-2.3.0\n"
 "Report-Msgid-Bugs-To: joho@webbplatsen.se\n"
 "POT-Creation-Date: 2022-08-02 08:57+0100\n"
 "PO-Revision-Date: 2025-04-11 11:51+0100\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: includes/cbmm-oauth2.php:52
-msgid "This file should not be called directly"
-msgstr ""
 
 #: includes/cbmm-oauth2.php:86
 msgid "OAuth2 is not active"
@@ -381,10 +377,6 @@ msgstr ""
 msgid "Allow new users to sign up to WordPress via Mattermost."
 msgstr ""
 
-#: cloudbridge-mattermost.php:1216 cloudbridge-mattermost.php:1226
-msgid "Note: WordPress user registration is disabled"
-msgstr ""
-
 #: cloudbridge-mattermost.php:1224
 msgid "Only allow new users to sign up to WordPress via Mattermost."
 msgstr ""
@@ -470,4 +462,40 @@ msgstr ""
 
 #: cloudbridge-mattermost.php:1905 cloudbridge-mattermost.php:1909
 msgid "Use Mattermost to register"
+msgstr ""
+
+#: cloudbridge-mattermost.php:908
+msgid "This URL uses HTTP. Traffic to this address is not encrypted. Use HTTPS where available."
+msgstr ""
+
+#: cloudbridge-mattermost.php:1230 cloudbridge-mattermost.php:1240
+msgid "Public WordPress registration is disabled. Mattermost registration remains available when enabled here."
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:13 includes/class-cbmm-oauth.php:39
+msgid "Unable to complete local login verification. Please start again or contact the site administrator."
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:56
+msgid "Choose a local login verification policy before using OAuth."
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:75
+msgid "Choose a policy"
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:76
+msgid "Existing WordPress login policy"
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:77
+msgid "Require Cloudbridge 2FA integration"
+msgstr ""
+
+#: includes/class-cbmm-local-auth.php:80
+msgid "Review your site’s login restrictions, then choose and save a policy. Required verification uses Cloudbridge 2FA 2.1.0 or later with external login API 2. Changing the policy restarts pending Mattermost sign-ins."
+msgstr ""
+
+#: cloudbridge-mattermost.php:790
+msgid "Local login verification"
 msgstr ""

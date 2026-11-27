@@ -1,13 +1,12 @@
 .DS_Store
 wp-cli.local.yml
 node_modules/
-vendor/
 svn/
+vendor/
 wordpress.org/
 bin/
 *.zip
 *.tar.gz
-composer.lock
 *.log
 phpunit.xml
 phpcs.xml
@@ -15,4 +14,3 @@ phpcs.xml
 *.bak
 *.*~
 LICENSE.txt
-README.txt

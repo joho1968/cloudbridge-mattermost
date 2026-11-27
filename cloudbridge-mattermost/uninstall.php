@@ -55,7 +55,7 @@ if ( ! current_user_can( 'manage_options' ) || ! current_user_can( 'delete_plugi
 */
 
 // Figure out if an uninstall should remove plugin settings
-$remove_settings = get_option( 'cbmm-remove-settings', '0' );
+$remove_settings = get_option( 'cbmm-settings-remove', get_option( 'cbmm-remove-settings', '0' ) );
 
 if ( $remove_settings == '1' ) {
     // Remove Cloudbridge Mattermost settings. Transients are removed upon
@@ -83,10 +83,12 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-mm-channel' );
     delete_option( 'cbmm-mm-mention' );
     delete_option( 'cbmm-settings-remove' );
+    delete_option( 'cbmm-remove-settings' );
     delete_option( 'cbmm-force-locale-enus' );
     delete_option( 'cbmm-oauth2-base-url' );
     delete_option( 'cbmm-oauth2-client-id' );
     delete_option( 'cbmm-oauth2-client-secret' );
+    delete_option( 'cbmm-oauth2-local-policy' );
     delete_option( 'cbmm-oauth2-login-roles' );
     delete_option( 'cbmm-oauth2-allow-usernames' );
     delete_option( 'cbmm-oauth2-allow-register' );
@@ -94,4 +96,5 @@ if ( $remove_settings == '1' ) {
     delete_option( 'cbmm-oauth2-use-mmidforuuname' );
     delete_option( 'cbmm-cloudflare-ipv4' );
     delete_option( 'cbmm-cloudflare-ipv6' );
+    delete_option( 'cbmm-cloudflare-check' );
 }
